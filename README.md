@@ -1,12 +1,12 @@
-# BubbleBlaster
+# BubbleBlast
 
 *Can you find the correct answers before other players? Have fun racing against the clock and learning about a variety of differrent educational topics while playing this fun interactive game.*
 
 ## Background and Overview
-  Bubble Blaster is a multiple choice question and answer game that allows players to learn about a vieriety of different topics.
+  Bubble Blast is a multiple choice question and answer game that allows players to learn about a vieriety of different topics.
 
 * Can play 1 player or multi-player up to 10 players
-* Players can seamlessly play Bubble Blaster across devices ranging from desktop, to tablet, to mobile due to the responsive application.
+* Players can seamlessly play Bubble Blast across devices ranging from desktop, to tablet, to mobile due to the responsive application.
 
 ## Functionality and MVP
 * Pages 
@@ -58,7 +58,8 @@
      * Seed data for coding questions with Phillip
 
  * Erin
-   * Make game responsive
+   * Make game responsive for desktop, tablet, and mobile
+   * Page 3, with canvas
    * Scoring logic
    * Bonus
      * Seed data for geography
@@ -69,7 +70,7 @@
    * Back End
    * Bonus
      * Seed data for coding questions with Kristina
-     * Seed data for coding questions with Erin
+     * Seed data for mandarin questions with Erin
  
  * Day Breakdown
   
@@ -81,17 +82,21 @@
    2. Day 2
       * Work on backend game logic
       * Finish HTML/CSS
+      * Research canvas/Start working on canvas
    3. Day 3
       * Work on backend/front-end game logic
       * Start seed database gathering
+      * Continue working on canvas
    4. Day 4 
       * Work on backend/front-end game logic
       * Continue seed database gathering
-      * Start canvas work
+      * Continue working on canvas
+      * Implement responsiveness
    5. Day 5
       * Finish backend/front-end game logic
       * Continue seed database gathering
       * Continue canvas work
+      * Finish responsive work
    6. Day 6
       * Continue seed database gathering
       * Continue canvas work
