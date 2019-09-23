@@ -76,14 +76,27 @@
    1. Day 1
       * Fnish project proposal
       * Create back end 
-      * Create logic
       * Start HTML/CSS
-      * 
+      * Research responsiveness
    2. Day 2
+      * Work on backend game logic
+      * Finish HTML/CSS
    3. Day 3
+      * Work on backend/front-end game logic
+      * Start seed database gathering
    4. Day 4 
+      * Work on backend/front-end game logic
+      * Continue seed database gathering
+      * Start canvas work
    5. Day 5
+      * Finish backend/front-end game logic
+      * Continue seed database gathering
+      * Continue canvas work
    6. Day 6
+      * Continue seed database gathering
+      * Continue canvas work
    7. Day 7
+      * Finish seed database gathering
+      * Finish canvas work
  
 
