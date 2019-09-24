@@ -1,6 +1,3 @@
-//3lMoJkYsek2V0YLo
-//mongodb+srv://admin:<password>@mern-y4sgb.mongodb.net/test?retryWrites=true&w=majority
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -14,9 +11,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   })
 }
-
-//L
-
 
 mongoose.connect(db, {
   useNewUrlParser: true
