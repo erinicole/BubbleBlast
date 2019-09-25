@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const db = require("./config/keys").mongoURI;
 const questions = require("./routes/api/questions");
 const path = require("path");
+const Question = require("./models/Question");
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -16,6 +17,8 @@ mongoose.connect(db, {
   useNewUrlParser: true
 }).then(() => {
   console.log("Connected to mongoDB");
+
+
 }).catch((err) => {
   console.log(err);
 });
