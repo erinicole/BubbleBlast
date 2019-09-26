@@ -1,10 +1,15 @@
 import React from 'react';
-import QuestionsContainer from "./containers/questions_container";
+import GreetingContainer from './greeting/greeting_container'
+import HomePageContainer from "./home_page/home_page_container";
 
 function App() {
   return (
     <div className="App">
-      <QuestionsContainer />
+      <header className="test">
+        <GreetingContainer />
+      </header>
+      
+      <HomePageContainer />
     </div>
   );
 }
