@@ -17,12 +17,13 @@ class HomePage extends React.Component {
     return (
       <div>
         <div className="blurb-div">
-            <div>
-              <h2 className="blurb">Are you fast enough to shoot the bubbles?</h2>
-            </div>
+            
         </div>
         <div className="home-main-section">
             <div className="form-div">
+            <div>
+              <h2 className="blurb">Are you fast enough to shoot the bubbles?</h2>
+            </div>
               <form className="username-form">
                 <input
                   type="text"
@@ -91,9 +92,7 @@ class HomePage extends React.Component {
 
 
 
-            <footer>
-              <p><a href="https://github.com/erinicole/BubbleBlaster">Github Repo</a></p>
-            </footer>
+            
       </div>
     )
   }
