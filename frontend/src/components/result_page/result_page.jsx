@@ -1,0 +1,24 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+class ResultPage extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+  }
+
+
+  render() {
+
+    return (
+      <div class="result-main-section">
+        <h1 class="score">You scored 800 points!</h1>
+        <h2 class="stats">That's better than 80% of players.</h2>
+      </div>
+    )
+  }
+
+}
+
+export default ResultPage;
