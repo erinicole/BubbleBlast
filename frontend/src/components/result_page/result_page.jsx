@@ -12,9 +12,9 @@ class ResultPage extends React.Component {
   render() {
 
     return (
-      <div class="result-main-section">
-        <h1 class="score">You scored 800 points!</h1>
-        <h2 class="stats">That's better than 80% of players.</h2>
+      <div className="result-main-section">
+        <h1 className="score">You scored 800 points!</h1>
+        <h2 className="stats">That's better than 80% of players.</h2>
       </div>
     )
   }

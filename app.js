@@ -7,6 +7,7 @@ const path = require("path");
 const Question = require("./models/Question");
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const SocketGameHandler = require('./socketGameHandler');
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -35,11 +36,8 @@ const port = process.env.PORT || 5000;
 //   console.log(`Listening on port ${port}`);
 // });
 
-io.on('connection', function (socket) {
-  socket.on('chat message', function (msg) {
-    io.emit('chat message', msg);
-  });
-});
+let socketHandler = new SocketGameHandler(io);
+
 
 http.listen(port, function () {
   console.log('listening on *:' + port);
