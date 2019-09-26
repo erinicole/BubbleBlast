@@ -18,6 +18,9 @@ class Footer extends React.Component {
           <div>
             <Link to="/results">Result Page</Link>
           </div>
+          <div>
+            <Link to="/game">Game Page</Link>
+          </div>
           {/* <p><a href="https://github.com/erinicole/BubbleBlaster">Github</a></p> */}
         </footer>
         
