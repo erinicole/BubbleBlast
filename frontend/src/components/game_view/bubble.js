@@ -2,16 +2,14 @@
  import {randomVec} from "./util"
 
  class Bubble extends MovingObject {
-   constructor(options) {
-    this.options = {
-        color: 'blue',
-        radius: '22',
-        pos: '1',
-        vel: randomVec(7)
-    }
-    super(options);
+   constructor(options = {}) {
+      options.color = 'blue';
+      options.radius = 22;
+      options.pos = options.pos;
+      options.vel = options.vel || randomVec(7); 
+      super(options)
    }
- }
+   }
  
 
  export default Bubble;
