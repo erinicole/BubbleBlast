@@ -12,7 +12,6 @@ const receiveQuestions = (questions) => {
 export const fetchQuestions = () => {
   return (dispatch) => {
     return QuestionsUtils.fetchQuestions().then((data) => {
-      console.log(data);
       return dispatch(receiveQuestions(data.data.questions));
     });
   };
