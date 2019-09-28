@@ -1,51 +1,70 @@
 import React from 'react';
-import io from 'socket.io-client';
 
-class ResultPage extends React.Component {
+
+
+class Game extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
 
     };
-    this.socket = new io();
-    this.setUpSocketListeners();
-    
+    this.username = this.parseUserName(this.props.location.search);
+    // this.setUpSocketListeners();
   }
 
-  setUpSocketListeners() {
-    this.socket.on('chat message', function (msg) {
-      console.log(msg);
+  parseUserName(rawQueryString) {
+    if (!rawQueryString) {
+      return undefined;
+    }
+    let queryStrings = rawQueryString.substring(1).split("&");
+    let entireUsernameStrings = queryStrings.filter(str => {
+      return str.includes("username=");
     });
-
-    this.socket.on("Connect", (msg) => {
-      console.log(msg);
-    });
-
-    this.socket.on("Start Game", (msg) => {
-      console.log(msg);
-    });
+    if (entireUsernameStrings.length === 0) {
+      return undefined;
+    }
+    let entireUsernameString = entireUsernameStrings[0];
+    let usernameString = entireUsernameString.substring("username=".length);
+    return usernameString;
   }
+
+
+  // setUpSocketListeners() {
+  //   this.socket.on('chat message', function (msg) {
+  //     console.log(msg);
+  //   });
+
+  //   this.socket.on("Connect", (msg) => {
+  //     console.log(msg);
+  //   });
+
+  //   this.socket.on("Start Game", (msg) => {
+  //     console.log(msg);
+  //   });
+  // }
 
   componentDidMount() {
-    this.socket.emit("Connect", "username");
-    this.socket.emit('Start Game', "username");
+    // this.socket.emit("Connect", { username: this.username, error: 0});
+    // this.socket.emit('Start Game', { username: this.username, error: 0 });
+    this.props.setUpConnectGameListener();
+    this.props.setUpStartGameListener();
+    this.props.connect(this.username);
   }
 
-  send() {
-    this.socket.emit('chat message', "Hello World");
+  startGame() {
+    this.props.startGame(this.username);
   }
 
   render() {
 
     return (
       <div className="result-main-section">
-        Hello Blasterss
-        <button onClick={this.send.bind(this)}>Send</button>
+        <button onClick={this.startGame.bind(this)}>Start Game</button>
       </div>
     )
   }
 
 }
 
-export default ResultPage;
+export default Game;
