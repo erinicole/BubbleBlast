@@ -11,10 +11,10 @@ class Game{
     }
 
     addBubbles(){
-
         for (let i = 0; i < this.numBubbles; i++) {
           this.bubbles.push(
-            new Bubble({ pos: this.randomPos(), ctx: this.ctx })
+            new Bubble({ ctx: this.ctx, game: this })
+            // new Bubble({ pos: this.randomPos(), ctx: this.ctx })
           );
         }
     }
@@ -41,6 +41,23 @@ class Game{
         for (let i = 0; i < this.bubbles.length; i++) {
           this.bubbles[i].move();
         }
+    }
+
+    bounceBack(pos, vel){
+      if (pos[0] < 0) {
+        vel[0] = -vel[0];
+        vel[1] = -vel[1];
+      } else if (pos[0] > this.dimX) {
+        vel[0] = -vel[0];
+        vel[1] = -vel[1];
+      } else if (pos[1] < 0) {
+        vel[0] = -vel[0];
+        vel[1] = -vel[1];
+      } else if (pos[1] > this.dimY) {
+        vel[0] = -vel[0];
+        vel[1] = -vel[1];
+      }
+      return vel
     }
 }
 

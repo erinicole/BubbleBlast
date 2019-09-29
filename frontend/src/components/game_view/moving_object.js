@@ -1,3 +1,4 @@
+
 class MovingObject {
   constructor(options) {
     this.pos = options.pos;
@@ -5,6 +6,7 @@ class MovingObject {
     this.radius = options.radius;
     this.color = options.color;
     this.ctx = options.ctx;
+    this.game = options.game;
   }
 
   draw() {
@@ -15,6 +17,7 @@ class MovingObject {
   }
 
   move() {
+    this.vel = this.game.bounceBack(this.pos, this.vel)
     this.pos[0] += this.vel[0];
     this.pos[1] += this.vel[1];
   }

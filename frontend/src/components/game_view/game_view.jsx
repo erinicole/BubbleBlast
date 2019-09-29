@@ -8,7 +8,6 @@ class GameView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            // ctx: ''
         }
     };
 
@@ -27,7 +26,7 @@ class GameView extends React.Component {
             ()=>{
                 newGame.moveObjects();
                 newGame.draw()
-            } ,20)
+            }, 20)
     }
 
 
