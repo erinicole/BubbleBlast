@@ -1,10 +1,15 @@
 const Question = require("./models/Question");
 
+//socket emit  - one user
+// this.io.emit - all users
+const ANSWER_INDEX = "0";
+
 class SocketGameHandler {
   constructor(io){
     this.io = io;
     this.players = [];
     this.readyPlayers = [];
+    this.playerScores = {};
     this.io.on('connection', (socket) => {
       this.setUpListeners(socket);
     });
@@ -28,7 +33,7 @@ class SocketGameHandler {
       if (!this.players.includes(username)){
         this.players.push(username);
       } 
-      socket.emit("connectGame", { connected: "connected", error: 0 });
+      socket.emit("connectGame", { connected: "connected", error: 0 }); 
     });
 
     socket.on("startGame", ({username}) => {
@@ -37,7 +42,10 @@ class SocketGameHandler {
       }
 
       if (this.players.length === this.readyPlayers.length) {
-        this.startGame();
+        this.startGame(socket);
+        for(let player of this.players) {
+          this.playerScores[player] = 0;
+        }
         this.io.emit("startGame", { message: "start", players: this.players, error: 0 });
       }
     });
@@ -45,14 +53,14 @@ class SocketGameHandler {
     
   }
 
-  startGame() {
-    
-    this.io.emit("askQuestion", {question: this.questions[currentIndex]})
-    socket.on("answerAttempt", ({ choiceIndex }) => {
-      if (choiceIndex === this.questions[this.currentIndex.answer]) {
-
+  startGame(socket) {
+    this.io.emit("askQuestion", {question: this.questions[this.currentIndex]})
+    socket.on("answerQuestion", ({ choiceIndex, username }) => {
+      if (choiceIndex === ANSWER_INDEX) {
+        this.playerScores[username]++;
+        socket.emit("answerCorrect", { score: this.playerScores[username], error: 0});
       } else {
-
+        socket.emit("answerIncorrect", { score: this.playerScores[username], error: 0 });
       }
     });
 

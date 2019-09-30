@@ -7,7 +7,7 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      selectedOption: "0"
     };
     this.username = this.parseUserName(this.props.location.search);
     // this.setUpSocketListeners();
@@ -52,17 +52,51 @@ class Game extends React.Component {
     this.props.connect(this.username);
   }
 
+  componentDidUpdate() {
+    console.log(this.state.selectedOption)
+  }
+
   startGame() {
     this.props.startGame(this.username);
+    this.props.setUpAskQuestionListener();
+    this.props.setUpAnswerCorrectListener();
+    this.props.setUpAnswerIncorrectListener();
+  }
+
+  onSubmitChoice(e) {
+    e.preventDefault();
+    this.props.answerQuestion(this.state.selectedOption, this.username);
+  }
+
+  handleOptionChange(changeEvent) {
+    this.setState({
+      selectedOption: changeEvent.target.value
+    });
   }
 
   render() {
+    let content = (
+      <button onClick={this.startGame.bind(this)}>Start Game</button>
+    );
+    if (this.props.currentQuestion) {
+      content = (
+        <form onSubmit={this.onSubmitChoice.bind(this)}>
+          <p>{this.props.currentQuestion.question}</p>
+          <input type="radio" name="choice" value="0" onChange={this.handleOptionChange.bind(this)} checked={this.state.selectedOption === "0"}/> {this.props.currentQuestion.choices[0]}<br/>
+          <input type="radio" name="choice" value="1" onChange={this.handleOptionChange.bind(this)} checked={this.state.selectedOption === "1"}/> {this.props.currentQuestion.choices[1]}<br/>
+          <input type="radio" name="choice" value="2" onChange={this.handleOptionChange.bind(this)} checked={this.state.selectedOption === "2"}/> {this.props.currentQuestion.choices[2]}<br />
+          <input type="radio" name="choice" value="3" onChange={this.handleOptionChange.bind(this)} checked={this.state.selectedOption === "3"}/> {this.props.currentQuestion.choices[3]}<br/>
 
+          <input type="submit" value="Submit"/>
+        </form>
+      );
+    }
     return (
       <div className="result-main-section">
-        <button onClick={this.startGame.bind(this)}>Start Game</button>
+        {content}
+        {this.props.result}
       </div>
-    )
+    );
   }
 
 }
