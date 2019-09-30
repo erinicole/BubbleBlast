@@ -3,6 +3,9 @@ import * as GameUtils from "../util/game_util";
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const RECEIVE_CONNECT_GAME_SOCKET_MESSAGE = "RECEIVE_CONNECT_GAME_SOCKET_MESSAGE";
 export const RECEIVE_START_GAME_SOCKET_MESSAGE = "RECEIVE_START_GAME_SOCKET_MESSAGE";
+export const RECEIVE_QUESTION_SOCKET_MESSAGE = "RECEIVE_QUESTION_SOCKET_MESSAGE";
+export const RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE = "RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE";
+export const RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE = "RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE";
 
 const receiveQuestions = (questions) => {
   return {
@@ -11,9 +14,28 @@ const receiveQuestions = (questions) => {
   };
 };
 
+const receiveAnswerIncorrectMessage = () => {
+  return {
+    type: RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE
+  };
+};
+
+const receiveAnswerCorrectMessage = () => {
+  return {
+    type: RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE
+  };
+};
+
 const receiveStartGameMessage = (message) => {
   return {
     type: RECEIVE_START_GAME_SOCKET_MESSAGE,
+    message
+  };
+};
+
+const receiveQuestionMessage = (message) => {
+  return {
+    type: RECEIVE_QUESTION_SOCKET_MESSAGE,
     message
   };
 };
@@ -27,6 +49,11 @@ const receiveConnectGameMessage = (message) => {
 
 export const connectGame = (username) => {
   GameUtils.connect(username);
+};
+
+
+export const answerQuestion = (choiceIndex, username) => {
+  GameUtils.answerQuestion(choiceIndex, username);
 };
 
 export const startGame = (username) => {
@@ -51,6 +78,24 @@ export const setUpStartGameListener = () => {
 
 export const setUpAskQuestionListener = () => {
   return (dispatch) => {
+    return GameUtils.setUpAskQuestionListener((message) => {
+      dispatch(receiveQuestionMessage(message));
+    });
+  };
+};
 
+export const setUpAnswerCorrectListener = () => {
+  return (dispatch) => {
+    return GameUtils.setUpAnswerCorrectListener(() => {
+      dispatch(receiveAnswerCorrectMessage());
+    });
+  };
+};
+
+export const setUpAnswerIncorrectListener = () => {
+  return (dispatch) => {
+    return GameUtils.setUpAnswerIncorrectListener(() => {
+      dispatch(receiveAnswerIncorrectMessage());
+    });
   };
 };
