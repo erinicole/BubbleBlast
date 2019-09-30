@@ -5,6 +5,7 @@ const db = require("./config/keys").mongoURI;
 const questions = require("./routes/api/questions");
 const path = require("path");
 const Question = require("./models/Question");
+const Seeder = require("./models/seeder.js");
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));

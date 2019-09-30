@@ -49,11 +49,33 @@
   width: 300px;
   margin: 20px;
   box-shadow: 0 0 2rem rgba(0,0,0,.3);
+  
 }
 
 .username-submit:hover {
-  background: linear-gradient(#4b4b4b, #575757);
+  /* background: linear-gradient(#4b4b4b, #575757); */
+  box-shadow: 0 0 10px 0 #ffffff8e inset, 0 0 20px 2px #ffffffad;
+  transition: .3s;
+  animation: pulse 2s infinite;
 }
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(.7);
+  }
+    100% {
+    transform: scale(1);
+  }
+}
+
+
+
+
+
+
+
 
 .leaderboard-div {
   display: flex;
