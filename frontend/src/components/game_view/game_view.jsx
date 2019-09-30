@@ -1,6 +1,4 @@
 import React from 'react';
-import MovingObject from './moving_object';
-import Bubble from './bubble';
 import Game from './game'
 
 
@@ -24,7 +22,7 @@ class GameView extends React.Component {
         const newGame = new Game(this.state.ctx)
         setInterval(
             ()=>{
-                newGame.moveObjects();
+                newGame.step();
                 newGame.draw()
             }, 20)
     }
