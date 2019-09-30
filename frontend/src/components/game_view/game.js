@@ -13,6 +13,7 @@ class Game {
     this.ships = [];
     this.ctx = ctx;
     this.addBubbles();
+    this.addBlasters();
   }
 
   addBubbles() {
@@ -24,15 +25,14 @@ class Game {
     }
   }
 
-  addBlaster() {
+  addBlasters() {
     const blaster = new Blaster({
-      pos: this.randomPosition(),
+      ctx: this.ctx,
       game: this
     });
 
     this.ships.push(blaster);
-
-    return blaster;
+    // return blaster;
   }
 
   allObjects() {
@@ -52,8 +52,9 @@ class Game {
     const width = document.documentElement.clientWidth;
     const height = document.documentElement.clientHeight;
     this.ctx.clearRect(0, 0, width, height);
-    for (let i = 0; i < this.bubbles.length; i++) {
-      this.bubbles[i].draw(this.ctx);
+    const allObjects = this.allObjects()
+    for (let i = 0; i < allObjects.length; i++) {
+      allObjects[i].draw(this.ctx);
     }
   }
 
