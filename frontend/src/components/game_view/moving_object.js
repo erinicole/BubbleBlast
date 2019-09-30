@@ -22,6 +22,10 @@ class MovingObject {
     this.pos[1] += this.vel[1];
   }
 
+  collideWith(otherObject) {
+    //supposed to be the parent bubbles overwrites
+  };
+
   isCollidedWith(otherObject) {
     let [x_1, y_1] = this.pos;
     let [x_2, y_2] = otherObject.pos;

@@ -1,6 +1,7 @@
 import Bubble from "./bubble";
 import {randomVec} from "./util";
-import Blaster from "./blaster"
+import Blaster from "./blaster";
+import Projectile from "./projectile"
 
 
 class Game {
@@ -37,7 +38,7 @@ class Game {
 
   allObjects() {
     return [].concat(this.ships, this.bubbles);
-  };
+  }
 
   randomPos() {
     const width = document.documentElement.clientWidth;
@@ -52,7 +53,7 @@ class Game {
     const width = document.documentElement.clientWidth;
     const height = document.documentElement.clientHeight;
     this.ctx.clearRect(0, 0, width, height);
-    const allObjects = this.allObjects()
+    const allObjects = this.allObjects();
     for (let i = 0; i < allObjects.length; i++) {
       allObjects[i].draw(this.ctx);
     }
@@ -82,15 +83,35 @@ class Game {
   }
 
   checkCollisions() {
+    const allObjects = this.allObjects();
+    for (let i = 0; i < allObjects.length; i++) {
+      for (let j = 0; j < allObjects.length; j++) {
+        const obj1 = allObjects[i];
+        const obj2 = allObjects[j];
+        if (obj1.isCollidedWith(obj2)) {
+          const collision = obj1.collideWith(obj2);
+          if (collision) return;
+          // if (j < i) {
+          //   if (this.allObjects[i].isCollidedWith(this.allObjects[j])) {
+          //     this.allObjects[i].vel = randomVec(7);
+          //     this.allObjects[j].vel = randomVec(7);
+          //     return true;
+          //   }
+        }
+      }
+    }
+    return false;
+  }
+
+  checkBubbleCollisions() {
     for (let i = 0; i < this.bubbles.length; i++) {
       for (let j = 0; j < this.bubbles.length; j++) {
-        if (j < i) {
-          if (this.bubbles[i].isCollidedWith(this.bubbles[j])) {
-            //   debugger
-            this.bubbles[i].vel = randomVec(7);
-            this.bubbles[j].vel = randomVec(7);
-            return true;
-          }
+          if (j < i) {
+            if (this.bubbles[i].isCollidedWith(this.bubbles[j])) {
+              this.bubbles[i].vel = randomVec(7);
+              this.bubbles[j].vel = randomVec(7);
+              return true;
+            }
         }
       }
     }
@@ -105,9 +126,22 @@ class Game {
     }
   }
 
+  remove(object) {
+    if (object instanceof Projectile) {
+      this.bullets.splice(this.bullets.indexOf(object), 1);
+    } else if (object instanceof Bubble) {
+      this.asteroids.splice(this.asteroids.indexOf(object), 1);
+    } else if (object instanceof Blaster) {
+      this.ships.splice(this.ships.indexOf(object), 1);
+    } else {
+      throw new Error("unknown type of object");
+    }
+  }
+
   step() {
     this.moveObjects();
     this.checkCollisions();
+    this.checkBubbleCollisions();
   }
 }
 
