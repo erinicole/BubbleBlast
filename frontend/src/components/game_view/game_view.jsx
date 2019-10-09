@@ -41,7 +41,6 @@ class GameView extends React.Component {
                 nBlaster.power(move); });
             
         });
-        console.log(moves.a)
         // key("space", function () { ship.fireBullet(); });
     };
 

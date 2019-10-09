@@ -9,7 +9,7 @@ class Game {
     this.numBubbles = 4;
     this.numPlayers = 1;
     this.bubbles = [];
-    this.ships = [];
+    this.projectiles = [];
     this.ctx = ctx;
     this.addBubbles();
     this.blaster = blaster;
@@ -34,13 +34,8 @@ class Game {
   //   return blaster
   // }
 
-  addBlasters() {
-    this.ships.push(this.blaster)
-  }
-
   allObjects() {
-    this.ships.push(this.blaster);
-    return [].concat(this.ships, this.bubbles);
+  return [].concat([this.blaster], this.bubbles);
   }
 
   // randomPos() {

@@ -1,4 +1,5 @@
 
+
 class MovingObject {
   constructor(options) {
     this.dimX = document.documentElement.clientWidth;
@@ -42,15 +43,15 @@ class MovingObject {
   bounceBack(pos, vel) {
     if (pos[0] < 0) {
       vel[0] = -vel[0];
-      vel[1] = -vel[1];
+      // vel[1] = -vel[1];
     } else if (pos[0] > this.dimX) {
       vel[0] = -vel[0];
-      vel[1] = -vel[1];
+      // vel[1] = -vel[1];
     } else if (pos[1] < 0) {
-      vel[0] = -vel[0];
+      // vel[0] = -vel[0];
       vel[1] = -vel[1];
     } else if (pos[1] > this.dimY) {
-      vel[0] = -vel[0];
+      // vel[0] = -vel[0];
       vel[1] = -vel[1];
     }
     return vel;
