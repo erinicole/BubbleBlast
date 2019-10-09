@@ -14,15 +14,17 @@ const receiveQuestions = (questions) => {
   };
 };
 
-const receiveAnswerIncorrectMessage = () => {
+const receiveAnswerIncorrectMessage = (message) => {
   return {
-    type: RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE
+    type: RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE,
+    message
   };
 };
 
-const receiveAnswerCorrectMessage = () => {
+const receiveAnswerCorrectMessage = (message) => {
   return {
-    type: RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE
+    type: RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE,
+    message
   };
 };
 
@@ -86,16 +88,16 @@ export const setUpAskQuestionListener = () => {
 
 export const setUpAnswerCorrectListener = () => {
   return (dispatch) => {
-    return GameUtils.setUpAnswerCorrectListener(() => {
-      dispatch(receiveAnswerCorrectMessage());
+    return GameUtils.setUpAnswerCorrectListener((msg) => {
+      dispatch(receiveAnswerCorrectMessage(msg));
     });
   };
 };
 
 export const setUpAnswerIncorrectListener = () => {
   return (dispatch) => {
-    return GameUtils.setUpAnswerIncorrectListener(() => {
-      dispatch(receiveAnswerIncorrectMessage());
+    return GameUtils.setUpAnswerIncorrectListener((msg) => {
+      dispatch(receiveAnswerIncorrectMessage(msg));
     });
   };
 };

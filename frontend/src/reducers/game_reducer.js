@@ -11,18 +11,23 @@ const gameReducer = (state = {}, action) => {
       console.log(action);
       return newState;
     case RECEIVE_START_GAME_SOCKET_MESSAGE:
-      newState.players = action.message.players;
+      // newState.players = action.message.players;
+      newState.players = {};
+      for (let i = 0; i < action.message.players.length; i++) {
+        let playerName = action.message.players[i];
+        newState.players[playerName] = {score: 0};
+      }
       return newState;
     case RECEIVE_QUESTION_SOCKET_MESSAGE:
       newState.currentQuestion = action.message.question;
       return newState;
     case RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE:
-      console.log("...")
-      newState.result = "Your answer is correct";
+      newState.players = action.message.scores;
+      newState.result = `${action.message.userWhoAnswered} got 1 point`;
       return newState;
     case RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE:
-      console.log("xxx")
-      newState.result = "Your answer is incorrect";
+      newState.players = action.message.scores;
+      newState.result = `${action.message.userWhoAnswered} got -1 points`;
       return newState;
     default:
       return state;
@@ -30,3 +35,8 @@ const gameReducer = (state = {}, action) => {
 };
 
 export default gameReducer;
+
+// "kristina": {
+//   score: 0,
+//   position: [x ,y]
+// }

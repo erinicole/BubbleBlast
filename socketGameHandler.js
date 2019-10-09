@@ -48,9 +48,7 @@ class SocketGameHandler {
         }
         this.io.emit("startGame", { message: "start", players: this.players, error: 0 });
       }
-    });
-
-    
+    });    
   }
 
   startGame(socket) {
@@ -58,10 +56,20 @@ class SocketGameHandler {
     socket.on("answerQuestion", ({ choiceIndex, username }) => {
       if (choiceIndex === ANSWER_INDEX) {
         this.playerScores[username]++;
-        socket.emit("answerCorrect", { score: this.playerScores[username], error: 0});
+        this.io.emit("answerCorrect", { 
+          userWhoAnswered: username,
+          scores: this.playerScores, error: 0
+        }); 
+        this.currentIndex++;
+        this.io.emit("askQuestion", { question: this.questions[this.currentIndex] })
       } else {
-        socket.emit("answerIncorrect", { score: this.playerScores[username], error: 0 });
-      }
+        this.playerScores[username]--;
+        this.io.emit("answerIncorrect", { 
+          userWhoAnswered: username,
+          scores: this.playerScores, error: 0 
+        });
+      } 
+      
     });
 
   }

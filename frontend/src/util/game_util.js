@@ -34,9 +34,13 @@ export const setUpAskQuestionListener = (cb) => {
 };
 
 export const setUpAnswerCorrectListener = (cb) => {
-  socket.on("answerCorrect", cb);
+  socket.on("answerCorrect", (msg) => {
+    cb(msg);
+  });
 };
 
 export const setUpAnswerIncorrectListener = (cb) => {
-  socket.on("answerIncorrect", cb);
+  socket.on("answerIncorrect", (msg) => {
+    cb(msg);
+  });
 };
