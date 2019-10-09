@@ -12,6 +12,13 @@ import Bubble from './bubble'
     return [vec[0] * m, vec[1] * m];
   }
 
-
+  export const randomPos = () => {
+    const width = document.documentElement.clientWidth;
+    const height = document.documentElement.clientHeight;
+    let posX = Math.random() * width;
+    let posY = Math.random() * height;
+    let pos = [posX, posY];
+    return pos;
+  }
 
 

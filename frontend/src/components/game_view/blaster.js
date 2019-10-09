@@ -1,18 +1,25 @@
 import MovingObject from "./moving_object";
+import { randomPos } from "./util";
 
 
 class Blaster extends MovingObject {
   constructor(options = {}) {
     options.color = "magenta";
     options.radius = 50;
-    options.pos = options.pos || options.game.randomPos();
-    options.vel = [0, 0];
+    options.pos = options.pos || randomPos();
+    options.vel = options.vel || [0, 0];
     super(options);
   }
 
   relocate() {
-    this.pos = this.game.randomPos();
+    this.pos = randomPos();
     this.vel = [0, 0];
+  }
+
+  power(impulse) {
+    this.vel[0] += impulse[0];
+    this.vel[1] += impulse[1];
+    // debugger;
   }
 }
 

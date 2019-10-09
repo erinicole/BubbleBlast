@@ -5,16 +5,14 @@ import Projectile from "./projectile"
 
 
 class Game {
-  constructor(ctx) {
-    this.dimX = document.documentElement.clientWidth;
-    this.dimY = document.documentElement.clientHeight;
+  constructor(ctx, blaster) {
     this.numBubbles = 4;
     this.numPlayers = 1;
     this.bubbles = [];
     this.ships = [];
     this.ctx = ctx;
     this.addBubbles();
-    this.addBlasters();
+    this.blaster = blaster;
   }
 
   addBubbles() {
@@ -26,28 +24,33 @@ class Game {
     }
   }
 
-  addBlasters() {
-    const blaster = new Blaster({
-      ctx: this.ctx,
-      game: this
-    });
+  // addBlasters() {
+  //   const blaster = new Blaster({
+  //     ctx: this.ctx,
+  //     game: this
+  //   });
+  //   this.ships.push(blaster);
+  //   // return blaster;
+  //   return blaster
+  // }
 
-    this.ships.push(blaster);
-    // return blaster;
+  addBlasters() {
+    this.ships.push(this.blaster)
   }
 
   allObjects() {
+    this.ships.push(this.blaster);
     return [].concat(this.ships, this.bubbles);
   }
 
-  randomPos() {
-    const width = document.documentElement.clientWidth;
-    const height = document.documentElement.clientHeight;
-    let posX = Math.random() * width;
-    let posY = Math.random() * height;
-    let pos = [posX, posY];
-    return pos;
-  }
+  // randomPos() {
+  //   const width = document.documentElement.clientWidth;
+  //   const height = document.documentElement.clientHeight;
+  //   let posX = Math.random() * width;
+  //   let posY = Math.random() * height;
+  //   let pos = [posX, posY];
+  //   return pos;
+  // }
 
   draw() {
     const width = document.documentElement.clientWidth;
@@ -57,30 +60,18 @@ class Game {
     for (let i = 0; i < allObjects.length; i++) {
       allObjects[i].draw(this.ctx);
     }
+    
   }
 
   moveObjects() {
     for (let i = 0; i < this.bubbles.length; i++) {
       this.bubbles[i].move();
     }
+    // debugger
+    this.blaster.move()
   }
 
-  bounceBack(pos, vel) {
-    if (pos[0] < 0) {
-      vel[0] = -vel[0];
-      vel[1] = -vel[1];
-    } else if (pos[0] > this.dimX) {
-      vel[0] = -vel[0];
-      vel[1] = -vel[1];
-    } else if (pos[1] < 0) {
-      vel[0] = -vel[0];
-      vel[1] = -vel[1];
-    } else if (pos[1] > this.dimY) {
-      vel[0] = -vel[0];
-      vel[1] = -vel[1];
-    }
-    return vel;
-  }
+
 
   checkCollisions() {
     const allObjects = this.allObjects();
