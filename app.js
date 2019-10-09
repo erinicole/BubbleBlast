@@ -8,6 +8,7 @@ const Question = require("./models/Question");
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const SocketGameHandler = require('./socketGameHandler');
+const Seeder = require("./models/seeder.js");
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
