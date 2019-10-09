@@ -35,8 +35,3 @@ const gameReducer = (state = {}, action) => {
 };
 
 export default gameReducer;
-
-// "kristina": {
-//   score: 0,
-//   position: [x ,y]
-// }

@@ -56,6 +56,7 @@ class SocketGameHandler {
     socket.on("answerQuestion", ({ choiceIndex, username }) => {
       if (choiceIndex === ANSWER_INDEX) {
         this.playerScores[username]++;
+
         this.io.emit("answerCorrect", { 
           userWhoAnswered: username,
           scores: this.playerScores, error: 0
@@ -69,7 +70,6 @@ class SocketGameHandler {
           scores: this.playerScores, error: 0 
         });
       } 
-      
     });
 
   }

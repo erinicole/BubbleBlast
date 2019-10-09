@@ -80,6 +80,7 @@ class Game extends React.Component {
       <button onClick={this.startGame.bind(this)}>Start Game</button>
     );
     if (this.props.currentQuestion) {
+
       let choices = [
         <div>
           <input type="radio" name="choice" value="0" onChange={this.handleOptionChange.bind(this)} checked={this.state.selectedOption === "0"} /> {this.props.currentQuestion.choices[0]} 
@@ -106,7 +107,6 @@ class Game extends React.Component {
           <p>{this.props.currentQuestion.body}</p>
          {choices}
           
-        
           <input type="submit" value="Submit"/>
         </form>
       );
