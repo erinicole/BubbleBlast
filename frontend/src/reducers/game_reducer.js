@@ -3,6 +3,21 @@ import { RECEIVE_CONNECT_GAME_SOCKET_MESSAGE, RECEIVE_START_GAME_SOCKET_MESSAGE
   , RECEIVE_QUESTION_SOCKET_MESSAGE, RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE
   , RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE } from "../actions/game_actions";
 
+const questionChoices = (choices) => {
+  choices = choices.map((choice, index) => {
+    return {choice: choice, index: index}
+  })
+  let length = choices.length
+  for (let i = (length - 1); i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    let x = choices[i];
+    choices[i] = choices[j];
+    choices[j] = x;
+  }
+  return choices;
+}
+
+
 const gameReducer = (state = {}, action) => {
   Object.freeze(state);
   let newState = Object.assign({}, state);
@@ -20,6 +35,7 @@ const gameReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_QUESTION_SOCKET_MESSAGE:
       newState.currentQuestion = action.message.question;
+      newState.currentQuestion.choices = questionChoices(newState.currentQuestion.choices)
       return newState;
     case RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE:
       newState.players = action.message.scores;

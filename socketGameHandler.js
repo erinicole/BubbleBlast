@@ -51,6 +51,9 @@ class SocketGameHandler {
     });    
   }
 
+
+  
+
   startGame(socket) {
     this.io.emit("askQuestion", {question: this.questions[this.currentIndex]})
     socket.on("answerQuestion", ({ choiceIndex, username }) => {

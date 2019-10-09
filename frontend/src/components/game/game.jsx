@@ -80,33 +80,30 @@ class Game extends React.Component {
       <button onClick={this.startGame.bind(this)}>Start Game</button>
     );
     if (this.props.currentQuestion) {
-
-      let choices = [
-        <div>
-          <input type="radio" name="choice" value="0" onChange={this.handleOptionChange.bind(this)} checked={this.state.selectedOption === "0"} /> {this.props.currentQuestion.choices[0]} 
-        </div>,
-       <div>
-         <input type="radio" name="choice" value="1" onChange={this.handleOptionChange.bind(this)} checked={this.state.selectedOption === "1"} /> {this.props.currentQuestion.choices[1]}
-       </div>,
-        <div>
-          <input type="radio" name="choice" value="2" onChange={this.handleOptionChange.bind(this)} checked={this.state.selectedOption === "2"} /> {this.props.currentQuestion.choices[2]}
-        </div>,
-        <div>
-          <input type="radio" name="choice" value="3" onChange={this.handleOptionChange.bind(this)} checked={this.state.selectedOption === "3"} /> {this.props.currentQuestion.choices[3]}
-        </div>
-      ];
-      for (let i = choices.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        let x = choices[i];
-        choices[i] = choices[j];
-        choices[j] = x;
-      }
+      let choices = this.props.currentQuestion.choices;
+      
 
       content = (
         <form onSubmit={this.onSubmitChoice.bind(this)}>
+          <h3>Level {this.props.currentQuestion.difficulty}</h3>
           <p>{this.props.currentQuestion.body}</p>
-         {choices}
-          
+
+          <input type="radio" name="choice" value={choices[0].index} onChange={this.handleOptionChange.bind(this)} checked={this.state.selectedOption === this.state.selectedOption} /> 
+            {choices[0].choice} <br/>
+
+          <input type="radio" name="choice" value={choices[1].index} onChange={this.handleOptionChange.bind(this)} checked={this.state.selectedOption === this.state.selectedOption} /> 
+          {choices[1].choice} <br />
+
+          <input type="radio" name="choice" value={choices[2].index} onChange={this.handleOptionChange.bind(this)} checked={this.state.selectedOption === this.state.selectedOption} /> 
+          {choices[2].choice} <br />
+
+          <input type="radio" name="choice" value={choices[3].index} onChange={this.handleOptionChange.bind(this)} checked={this.state.selectedOption === this.state.selectedOption} /> 
+          {choices[3].choice} <br />
+            
+
+       
+
+              
           <input type="submit" value="Submit"/>
         </form>
       );
