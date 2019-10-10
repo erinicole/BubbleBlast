@@ -8,8 +8,10 @@
    constructor(options = {}) {
      options.color = "blue";
      options.radius = 22;
-     options.pos = options.pos || randomPos();
-     options.vel = options.vel || randomVec(7);
+     options.pos = [200,200]
+    //  options.pos = options.pos || randomPos();
+     options.vel = [0,0]
+    //  options.vel = options.vel || randomVec(7);
      super(options);
    }
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import Game from './game';
 import key from 'keymaster';
-import Blaster from './blaster'
+import Blaster from './blaster';
+import {randomPos} from './util'
 
 class GameView extends React.Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class GameView extends React.Component {
         const ctx = canvas.getContext("2d")
         this.setState({
             ctx: ctx,
-            blaster: new Blaster({ ctx: ctx })
+            blaster: [new Blaster({ ctx: ctx })]
         }, () => {
             this.setState({game: new Game(ctx, this.state.blaster)})
         })
@@ -46,12 +47,11 @@ class GameView extends React.Component {
 
     start(){
         // debugger
-
         this.bindKeyHandlers();
         setInterval(
             ()=>{
                 this.state.game.step();
-                this.state.game.draw()
+                this.state.game.draw([randomPos(), randomPos(), randomPos(), randomPos()], [randomPos()])
             }, 20)
         // debugger
     }
@@ -60,23 +60,11 @@ class GameView extends React.Component {
     render(){
         if(this.state.ctx){
             this.start()
-            // const test = new MovingObject({
-            //     pos: [30, 30],
-            //     vel: [10, 10], 
-            //     radius: 5, 
-            //     color: "#000000", 
-            //     ctx: this.state.ctx
-            //  });
-            // test.draw(this.state.ctx)
-            // const bubble = new Bubble({ pos: [80, 100], ctx: this.state.ctx})
-            // console.log(bubble)
-            // bubble.draw(this.state.ctx)
         }
-        const width = document.documentElement.clientWidth
-        const height = document.documentElement.clientHeight
+        const width = document.documentElement.clientWidth / 2 
+        const height = document.documentElement.clientHeight /2
         return(
             <div>
-                game view
                 <canvas id="game-canvas" width={width} height={height}>
 
                 </canvas>

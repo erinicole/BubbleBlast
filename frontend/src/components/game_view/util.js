@@ -13,8 +13,8 @@ import Bubble from './bubble'
   }
 
   export const randomPos = () => {
-    const width = document.documentElement.clientWidth;
-    const height = document.documentElement.clientHeight;
+    const width = document.documentElement.clientWidth / 2;
+    const height = document.documentElement.clientHeight / 2;
     let posX = Math.random() * width;
     let posY = Math.random() * height;
     let pos = [posX, posY];

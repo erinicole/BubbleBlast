@@ -39,6 +39,7 @@ const gameReducer = (state = {}, action) => {
       newState.isOver = false;
       return newState;
     case RECEIVE_QUESTION_SOCKET_MESSAGE:
+      console.log(action.message.question);
       newState.currentQuestion = action.message.question;
       newState.currentQuestion.choices = questionChoices(newState.currentQuestion.choices)
       return newState;

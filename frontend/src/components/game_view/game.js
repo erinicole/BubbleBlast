@@ -12,7 +12,7 @@ class Game {
     this.projectiles = [];
     this.ctx = ctx;
     this.addBubbles();
-    this.blaster = blaster;
+    this.blasters = blaster;
   }
 
   addBubbles() {
@@ -35,7 +35,7 @@ class Game {
   // }
 
   allObjects() {
-  return [].concat([this.blaster], this.bubbles);
+  return [].concat(this.blaster, this.bubbles);
   }
 
   // randomPos() {
@@ -47,24 +47,30 @@ class Game {
   //   return pos;
   // }
 
-  draw() {
-    const width = document.documentElement.clientWidth;
-    const height = document.documentElement.clientHeight;
+  draw(bubblePositions, blastersPositions) {
+    const width = document.documentElement.clientWidth /2 ;
+    const height = document.documentElement.clientHeight / 2;
     this.ctx.clearRect(0, 0, width, height);
     const allObjects = this.allObjects();
-    for (let i = 0; i < allObjects.length; i++) {
-      allObjects[i].draw(this.ctx);
+    // for (let i = 0; i < allObjects.length; i++) {
+    //   allObjects[i].draw(positions[i]);
+    // }
+    for (let i = 0; i < this.bubbles.length; i++) {
+      this.bubbles[i].draw(bubblePositions[i]);
+    }
+    for (let i = 0; i < this.blasters.length; i++) {
+      this.blasters[i].draw(blastersPositions[i]);
     }
     
   }
 
-  moveObjects() {
-    for (let i = 0; i < this.bubbles.length; i++) {
-      this.bubbles[i].move();
-    }
-    // debugger
-    this.blaster.move()
-  }
+  // moveObjects() {
+  //   for (let i = 0; i < this.bubbles.length; i++) {
+  //     this.bubbles[i].move();
+  //   }
+
+  //   this.blaster.move()
+  // }
 
 
 
@@ -125,9 +131,9 @@ class Game {
   }
 
   step() {
-    this.moveObjects();
-    this.checkCollisions();
-    this.checkBubbleCollisions();
+    // this.moveObjects();
+    // this.checkCollisions();
+    // this.checkBubbleCollisions();
   }
 }
 
