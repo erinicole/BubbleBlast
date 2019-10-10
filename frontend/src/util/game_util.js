@@ -12,7 +12,7 @@ export const startGame = (username) => {
 };
 
 export const answerQuestion = (choiceIndex, username) => {
-  socket.emit('answerQuestion', { choiceIndex: choiceIndex, username: username, error: 0 });
+  socket.emit('answerQuestion', { choiceIndex: choiceIndex, username: username, error: 0 });  
 };
 
 export const setUpConnectGameListener = (cb) => {
@@ -41,6 +41,12 @@ export const setUpAnswerCorrectListener = (cb) => {
 
 export const setUpAnswerIncorrectListener = (cb) => {
   socket.on("answerIncorrect", (msg) => {
+    cb(msg);
+  });
+};
+
+export const setUpEndGameListener = (cb) => {
+  socket.on("endGame", (msg) => {
     cb(msg);
   });
 };

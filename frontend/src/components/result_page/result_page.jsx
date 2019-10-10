@@ -13,7 +13,7 @@ class ResultPage extends React.Component {
 
     return (
       <div className="result-main-section">
-        <h1 className="score">You scored 800 points!</h1>
+        <h1 className="score">{this.props.players}</h1>
         <h2 className="stats">That's better than 80% of players.</h2>
       </div>
     )

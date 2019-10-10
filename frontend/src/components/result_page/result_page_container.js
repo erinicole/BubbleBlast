@@ -3,7 +3,7 @@ import ResultPage from './result_page';
 
 
 const msp = (state, ownProps) => ({
-
+  players: state.entities.game.players
 })
 
 const mdp = (dispatch) => ({

@@ -6,6 +6,7 @@ export const RECEIVE_START_GAME_SOCKET_MESSAGE = "RECEIVE_START_GAME_SOCKET_MESS
 export const RECEIVE_QUESTION_SOCKET_MESSAGE = "RECEIVE_QUESTION_SOCKET_MESSAGE";
 export const RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE = "RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE";
 export const RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE = "RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE";
+export const RECEIVE_END_GAME_SOCKET_MESSAGE = "RECEIVE_END_GAME_SOCKET_MESSAGE";
 
 const receiveQuestions = (questions) => {
   return {
@@ -34,6 +35,15 @@ const receiveStartGameMessage = (message) => {
     message
   };
 };
+
+const receiveEndGameMessage = (message) => {
+  return {
+    type: RECEIVE_END_GAME_SOCKET_MESSAGE,
+    message
+  };
+};
+
+
 
 const receiveQuestionMessage = (message) => {
   return {
@@ -98,6 +108,14 @@ export const setUpAnswerIncorrectListener = () => {
   return (dispatch) => {
     return GameUtils.setUpAnswerIncorrectListener((msg) => {
       dispatch(receiveAnswerIncorrectMessage(msg));
+    });
+  };
+};
+
+export const setUpEndGameListener = () => {
+  return (dispatch) => {
+    return GameUtils.setUpEndGameListener((msg) => {
+      dispatch(receiveEndGameMessage(msg));
     });
   };
 };

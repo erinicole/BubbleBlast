@@ -1,11 +1,15 @@
 import { RECEIVE_QUESTIONS } from "../actions/question_actions";
-import { RECEIVE_CONNECT_GAME_SOCKET_MESSAGE, RECEIVE_START_GAME_SOCKET_MESSAGE
-  , RECEIVE_QUESTION_SOCKET_MESSAGE, RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE
-  , RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE } from "../actions/game_actions";
+import { 
+  RECEIVE_CONNECT_GAME_SOCKET_MESSAGE, 
+  RECEIVE_START_GAME_SOCKET_MESSAGE, 
+  RECEIVE_QUESTION_SOCKET_MESSAGE, 
+  RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE, RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE,
+  RECEIVE_END_GAME_SOCKET_MESSAGE
+} from "../actions/game_actions";
 
 const questionChoices = (choices) => {
   choices = choices.map((choice, index) => {
-    return {choice: choice, index: index}
+    return { choice: choice, index: index.toString()}
   })
   let length = choices.length
   for (let i = (length - 1); i > 0; i--) {
@@ -32,6 +36,7 @@ const gameReducer = (state = {}, action) => {
         let playerName = action.message.players[i];
         newState.players[playerName] = {score: 0};
       }
+      newState.isOver = false;
       return newState;
     case RECEIVE_QUESTION_SOCKET_MESSAGE:
       newState.currentQuestion = action.message.question;
@@ -44,6 +49,9 @@ const gameReducer = (state = {}, action) => {
     case RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE:
       newState.players = action.message.scores;
       newState.result = `${action.message.userWhoAnswered} got -1 points`;
+      return newState;
+    case RECEIVE_END_GAME_SOCKET_MESSAGE:
+      newState.isOver = true;
       return newState;
     default:
       return state;

@@ -4,6 +4,11 @@ const Question = require("./models/Question");
 // this.io.emit - all users
 const ANSWER_INDEX = "0";
 
+function getRandomNum(min, max) {
+  return Math.floor((Math.random() * (max - min) + min))
+}
+
+
 class SocketGameHandler {
   constructor(io){
     this.io = io;
@@ -17,9 +22,18 @@ class SocketGameHandler {
     this.currentIndex = 0;
   }
 
+ 
+
   setUpQuestions() {
     Question.find().then(questions => {
-      this.questions = questions;
+      this.questions = [];
+      for (let i = 1; i < 11; i++) {
+        let levelQuestions = questions.filter((question) => {
+          return question.difficulty == i;
+        });
+        let chosenIndex = getRandomNum(0, levelQuestions.length);
+        this.questions.push(levelQuestions[chosenIndex]);
+      }
     });
     this.questionsAsked = 0;
   }
@@ -52,11 +66,12 @@ class SocketGameHandler {
   }
 
 
-  
+
 
   startGame(socket) {
     this.io.emit("askQuestion", {question: this.questions[this.currentIndex]})
     socket.on("answerQuestion", ({ choiceIndex, username }) => {
+
       if (choiceIndex === ANSWER_INDEX) {
         this.playerScores[username]++;
 
@@ -65,7 +80,12 @@ class SocketGameHandler {
           scores: this.playerScores, error: 0
         }); 
         this.currentIndex++;
-        this.io.emit("askQuestion", { question: this.questions[this.currentIndex] })
+        if (this.currentIndex < this.questions.length) {
+          this.io.emit("askQuestion", { question: this.questions[this.currentIndex], error: 0 })
+        } else {
+          this.io.emit("endGame", {error: 0})
+        }
+        
       } else {
         this.playerScores[username]--;
         this.io.emit("answerIncorrect", { 

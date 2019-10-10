@@ -7,7 +7,8 @@ import Game from './game';
 const msp = (state, ownProps) => {
   return {
     currentQuestion: state.entities.game.currentQuestion,
-    result: state.entities.game.result
+    result: state.entities.game.result,
+    isOver: state.entities.game.isOver
   };
 };
 
