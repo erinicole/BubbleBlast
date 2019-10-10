@@ -55,6 +55,7 @@ class Game extends React.Component {
   componentDidUpdate() {
     // console.log(this.state.selectedOption)
     if (this.props.isOver) {
+      console.log("game over")
       this.props.history.push(`/results`)
     }
   }

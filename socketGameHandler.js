@@ -12,14 +12,11 @@ function getRandomNum(min, max) {
 class SocketGameHandler {
   constructor(io){
     this.io = io;
-    this.players = [];
-    this.readyPlayers = [];
-    this.playerScores = {};
     this.io.on('connection', (socket) => {
       this.setUpListeners(socket);
     });
-    this.setUpQuestions();
-    this.currentIndex = 0;
+    
+    this.reset();
   }
 
  
@@ -51,6 +48,7 @@ class SocketGameHandler {
     });
 
     socket.on("startGame", ({username}) => {
+      console.log(username)
       if (this.players.includes(username) && !this.readyPlayers.includes(username)) {
         this.readyPlayers.push(username);
       }
@@ -66,7 +64,13 @@ class SocketGameHandler {
   }
 
 
-
+  reset() {
+    this.players = [];
+    this.readyPlayers = [];
+    this.playerScores = {};
+    this.currentIndex = 0;
+    this.setUpQuestions();
+  }
 
   startGame(socket) {
     this.io.emit("askQuestion", {question: this.questions[this.currentIndex]})
@@ -84,6 +88,7 @@ class SocketGameHandler {
           this.io.emit("askQuestion", { question: this.questions[this.currentIndex], error: 0 })
         } else {
           this.io.emit("endGame", {error: 0})
+          this.reset();
         }
         
       } else {
