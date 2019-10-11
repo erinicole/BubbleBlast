@@ -34,11 +34,9 @@ class GameView extends React.Component {
             d: [1, 0],
         };
         const nBlaster = this.state.blaster
-        // debugger
         Object.keys(moves).forEach(function (k) {
             const move = moves[k];
             key(k, () => {
-                // debugger 
                 nBlaster.power(move); });
             
         });
@@ -46,14 +44,14 @@ class GameView extends React.Component {
     };
 
     start(){
-        // debugger
         this.bindKeyHandlers();
-        setInterval(
-            ()=>{
-                this.state.game.step();
-                this.state.game.draw([randomPos(), randomPos(), randomPos(), randomPos()], [randomPos()])
-            }, 20)
-        // debugger
+        // setInterval(
+        //     ()=>{
+        if(this.state.game){
+            this.state.game.step();
+            this.state.game.draw(this.props.bubblePosition, this.props.blasterPosition)
+        }
+            // }, 20)
     }
 
 

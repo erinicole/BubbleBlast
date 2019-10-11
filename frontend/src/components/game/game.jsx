@@ -1,5 +1,6 @@
 import React from 'react';
-
+import GameView from '../game_view/game_view_container'
+import { randomPos } from '../game_view/util'
 
 
 class Game extends React.Component {
@@ -138,6 +139,7 @@ class Game extends React.Component {
           <input type="submit" value="Submit"/>
         </form>
       );
+      content =(<GameView bubblePosition={[randomPos(), randomPos(), randomPos(), randomPos()]} blasterPosition={[randomPos()]} />)
     }
     return (
       <div className="result-main-section">
