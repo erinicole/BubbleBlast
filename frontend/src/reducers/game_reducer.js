@@ -4,7 +4,8 @@ import {
   RECEIVE_START_GAME_SOCKET_MESSAGE, 
   RECEIVE_QUESTION_SOCKET_MESSAGE, 
   RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE, RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE,
-  RECEIVE_END_GAME_SOCKET_MESSAGE
+  RECEIVE_END_GAME_SOCKET_MESSAGE,
+  RECEIVE_BUBBLE_POS_SOCKET_MESSAGE
 } from "../actions/game_actions";
 
 const questionChoices = (choices) => {
@@ -53,6 +54,9 @@ const gameReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_END_GAME_SOCKET_MESSAGE:
       newState.isOver = true;
+      return newState;
+    case RECEIVE_BUBBLE_POS_SOCKET_MESSAGE:
+      newState.bubbles = action.message.bubbles;
       return newState;
     default:
       return state;

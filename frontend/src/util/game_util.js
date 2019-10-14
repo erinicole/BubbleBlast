@@ -50,3 +50,10 @@ export const setUpEndGameListener = (cb) => {
     cb(msg);
   });
 };
+
+
+export const setUpUpdateBubblePosListener = (cb) => {
+  socket.on("updateBubblePos", (msg) => {
+    cb(msg);
+  });
+};

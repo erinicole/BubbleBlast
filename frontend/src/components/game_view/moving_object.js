@@ -2,8 +2,8 @@
 
 class MovingObject {
   constructor(options) {
-    this.dimX = document.documentElement.clientWidth / 2 ;
-    this.dimY = document.documentElement.clientHeight / 2;
+    this.dimX = 800 ;
+    this.dimY = 600;
     this.pos = options.pos;
     // this.vel = options.vel;
     this.radius = options.radius;
@@ -14,6 +14,9 @@ class MovingObject {
   }
 
   draw(pos) {
+    if (!pos) {
+      return; 
+    }
     this.ctx.fillStyle = this.color;
     this.ctx.beginPath();
     this.ctx.arc(pos[0], pos[1], this.radius, 0, 2 * Math.PI, false);

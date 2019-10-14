@@ -59,8 +59,8 @@ class GameView extends React.Component {
         if(this.state.ctx){
             this.start()
         }
-        const width = document.documentElement.clientWidth / 2 
-        const height = document.documentElement.clientHeight /2
+        const width = 800;
+        const height = 600;
         return(
             <div>
                 <canvas id="game-canvas" width={width} height={height}>

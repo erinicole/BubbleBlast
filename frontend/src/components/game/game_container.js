@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { startGame, connectGame, setUpConnectGameListener, setUpStartGameListener, 
-  setUpAskQuestionListener, answerQuestion, setUpAnswerCorrectListener, setUpAnswerIncorrectListener } from "../../actions/game_actions";
+  setUpAskQuestionListener, answerQuestion, setUpAnswerCorrectListener, setUpAnswerIncorrectListener, setUpUpdateBubblePosListener } from "../../actions/game_actions";
 import Game from './game';
 
 
@@ -8,7 +8,8 @@ const msp = (state, ownProps) => {
   return {
     currentQuestion: state.entities.game.currentQuestion,
     result: state.entities.game.result,
-    isOver: state.entities.game.isOver
+    isOver: state.entities.game.isOver,
+    bubbles: state.entities.game.bubbles
   };
 };
 
@@ -21,7 +22,10 @@ const mdp = (dispatch) => {
     setUpAskQuestionListener: () => { dispatch(setUpAskQuestionListener()); },
     answerQuestion: (choiceIndex, username) => { answerQuestion(choiceIndex, username); },
     setUpAnswerCorrectListener: () => { dispatch(setUpAnswerCorrectListener());},
-    setUpAnswerIncorrectListener: () => { dispatch(setUpAnswerIncorrectListener()); }
+    setUpAnswerIncorrectListener: () => { dispatch(setUpAnswerIncorrectListener()); },
+    setUpUpdateBubblePosListener: () => {
+      dispatch(setUpUpdateBubblePosListener()
+    )}
   };
 };
 

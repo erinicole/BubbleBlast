@@ -7,6 +7,7 @@ export const RECEIVE_QUESTION_SOCKET_MESSAGE = "RECEIVE_QUESTION_SOCKET_MESSAGE"
 export const RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE = "RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE";
 export const RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE = "RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE";
 export const RECEIVE_END_GAME_SOCKET_MESSAGE = "RECEIVE_END_GAME_SOCKET_MESSAGE";
+export const RECEIVE_BUBBLE_POS_SOCKET_MESSAGE = "RECEIVE_BUBBLE_POS_SOCKET_MESSAGE";
 
 const receiveQuestions = (questions) => {
   return {
@@ -55,6 +56,13 @@ const receiveQuestionMessage = (message) => {
 const receiveConnectGameMessage = (message) => {
   return {
     type: RECEIVE_CONNECT_GAME_SOCKET_MESSAGE,
+    message
+  };
+};
+
+const receiveBubblePosMessage = (message) => {
+  return {
+    type: RECEIVE_BUBBLE_POS_SOCKET_MESSAGE,
     message
   };
 };
@@ -119,3 +127,12 @@ export const setUpEndGameListener = () => {
     });
   };
 };
+
+export const setUpUpdateBubblePosListener = () => {
+  return (dispatch) => {
+    return GameUtils.setUpUpdateBubblePosListener((msg) => {
+      dispatch(receiveBubblePosMessage(msg));
+    });
+  };
+};
+

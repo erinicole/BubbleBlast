@@ -48,8 +48,8 @@ class Game {
   // }
 
   draw(bubblePositions, blastersPositions) {
-    const width = document.documentElement.clientWidth /2 ;
-    const height = document.documentElement.clientHeight / 2;
+    const width = 800 ;
+    const height = 600;
     this.ctx.clearRect(0, 0, width, height);
     const allObjects = this.allObjects();
     // for (let i = 0; i < allObjects.length; i++) {

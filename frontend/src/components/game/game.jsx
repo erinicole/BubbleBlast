@@ -66,6 +66,7 @@ class Game extends React.Component {
     this.props.setUpAskQuestionListener();
     this.props.setUpAnswerCorrectListener();
     this.props.setUpAnswerIncorrectListener();
+    this.props.setUpUpdateBubblePosListener();
   }
 
   onSubmitChoice(e) {
@@ -82,6 +83,7 @@ class Game extends React.Component {
   }
 
   render() {
+    console.log(this.props.bubbles);
     let content = (
       <button onClick={this.startGame.bind(this)}>Start Game</button>
     );
@@ -139,7 +141,14 @@ class Game extends React.Component {
           <input type="submit" value="Submit"/>
         </form>
       );
-      content =(<GameView bubblePosition={[randomPos(), randomPos(), randomPos(), randomPos()]} blasterPosition={[randomPos()]} />)
+      if(this.props.bubbles){
+        content =(<GameView bubblePosition={[
+          this.props.bubbles[0].pos, 
+          this.props.bubbles[1].pos, 
+          this.props.bubbles[2].pos, 
+          this.props.bubbles[3].pos, 
+          ]} blasterPosition={[randomPos()]} />)
+      }
     }
     return (
       <div className="result-main-section">

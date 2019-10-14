@@ -1,4 +1,5 @@
 const Question = require("./models/Question");
+const Bubble = require("./game_logic/bubble_model");
 
 //socket emit  - one user
 // this.io.emit - all users
@@ -7,6 +8,9 @@ const ANSWER_INDEX = "0";
 function getRandomNum(min, max) {
   return Math.floor((Math.random() * (max - min) + min))
 }
+
+const WIDTH = 800;
+const HEIGHT = 600;
 
 
 class SocketGameHandler {
@@ -17,9 +21,22 @@ class SocketGameHandler {
     });
     
     this.reset();
+
   }
 
- 
+  reset() {
+    this.players = [];
+    this.readyPlayers = [];
+    this.playerScores = {};
+    this.currentIndex = 0;
+    this.setUpQuestions();
+    this.bubbles = [
+      new Bubble(WIDTH, HEIGHT),
+      new Bubble(WIDTH, HEIGHT),
+      new Bubble(WIDTH, HEIGHT),
+      new Bubble(WIDTH, HEIGHT)
+    ];
+  }
 
   setUpQuestions() {
     Question.find().then(questions => {
@@ -54,26 +71,31 @@ class SocketGameHandler {
       }
 
       if (this.players.length === this.readyPlayers.length) {
-        this.startGame(socket);
         for(let player of this.players) {
           this.playerScores[player] = 0;
         }
         this.io.emit("startGame", { message: "start", players: this.players, error: 0 });
+        this.startGame(socket);
       }
     });    
   }
 
 
-  reset() {
-    this.players = [];
-    this.readyPlayers = [];
-    this.playerScores = {};
-    this.currentIndex = 0;
-    this.setUpQuestions();
-  }
 
   startGame(socket) {
-    this.io.emit("askQuestion", {question: this.questions[this.currentIndex]})
+    
+    this.bubbleUpdate = setInterval(() => {
+        for (let bubble of this.bubbles) {
+          bubble.move();
+        }
+        this.io.emit("updateBubblePos", {
+          message: "update",
+          bubbles: this.bubbles,
+          error: 0
+        })
+    }, 100)
+
+        this.io.emit("askQuestion", {question: this.questions[this.currentIndex]})
     socket.on("answerQuestion", ({ choiceIndex, username }) => {
 
       if (choiceIndex === ANSWER_INDEX) {
@@ -90,7 +112,7 @@ class SocketGameHandler {
           this.io.emit("endGame", {error: 0})
           this.reset();
         }
-        
+
       } else {
         this.playerScores[username]--;
         this.io.emit("answerIncorrect", { 
@@ -101,6 +123,8 @@ class SocketGameHandler {
     });
 
   }
-}
+
+
+  }
 
 module.exports = SocketGameHandler;
