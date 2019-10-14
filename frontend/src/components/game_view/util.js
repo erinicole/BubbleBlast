@@ -1,5 +1,6 @@
 import Bubble from './bubble'
-
+const width = require("../../settings.js").width
+const height = require("../../settings.js").height
 
 
   // Return a randomly oriented vector with the given length.
@@ -13,8 +14,7 @@ import Bubble from './bubble'
   }
 
   export const randomPos = () => {
-    const width = document.documentElement.clientWidth / 2;
-    const height = document.documentElement.clientHeight / 2;
+
     let posX = Math.random() * width;
     let posY = Math.random() * height;
     let pos = [posX, posY];

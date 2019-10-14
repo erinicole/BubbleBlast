@@ -1,6 +1,6 @@
 const Question = require("./models/Question");
 const Bubble = require("./game_logic/bubble_model");
-
+const Player = require("./game_logic/player")
 //socket emit  - one user
 // this.io.emit - all users
 const ANSWER_INDEX = "0";
@@ -9,8 +9,6 @@ function getRandomNum(min, max) {
   return Math.floor((Math.random() * (max - min) + min))
 }
 
-const WIDTH = 800;
-const HEIGHT = 600;
 
 
 class SocketGameHandler {
@@ -27,14 +25,13 @@ class SocketGameHandler {
   reset() {
     this.players = [];
     this.readyPlayers = [];
-    this.playerScores = {};
     this.currentIndex = 0;
     this.setUpQuestions();
     this.bubbles = [
-      new Bubble(WIDTH, HEIGHT),
-      new Bubble(WIDTH, HEIGHT),
-      new Bubble(WIDTH, HEIGHT),
-      new Bubble(WIDTH, HEIGHT)
+      new Bubble(),
+      new Bubble(),
+      new Bubble(),
+      new Bubble()
     ];
   }
 
@@ -52,35 +49,51 @@ class SocketGameHandler {
     this.questionsAsked = 0;
   }
 
+  getPlayerScores(){
+    let scores = {}
+    for(let player of this.players){
+      scores[player.username] = player.score
+    }
+    return scores
+  }
+
+  isIncluded(players, username){
+    return players.filter(player => {
+      return player.username === username
+    }).length > 0;
+  }
+
   setUpListeners(socket) {
     socket.on('chat message', (msg) => {
       this.io.emit('chat message', msg);
     });
 
     socket.on("connectGame", ({username}) => {
-      if (!this.players.includes(username)){
-        this.players.push(username);
+      if (!this.isIncluded(this.players, username)){
+        this.players.push(new Player(username));
       } 
       socket.emit("connectGame", { connected: "connected", error: 0 }); 
     });
 
     socket.on("startGame", ({username}) => {
       console.log(username)
-      if (this.players.includes(username) && !this.readyPlayers.includes(username)) {
-        this.readyPlayers.push(username);
+      if (this.isIncluded(this.players, username) && !this.isIncluded(this.readyPlayers, username)) {
+        this.readyPlayers.push(this.players.find((player) => {
+          return player.username === username
+        }));
       }
 
       if (this.players.length === this.readyPlayers.length) {
         for(let player of this.players) {
-          this.playerScores[player] = 0;
+          player.score = 0;
         }
-        this.io.emit("startGame", { message: "start", players: this.players, error: 0 });
+        this.io.emit("startGame", { message: "start", players: this.players.map((player) =>{
+          return player.username
+        }), error: 0 });
         this.startGame(socket);
       }
     });    
   }
-
-
 
   startGame(socket) {
     
@@ -99,11 +112,14 @@ class SocketGameHandler {
     socket.on("answerQuestion", ({ choiceIndex, username }) => {
 
       if (choiceIndex === ANSWER_INDEX) {
-        this.playerScores[username]++;
+        this.players.find((player)=>{
+          return player.username === username
+        }).incrementsScore(1)
 
         this.io.emit("answerCorrect", { 
           userWhoAnswered: username,
-          scores: this.playerScores, error: 0
+          scores: this.getPlayerScores(),
+          error: 0
         }); 
         this.currentIndex++;
         if (this.currentIndex < this.questions.length) {
@@ -114,10 +130,13 @@ class SocketGameHandler {
         }
 
       } else {
-        this.playerScores[username]--;
+        this.players.find((player)=>{
+          return player.username === username
+        }).incrementsScore(-1)
         this.io.emit("answerIncorrect", { 
           userWhoAnswered: username,
-          scores: this.playerScores, error: 0 
+          scores: this.getPlayerScores(),
+          error: 0 
         });
       } 
     });

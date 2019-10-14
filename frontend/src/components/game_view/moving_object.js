@@ -1,14 +1,16 @@
-
+const width = require("../../settings.js").width
+const height = require("../../settings.js").height
 
 class MovingObject {
   constructor(options) {
-    this.dimX = 800 ;
-    this.dimY = 600;
+    this.dimX = width ;
+    this.dimY = height;
     this.pos = options.pos;
     // this.vel = options.vel;
     this.radius = options.radius;
     this.color = options.color;
     this.ctx = options.ctx;
+ 
     // this.game = options.game;
     this.bounceBack = this.bounceBack.bind(this)
   }

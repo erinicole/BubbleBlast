@@ -1,14 +1,15 @@
+const width = require("../frontend/src/settings.js").width
+const height = require("../frontend/src/settings.js").height
+
 class Bubble {
-  constructor(width, height) {
-    this.width = width;
-    this.height = height;
+  constructor() {
     this.vel = this.randomVec(7)
     this.pos = this.randomPos();
   }
 
   randomPos() {
-    let posX = Math.random() * this.width;
-    let posY = Math.random() * this.height;
+    let posX = Math.random() * width;
+    let posY = Math.random() * height;
     let pos = [posX, posY];
     return pos;
   }
@@ -32,11 +33,11 @@ class Bubble {
   bounceBack(pos, vel) {
     if (pos[0] < 0) {
       vel[0] = -vel[0];
-    } else if (pos[0] > this.width) {
+    } else if (pos[0] > width) {
       vel[0] = -vel[0];
     } else if (pos[1] < 0) {
       vel[1] = -vel[1];
-    } else if (pos[1] > this.height) {
+    } else if (pos[1] > height) {
       vel[1] = -vel[1];
     }
     return vel;

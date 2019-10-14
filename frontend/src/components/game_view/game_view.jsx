@@ -3,6 +3,8 @@ import Game from './game';
 import key from 'keymaster';
 import Blaster from './blaster';
 import {randomPos} from './util'
+const width = require("../../settings.js").width
+const height = require("../../settings.js").height
 
 class GameView extends React.Component {
     constructor(props) {
@@ -59,8 +61,6 @@ class GameView extends React.Component {
         if(this.state.ctx){
             this.start()
         }
-        const width = 800;
-        const height = 600;
         return(
             <div>
                 <canvas id="game-canvas" width={width} height={height}>

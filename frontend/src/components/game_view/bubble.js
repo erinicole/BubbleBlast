@@ -8,11 +8,12 @@
    constructor(options = {}) {
      options.color = "blue";
      options.radius = 22;
-     options.pos = [200,200]
+     options.pos = [200,200];
     //  options.pos = options.pos || randomPos();
-     options.vel = [0,0]
-    //  options.vel = options.vel || randomVec(7);
+     options.vel = [0,0];
+     //  options.vel = options.vel || randomVec(7);
      super(options);
+     this.letter = options.text;
    }
 
    collideWith(otherObject) {
@@ -27,6 +28,15 @@
      return false;
    }
 
+   draw(pos){
+    //  super.draw(pos)
+     if (!pos) {
+       return;
+     }
+     this.ctx.fillStyle = "white";
+     this.ctx.font = "30px Arial";
+     this.ctx.fillText(this.letter, pos[0],pos[1]);
+   }
 
  }
  

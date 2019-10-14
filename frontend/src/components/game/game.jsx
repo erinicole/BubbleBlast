@@ -83,71 +83,77 @@ class Game extends React.Component {
   }
 
   render() {
-    console.log(this.props.bubbles);
     let content = (
       <button onClick={this.startGame.bind(this)}>Start Game</button>
     );
     if (this.props.currentQuestion) {
       let choices = this.props.currentQuestion.choices;
-      console.log(this.state.selectedOption)
 
-      content = (
-        <form onSubmit={this.onSubmitChoice.bind(this)}>
-          <h3>Level {this.props.currentQuestion.difficulty}</h3>
-          <p>{this.props.currentQuestion.body}</p>
+      // content = (
+      //   <form onSubmit={this.onSubmitChoice.bind(this)}>
+      //     <h3>Level {this.props.currentQuestion.difficulty}</h3>
+      //     <p>{this.props.currentQuestion.body}</p>
 
-          <input 
-            type="radio" 
-            name="choice" 
-            value={choices[0].index} 
-            onChange={(e) => this.handleOptionChange(e)} 
-            checked={this.state.selectedOption === choices[0].index} 
-            /> 
-            {choices[0].choice} 
-            <br/>
+      //     <input 
+      //       type="radio" 
+      //       name="choice" 
+      //       value={choices[0].index} 
+      //       onChange={(e) => this.handleOptionChange(e)} 
+      //       checked={this.state.selectedOption === choices[0].index} 
+      //       /> 
+      //       {choices[0].choice} 
+      //       <br/>
 
-          <input 
-            type="radio" 
-            name="choice" 
-            value={choices[1].index} 
-            onChange={(e) => this.handleOptionChange(e)} 
-            checked={this.state.selectedOption === choices[1].index} 
-            /> 
-          {choices[1].choice} 
-          <br />
+      //     <input 
+      //       type="radio" 
+      //       name="choice" 
+      //       value={choices[1].index} 
+      //       onChange={(e) => this.handleOptionChange(e)} 
+      //       checked={this.state.selectedOption === choices[1].index} 
+      //       /> 
+      //     {choices[1].choice} 
+      //     <br />
 
-          <input 
-            type="radio" 
-            name="choice" 
-            value={choices[2].index} 
-            onChange={(e) => this.handleOptionChange(e)} 
-            checked={this.state.selectedOption === choices[2].index} 
-            /> 
-          {choices[2].choice} <br />
+      //     <input 
+      //       type="radio" 
+      //       name="choice" 
+      //       value={choices[2].index} 
+      //       onChange={(e) => this.handleOptionChange(e)} 
+      //       checked={this.state.selectedOption === choices[2].index} 
+      //       /> 
+      //     {choices[2].choice} <br />
 
-          <input 
-            type="radio" 
-            name="choice" 
-            value={choices[3].index} 
-            onChange={(e) => this.handleOptionChange(e)} 
-            checked={this.state.selectedOption === choices[3].index} 
-            /> 
-          {choices[3].choice} <br />
+      //     <input 
+      //       type="radio" 
+      //       name="choice" 
+      //       value={choices[3].index} 
+      //       onChange={(e) => this.handleOptionChange(e)} 
+      //       checked={this.state.selectedOption === choices[3].index} 
+      //       /> 
+      //     {choices[3].choice} <br />
             
 
        
 
               
-          <input type="submit" value="Submit"/>
-        </form>
-      );
+      //     <input type="submit" value="Submit"/>
+      //   </form>
+      // );
       if(this.props.bubbles){
-        content =(<GameView bubblePosition={[
-          this.props.bubbles[0].pos, 
-          this.props.bubbles[1].pos, 
-          this.props.bubbles[2].pos, 
-          this.props.bubbles[3].pos, 
-          ]} blasterPosition={[randomPos()]} />)
+        content =(
+        <div> 
+          <p>{this.props.currentQuestion.body}</p>
+           A. {choices[0].choice} &nbsp;
+           B. {choices[1].choice} &nbsp;
+           C.  {choices[2].choice} &nbsp;
+           D. {choices[3].choice}
+          <GameView bubblePosition={[
+            this.props.bubbles[0].pos, 
+            this.props.bubbles[1].pos, 
+            this.props.bubbles[2].pos, 
+            this.props.bubbles[3].pos, 
+            ]} blasterPosition={[[100,100]]} />
+          </div>)
       }
     }
     return (

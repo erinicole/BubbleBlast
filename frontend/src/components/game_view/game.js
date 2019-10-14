@@ -2,7 +2,8 @@ import Bubble from "./bubble";
 import {randomVec} from "./util";
 import Blaster from "./blaster";
 import Projectile from "./projectile"
-
+const width = require("../../settings.js").width
+const height = require("../../settings.js").height
 
 class Game {
   constructor(ctx, blaster) {
@@ -16,9 +17,10 @@ class Game {
   }
 
   addBubbles() {
+    const letters = {0: "A", 1: "B", 2: "C", 3: "D"}
     for (let i = 0; i < this.numBubbles; i++) {
       this.bubbles.push(
-        new Bubble({ ctx: this.ctx, game: this })
+        new Bubble({ ctx: this.ctx, game: this, text: letters[i]})
         // new Bubble({ pos: this.randomPos(), ctx: this.ctx })
       );
     }
@@ -48,8 +50,7 @@ class Game {
   // }
 
   draw(bubblePositions, blastersPositions) {
-    const width = 800 ;
-    const height = 600;
+
     this.ctx.clearRect(0, 0, width, height);
     const allObjects = this.allObjects();
     // for (let i = 0; i < allObjects.length; i++) {
@@ -57,6 +58,7 @@ class Game {
     // }
     for (let i = 0; i < this.bubbles.length; i++) {
       this.bubbles[i].draw(bubblePositions[i]);
+      // console.log(bubblePositions[i])
     }
     for (let i = 0; i < this.blasters.length; i++) {
       this.blasters[i].draw(blastersPositions[i]);
