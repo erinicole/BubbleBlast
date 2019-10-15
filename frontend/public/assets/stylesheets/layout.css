@@ -3,9 +3,10 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-size: 18px;
   color: white;
-  background: #EA424B; /* fallback for old browsers */
+  background: #613CCD; /* fallback for old browsers */
 
-  background: linear-gradient(to right,  #EA424B, #4143EC);
+  /* background: linear-gradient(to right,  #EA424B, #4143EC); */
+  background: linear-gradient(to right,  #EA424B, #673BC7);
 }
 
 .header-div {

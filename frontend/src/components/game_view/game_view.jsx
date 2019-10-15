@@ -20,8 +20,14 @@ class GameView extends React.Component {
         const canvas = document.getElementById("game-canvas")
         const ctx = canvas.getContext("2d")
         let blasters = [];
+        let colors = [
+            "rgb(18, 18, 160)",
+            "rgb(240, 28, 240)",
+            "rgb(49, 200, 226)",
+            "rgb(2, 85, 64)"
+        ]
         for (let i = 0; i < this.props.blasterPositions.length; i++) {
-            blasters.push(new Blaster({ ctx: ctx }))
+            blasters.push(new Blaster({ ctx: ctx, color: colors[i] }))
         }
         this.setState({
             ctx: ctx,

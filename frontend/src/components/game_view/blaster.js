@@ -4,7 +4,6 @@ import { randomPos } from "./util";
 
 class Blaster extends MovingObject {
   constructor(options = {}) {
-    options.color = "magenta";
     options.radius = 50;
     options.pos = options.pos || randomPos();
     options.vel = options.vel || [0, 0];

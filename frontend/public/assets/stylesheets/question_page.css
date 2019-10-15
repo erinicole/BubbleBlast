@@ -51,3 +51,53 @@
   position: relative;
   left: -20px;
 }
+
+.game-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.username-ul {
+  margin: 100px;
+  width: 100px;
+}
+
+
+.username0 {
+  padding: 10px;
+  background: rgb(18, 18, 160);
+  color: white;
+  margin: 10px;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+}
+.username1 {
+  padding: 10px;
+  background: rgb(240, 28, 240);
+  color: white;
+   margin: 10px;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+}
+.username2 {
+  padding: 10px;
+  background: rgb(49, 200, 226);
+  color: white;
+   margin: 10px;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+}
+.username3 {
+  padding: 10px;
+  background: rgb(2, 85, 64);
+  color: white;
+   margin: 10px;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+}
+

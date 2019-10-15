@@ -142,22 +142,34 @@ class Game extends React.Component {
       // );
       if(this.props.bubbles && this.props.players){
         let blasterPositions = [];
+        let usernames = [];
         for (let key of Object.keys(this.props.players)) {
           blasterPositions.push(this.props.players[key].pos)
+          usernames.push(key)
         }
         content =(
-        <div> 
+
+          <div className="game-div"> 
+            <ul className="username-ul">
+              {usernames.map((username, i) => {
+                return <li className={`username${i}`}>{username}</li>
+              })}
+            </ul>
+            <div>
           <p>{this.props.currentQuestion.body}</p>
-           A. {choices[0].choice} &nbsp;
-           B. {choices[1].choice} &nbsp;
-           C.  {choices[2].choice} &nbsp;
-           D. {choices[3].choice}
+                 A. {choices[0].choice} &nbsp;
+                 B. {choices[1].choice} &nbsp;
+                C.  {choices[2].choice} &nbsp;
+                D. {choices[3].choice}
           <GameView bubblePositions={[
             this.props.bubbles[0].pos, 
             this.props.bubbles[1].pos, 
             this.props.bubbles[2].pos, 
             this.props.bubbles[3].pos, 
             ]} blasterPositions={blasterPositions} />
+           
+            </div>
+            
           </div>)
       }
     }
