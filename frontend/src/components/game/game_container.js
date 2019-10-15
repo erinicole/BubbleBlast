@@ -9,7 +9,8 @@ const msp = (state, ownProps) => {
     currentQuestion: state.entities.game.currentQuestion,
     result: state.entities.game.result,
     isOver: state.entities.game.isOver,
-    bubbles: state.entities.game.bubbles
+    bubbles: state.entities.game.bubbles,
+    players: state.entities.game.players
   };
 };
 

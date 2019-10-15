@@ -34,8 +34,11 @@ const gameReducer = (state = {}, action) => {
       // newState.players = action.message.players;
       newState.players = {};
       for (let i = 0; i < action.message.players.length; i++) {
-        let playerName = action.message.players[i];
-        newState.players[playerName] = {score: 0};
+        let player = action.message.players[i];
+        newState.players[player.username] = {
+          score: player.score, 
+          pos: player.pos
+        };
       }
       newState.isOver = false;
       return newState;

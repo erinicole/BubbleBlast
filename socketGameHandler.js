@@ -1,6 +1,6 @@
 const Question = require("./models/Question");
 const Bubble = require("./game_logic/bubble_model");
-const Player = require("./game_logic/player")
+const Player = require("./game_logic/player");
 //socket emit  - one user
 // this.io.emit - all users
 const ANSWER_INDEX = "0";
@@ -87,9 +87,11 @@ class SocketGameHandler {
         for(let player of this.players) {
           player.score = 0;
         }
-        this.io.emit("startGame", { message: "start", players: this.players.map((player) =>{
-          return player.username
-        }), error: 0 });
+        this.io.emit("startGame", { 
+          message: "start", 
+          players: this.players, 
+          error: 0 
+        });
         this.startGame(socket);
       }
     });    

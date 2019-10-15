@@ -1,6 +1,7 @@
 import React from 'react';
-import GameView from '../game_view/game_view_container'
-import { randomPos } from '../game_view/util'
+import GameView from '../game_view/game_view_container';
+import { randomPos } from '../game_view/util';
+import key from 'keymaster';
 
 
 class Game extends React.Component {
@@ -139,7 +140,11 @@ class Game extends React.Component {
       //     <input type="submit" value="Submit"/>
       //   </form>
       // );
-      if(this.props.bubbles){
+      if(this.props.bubbles && this.props.players){
+        let blasterPositions = [];
+        for (let key of Object.keys(this.props.players)) {
+          blasterPositions.push(this.props.players[key].pos)
+        }
         content =(
         <div> 
           <p>{this.props.currentQuestion.body}</p>
@@ -147,12 +152,12 @@ class Game extends React.Component {
            B. {choices[1].choice} &nbsp;
            C.  {choices[2].choice} &nbsp;
            D. {choices[3].choice}
-          <GameView bubblePosition={[
+          <GameView bubblePositions={[
             this.props.bubbles[0].pos, 
             this.props.bubbles[1].pos, 
             this.props.bubbles[2].pos, 
             this.props.bubbles[3].pos, 
-            ]} blasterPosition={[[100,100]]} />
+            ]} blasterPositions={blasterPositions} />
           </div>)
       }
     }

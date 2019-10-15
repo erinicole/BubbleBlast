@@ -19,9 +19,13 @@ class GameView extends React.Component {
     componentDidMount(){
         const canvas = document.getElementById("game-canvas")
         const ctx = canvas.getContext("2d")
+        let blasters = [];
+        for (let i = 0; i < this.props.blasterPositions.length; i++) {
+            blasters.push(new Blaster({ ctx: ctx }))
+        }
         this.setState({
             ctx: ctx,
-            blaster: [new Blaster({ ctx: ctx })]
+            blaster: blasters
         }, () => {
             this.setState({game: new Game(ctx, this.state.blaster)})
         })
@@ -51,7 +55,10 @@ class GameView extends React.Component {
         //     ()=>{
         if(this.state.game){
             this.state.game.step();
-            this.state.game.draw(this.props.bubblePosition, this.props.blasterPosition)
+            this.state.game.draw(
+                this.props.bubblePositions, 
+                this.props.blasterPositions
+                )
         }
             // }, 20)
     }
