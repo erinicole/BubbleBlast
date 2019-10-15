@@ -108,6 +108,11 @@ class SocketGameHandler {
           bubbles: this.bubbles,
           error: 0
         })
+        this.io.emit("updatePlayers", {
+          message: "update",
+          players: this.players,
+          error: 0
+        })
     }, 100)
 
         this.io.emit("askQuestion", {question: this.questions[this.currentIndex]})
@@ -142,6 +147,12 @@ class SocketGameHandler {
         });
       } 
     });
+    
+    socket.on("makeMove", ({ username, move }) => {
+      this.players.find((player) => {
+        return player.username === username
+      }).move(move)
+    })
 
   }
 

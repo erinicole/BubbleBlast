@@ -13,6 +13,7 @@ class Game extends React.Component {
     };
     this.username = this.parseUserName(this.props.location.search);
     // this.setUpSocketListeners();
+    
   }
 
   parseUserName(rawQueryString) {
@@ -31,6 +32,22 @@ class Game extends React.Component {
     return usernameString;
   }
 
+  setupKeyHandlers() {
+    const moves = {
+      w: [0, -10],
+      a: [-10, 0],
+      s: [0, 10],
+      d: [10, 0],
+    };
+    
+    Object.keys(moves).forEach( (k) => {
+      const move = moves[k];
+      key(k, () => {
+        this.props.makeMove(this.username, move)
+      });
+
+    });
+  }
 
   // setUpSocketListeners() {
   //   this.socket.on('chat message', function (msg) {
@@ -51,7 +68,9 @@ class Game extends React.Component {
     // this.socket.emit('Start Game', { username: this.username, error: 0 });
     this.props.setUpConnectGameListener();
     this.props.setUpStartGameListener();
+    this.props.setUpUpdatePlayersListener();
     this.props.connect(this.username);
+    this.setupKeyHandlers();
   }
 
   componentDidUpdate() {

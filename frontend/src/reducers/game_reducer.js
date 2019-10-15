@@ -5,7 +5,8 @@ import {
   RECEIVE_QUESTION_SOCKET_MESSAGE, 
   RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE, RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE,
   RECEIVE_END_GAME_SOCKET_MESSAGE,
-  RECEIVE_BUBBLE_POS_SOCKET_MESSAGE
+  RECEIVE_BUBBLE_POS_SOCKET_MESSAGE,
+  RECEIVE_PLAYERS_SOCKET_MESSAGE
 } from "../actions/game_actions";
 
 const questionChoices = (choices) => {
@@ -60,6 +61,16 @@ const gameReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_BUBBLE_POS_SOCKET_MESSAGE:
       newState.bubbles = action.message.bubbles;
+      return newState;
+    case RECEIVE_PLAYERS_SOCKET_MESSAGE:
+      newState.players = {};
+      for (let i = 0; i < action.message.players.length; i++) {
+        let player = action.message.players[i];
+        newState.players[player.username] = {
+          score: player.score,
+          pos: player.pos
+        };
+      }
       return newState;
     default:
       return state;

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { startGame, connectGame, setUpConnectGameListener, setUpStartGameListener, 
-  setUpAskQuestionListener, answerQuestion, setUpAnswerCorrectListener, setUpAnswerIncorrectListener, setUpUpdateBubblePosListener } from "../../actions/game_actions";
+  setUpAskQuestionListener, answerQuestion, setUpAnswerCorrectListener, setUpAnswerIncorrectListener, setUpUpdateBubblePosListener, makeMove, setUpUpdatePlayersListener } from "../../actions/game_actions";
 import Game from './game';
 
 
@@ -18,6 +18,7 @@ const mdp = (dispatch) => {
   return {
     connect: (username) => { connectGame(username); },
     startGame: (username) => { startGame(username); },
+    makeMove: (username, move) => { makeMove(username, move)},
     setUpConnectGameListener: () => { dispatch(setUpConnectGameListener()); },
     setUpStartGameListener: () => { dispatch(setUpStartGameListener()); },
     setUpAskQuestionListener: () => { dispatch(setUpAskQuestionListener()); },
@@ -25,8 +26,12 @@ const mdp = (dispatch) => {
     setUpAnswerCorrectListener: () => { dispatch(setUpAnswerCorrectListener());},
     setUpAnswerIncorrectListener: () => { dispatch(setUpAnswerIncorrectListener()); },
     setUpUpdateBubblePosListener: () => {
-      dispatch(setUpUpdateBubblePosListener()
-    )}
+      dispatch(setUpUpdateBubblePosListener())
+    },
+    setUpUpdatePlayersListener: () => {
+      dispatch(setUpUpdatePlayersListener())
+    }
+  
   };
 };
 

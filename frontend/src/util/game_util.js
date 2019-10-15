@@ -11,6 +11,10 @@ export const startGame = (username) => {
   socket.emit('startGame', { username: username, error: 0 });
 };
 
+export const makeMove = (username, move) => {
+  socket.emit('makeMove', { username: username, move: move, error: 0 });
+};
+
 export const answerQuestion = (choiceIndex, username) => {
   socket.emit('answerQuestion', { choiceIndex: choiceIndex, username: username, error: 0 });  
 };
@@ -54,6 +58,12 @@ export const setUpEndGameListener = (cb) => {
 
 export const setUpUpdateBubblePosListener = (cb) => {
   socket.on("updateBubblePos", (msg) => {
+    cb(msg);
+  });
+};
+
+export const setUpUpdatePlayersListener = (cb) => {
+  socket.on("updatePlayers", (msg) => {
     cb(msg);
   });
 };

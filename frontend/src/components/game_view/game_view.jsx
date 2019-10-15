@@ -56,7 +56,7 @@ class GameView extends React.Component {
     };
 
     start(){
-        this.bindKeyHandlers();
+        // this.bindKeyHandlers();
         // setInterval(
         //     ()=>{
         if(this.state.game){
