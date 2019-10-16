@@ -2,7 +2,6 @@ import React from 'react';
 import Game from './game';
 import key from 'keymaster';
 import Blaster from './blaster';
-import {randomPos} from './util'
 const width = require("../../settings.js").width
 const height = require("../../settings.js").height
 
@@ -19,12 +18,14 @@ class GameView extends React.Component {
     componentDidMount(){
         const canvas = document.getElementById("game-canvas")
         const ctx = canvas.getContext("2d")
+        canvas.addEventListener('click', (event) =>{
+        } )
         let blasters = [];
         let colors = [
-            "rgb(18, 18, 160)",
-            "rgb(240, 28, 240)",
-            "rgb(49, 200, 226)",
-            "rgb(2, 85, 64)"
+            'Blue',
+            'Green',
+            'Pink',
+            'Skyblue'
         ]
         for (let i = 0; i < this.props.blasterPositions.length; i++) {
             blasters.push(new Blaster({ ctx: ctx, color: colors[i] }))
@@ -52,13 +53,10 @@ class GameView extends React.Component {
                 nBlaster.power(move); });
             
         });
-        // key("space", function () { ship.fireBullet(); });
     };
 
     start(){
         // this.bindKeyHandlers();
-        // setInterval(
-        //     ()=>{
         if(this.state.game){
             this.state.game.step();
             this.state.game.draw(
@@ -66,7 +64,7 @@ class GameView extends React.Component {
                 this.props.blasterPositions
                 )
         }
-            // }, 20)
+
     }
 
 

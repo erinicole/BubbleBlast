@@ -8,6 +8,10 @@ class Blaster extends MovingObject {
     options.pos = options.pos || randomPos();
     options.vel = options.vel || [0, 0];
     super(options);
+    this.width = 76;
+    this.height = 76;
+    this.image = new Image();
+    this.image.src = `/assets/images/starfish${this.color}.png`
   }
 
   relocate() {

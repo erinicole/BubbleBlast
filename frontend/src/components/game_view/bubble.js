@@ -14,9 +14,11 @@
      //  options.vel = options.vel || randomVec(7);
      super(options);
      this.letter = options.text;
-     this.bubble = new Image();
+     this.width = 50
+     this.height = 50
+     this.image = new Image();
     //  this.bubbleA.src = '../../../public/assets/images/bubbleA.png';
-     this.bubble.src = `/assets/images/bubble${this.letter}.png`;
+     this.image.src = `/assets/images/bubble${this.letter}.png`;
    }
 
    collideWith(otherObject) {
@@ -31,19 +33,7 @@
      return false;
    }
 
-   draw(pos){
-    //  super.draw(pos)
-     if (!pos) {
-       return;
-     }
-    //  this.ctx.fillStyle = "white";
-    //  this.ctx.font = "30px Arial";
-    //  this.ctx.fillText(this.letter, pos[0],pos[1]);
 
-     this.ctx.drawImage(this.bubble, pos[0], pos[1], 50, 50)
-
-
-   }
 
  }
  
