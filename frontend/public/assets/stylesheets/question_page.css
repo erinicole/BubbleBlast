@@ -63,10 +63,14 @@
   width: 100px;
 }
 
+.username {
+  border: 5px solid green;
+}
+
 
 .username0 {
   padding: 10px;
-  background: rgb(18, 18, 160);
+  background: -webkit-linear-gradient(rgb(101, 101, 197), rgb(18, 18, 160));
   color: white;
   margin: 10px;
   border-radius: 10px;
@@ -75,7 +79,8 @@
 }
 .username1 {
   padding: 10px;
-  background: rgb(240, 28, 240);
+  /* background: rgb(240, 28, 240); */
+  background: -webkit-linear-gradient(rgb(241, 152, 241), rgb(240, 28, 240));
   color: white;
    margin: 10px;
   border-radius: 10px;
@@ -84,7 +89,8 @@
 }
 .username2 {
   padding: 10px;
-  background: rgb(49, 200, 226);
+  /* background: rgb(49, 200, 226); */
+  background: -webkit-linear-gradient(rgb(143, 230, 245), rgb(34, 165, 226));
   color: white;
    margin: 10px;
   border-radius: 10px;
@@ -94,6 +100,7 @@
 .username3 {
   padding: 10px;
   background: rgb(2, 85, 64);
+  background: -webkit-linear-gradient(rgb(63, 163, 138), rgb(2, 85, 64));
   color: white;
    margin: 10px;
   border-radius: 10px;

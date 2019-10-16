@@ -40,7 +40,7 @@
     //  this.ctx.font = "30px Arial";
     //  this.ctx.fillText(this.letter, pos[0],pos[1]);
 
-     this.ctx.drawImage(this.bubble, pos[0], pos[1], 100, 100)
+     this.ctx.drawImage(this.bubble, pos[0], pos[1], 50, 50)
 
 
    }

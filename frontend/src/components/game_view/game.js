@@ -56,12 +56,12 @@ class Game {
     // for (let i = 0; i < allObjects.length; i++) {
     //   allObjects[i].draw(positions[i]);
     // }
+      for (let i = 0; i < this.blasters.length; i++) {
+        this.blasters[i].draw(blastersPositions[i]);
+      }
     for (let i = 0; i < this.bubbles.length; i++) {
       this.bubbles[i].draw(bubblePositions[i]);
       // console.log(bubblePositions[i])
-    }
-    for (let i = 0; i < this.blasters.length; i++) {
-      this.blasters[i].draw(blastersPositions[i]);
     }
     
   }

@@ -33,11 +33,11 @@ class Bubble {
   bounceBack(pos, vel) {
     if (pos[0] < 0) {
       vel[0] = -vel[0];
-    } else if (pos[0] > width) {
+    } else if (pos[0] > width - 50) {
       vel[0] = -vel[0];
     } else if (pos[1] < 0) {
       vel[1] = -vel[1];
-    } else if (pos[1] > height) {
+    } else if (pos[1] > height - 50) {
       vel[1] = -vel[1];
     }
     return vel;
