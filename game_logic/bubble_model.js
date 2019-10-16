@@ -3,8 +3,9 @@ const height = require("../frontend/src/settings.js").height
 
 class Bubble {
   constructor() {
-    this.vel = this.randomVec(7)
+    this.vel = this.randomVec(7);
     this.pos = this.randomPos();
+    this.radius = 25;
   }
 
   randomPos() {
@@ -20,30 +21,52 @@ class Bubble {
     return this.scale([Math.sin(deg), Math.cos(deg)], length);
   }
   // Scale the length of a vector by the given amount.
-  scale (vec, m) {
+  scale(vec, m) {
     return [vec[0] * m, vec[1] * m];
   }
 
   move() {
-    this.vel = this.bounceBack(this.pos, this.vel);
+    this.vel = this.bounceBack();
     this.pos[0] += this.vel[0];
     this.pos[1] += this.vel[1];
   }
 
-  bounceBack(pos, vel) {
-    if (pos[0] < 0) {
-      vel[0] = -vel[0];
-    } else if (pos[0] > width - 50) {
-      vel[0] = -vel[0];
-    } else if (pos[1] < 0) {
-      vel[1] = -vel[1];
-    } else if (pos[1] > height - 50) {
-      vel[1] = -vel[1];
+  bounceBack() {
+    if (this.pos[0] < 0) {
+      this.vel[0] = -this.vel[0];
+    } else if (this.pos[0] > width) {
+      this.vel[0] = -this.vel[0];
+    } else if (this.pos[1] < 0) {
+      this.vel[1] = -this.vel[1];
+    } else if (this.pos[1] > height) {
+      this.vel[1] = -this.vel[1];
     }
-    return vel;
+    return this.vel;
   }
 
+  bubbleBounce(otherBubble) {
+    if( (this.vel[0] < 0 && otherBubble.vel[0] > 0) 
+      || (this.vel[0] > 0 && otherBubble.vel[0] < 0) ){
+        this.vel[0] = -this.vel[0]
+        otherBubble.vel[0] = -otherBubble.vel[0]
+    } 
+    if ((this.vel[1] < 0 && otherBubble.vel[1] > 0) 
+      || (this.vel[1] > 0 && otherBubble.vel[1] < 0)){
+        this.vel[1] = -this.vel[1]
+        otherBubble.vel[1] = -otherBubble.vel[1]
+    }
+  }
 
+  isCollidedWith(otherBubble) {
+    let [x_1, y_1] = this.pos;
+    let [x_2, y_2] = otherBubble.pos;
+    let dist = Math.sqrt((x_1 - x_2) ** 2 + (y_1 - y_2) ** 2);
+    if (dist < this.radius + otherBubble.radius) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 module.exports = Bubble;

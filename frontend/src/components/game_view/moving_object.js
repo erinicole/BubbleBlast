@@ -53,6 +53,7 @@ class MovingObject {
       return false;
     }
   }
+  
   bounceBack(pos, vel) {
     if (pos[0] < 0) {
       vel[0] = -vel[0];
