@@ -1,8 +1,11 @@
 const width = require("../frontend/src/settings.js").width
 const height = require("../frontend/src/settings.js").height
+const MovingObject = require("./moving_object_model");
 
-class Bubble {
+
+class Bubble extends MovingObject {
   constructor() {
+    super();
     this.vel = this.randomVec(7);
     this.pos = this.randomPos();
     this.radius = 25;
@@ -57,16 +60,7 @@ class Bubble {
     }
   }
 
-  isCollidedWith(otherBubble) {
-    let [x_1, y_1] = this.pos;
-    let [x_2, y_2] = otherBubble.pos;
-    let dist = Math.sqrt((x_1 - x_2) ** 2 + (y_1 - y_2) ** 2);
-    if (dist < this.radius + otherBubble.radius) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+
 }
 
 module.exports = Bubble;

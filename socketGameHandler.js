@@ -111,12 +111,23 @@ class SocketGameHandler {
     }
   }
 
+  checkPlayerBubbleCollisions() {
+    for (let player of this.players){
+      for (let bubble of this.bubbles){
+        if(bubble.isCollidedWith(player)){
+          player.relocate()
+        }
+      }
+    }
+  }
+
   startGame(socket) {
     this.bubbleUpdate = setInterval(() => {
       for (let bubble of this.bubbles) {
         bubble.move();
       }
       this.checkBubbleCollisions();
+      this.checkPlayerBubbleCollisions();
       this.io.emit("updateBubblePos", {
         message: "update",
         bubbles: this.bubbles,

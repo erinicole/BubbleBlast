@@ -1,15 +1,17 @@
 const width = require("../frontend/src/settings.js").width
 const height = require("../frontend/src/settings.js").height
-
-class Player{
-  constructor(username){
+const MovingObject = require("./moving_object_model")
+class Player extends MovingObject{
+  constructor(username) {
+     super();
     this.username = username;
     this.score = 0;
     this.pos = this.randomPos();
+    this.radius = 50;
   }
 
-  incrementsScore(points){
-    this.score += points
+  incrementsScore(points) {
+    this.score += points;
   }
 
   randomPos() {
@@ -26,9 +28,18 @@ class Player{
 
     this.pos[1] += move[1];
 
-    if(this.pos[0] < 0 || this.pos[1] < 0 || this.pos[0] > width || this.pos[1] > height) {
+    if (
+      this.pos[0] < 0 ||
+      this.pos[1] < 0 ||
+      this.pos[0] > width ||
+      this.pos[1] > height
+    ) {
       this.pos = tempPos;
     }
+  }
+
+  relocate() {
+    this.pos = this.randomPos();
   }
 
 }
