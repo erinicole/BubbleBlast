@@ -24,9 +24,9 @@ class MovingObject {
     this.ctx.arc(pos[0], pos[1], this.radius, 0, 2 * Math.PI, false);
     this.ctx.fill();
 
-    // let grd = this.ctx.createRadialGradient(50, 50, 50, 50, 50, 300);
-    // grd.addColorStop(0, '#8ED6FF');
-    // grd.addColorStop(1, '#004CB3');
+    // let grd = this.ctx.createRadialGradient(pos[0], pos[1], 20, pos[0] - 10, pos[1], 40);
+    // grd.addColorStop(0, 'rgb(18, 18, 160)');
+    // grd.addColorStop(1, 'rgba(18, 18, 160, 0.541)');
     // this.ctx.fillStyle = grd;
     // this.ctx.fill();
 
