@@ -20,6 +20,7 @@ class Player extends MovingObject{
     let pos = [posX, posY];
     return pos;
   }
+  move(){}
 
   move(move) {
     let tempPos = this.pos.slice();

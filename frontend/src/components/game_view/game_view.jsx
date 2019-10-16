@@ -19,6 +19,8 @@ class GameView extends React.Component {
         const canvas = document.getElementById("game-canvas")
         const ctx = canvas.getContext("2d")
         canvas.addEventListener('click', (event) =>{
+            let pos = [event.pageX, event.pageY]
+            this.props.shootEvent(pos)
         } )
         let blasters = [];
         let colors = [
@@ -61,7 +63,8 @@ class GameView extends React.Component {
             this.state.game.step();
             this.state.game.draw(
                 this.props.bubblePositions, 
-                this.props.blasterPositions
+                this.props.blasterPositions,
+                this.props.projectilePositions
                 )
         }
 

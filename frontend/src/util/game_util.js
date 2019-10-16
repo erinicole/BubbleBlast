@@ -19,6 +19,10 @@ export const answerQuestion = (choiceIndex, username) => {
   socket.emit('answerQuestion', { choiceIndex: choiceIndex, username: username, error: 0 });  
 };
 
+export const shoot = (targetPos, username) => {
+  socket.emit("shoot", { targetPos: targetPos, username: username, error: 0 });  
+};
+
 export const setUpConnectGameListener = (cb) => {
   socket.on("connectGame", (msg) => {
     cb(msg);
@@ -67,3 +71,12 @@ export const setUpUpdatePlayersListener = (cb) => {
     cb(msg);
   });
 };
+
+export const setUpUpdateProjectilesListener = (cb) => {
+  socket.on("updateProjectiles", msg => {
+    cb(msg);
+  });
+};
+
+
+

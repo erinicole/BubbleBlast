@@ -1,12 +1,14 @@
 import { RECEIVE_QUESTIONS } from "../actions/question_actions";
-import { 
-  RECEIVE_CONNECT_GAME_SOCKET_MESSAGE, 
-  RECEIVE_START_GAME_SOCKET_MESSAGE, 
-  RECEIVE_QUESTION_SOCKET_MESSAGE, 
-  RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE, RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE,
+import {
+  RECEIVE_CONNECT_GAME_SOCKET_MESSAGE,
+  RECEIVE_START_GAME_SOCKET_MESSAGE,
+  RECEIVE_QUESTION_SOCKET_MESSAGE,
+  RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE,
+  RECEIVE_ANSWER_CORRECT_SOCKET_MESSAGE,
   RECEIVE_END_GAME_SOCKET_MESSAGE,
   RECEIVE_BUBBLE_POS_SOCKET_MESSAGE,
-  RECEIVE_PLAYERS_SOCKET_MESSAGE
+  RECEIVE_PLAYERS_SOCKET_MESSAGE,
+  RECEIVE_PROJECTILES_SOCKET_MESSAGE
 } from "../actions/game_actions";
 
 const questionChoices = (choices) => {
@@ -44,7 +46,6 @@ const gameReducer = (state = {}, action) => {
       newState.isOver = false;
       return newState;
     case RECEIVE_QUESTION_SOCKET_MESSAGE:
-      console.log(action.message.question);
       newState.currentQuestion = action.message.question;
       newState.currentQuestion.choices = questionChoices(newState.currentQuestion.choices)
       return newState;
@@ -71,6 +72,10 @@ const gameReducer = (state = {}, action) => {
           pos: player.pos
         };
       }
+      return newState;
+    case RECEIVE_PROJECTILES_SOCKET_MESSAGE:
+      console.log(action.message.projectiles)
+      newState.projectiles = action.message.projectiles;
       return newState;
     default:
       return state;

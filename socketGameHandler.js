@@ -1,6 +1,7 @@
 const Question = require("./models/Question");
 const Bubble = require("./game_logic/bubble_model");
 const Player = require("./game_logic/player");
+const Projectile = require("./game_logic/projectile")
 //socket emit  - one user
 // this.io.emit - all users
 const ANSWER_INDEX = "0";
@@ -27,6 +28,7 @@ class SocketGameHandler {
     this.currentIndex = 0;
     this.setUpQuestions();
     this.bubbles = [new Bubble(), new Bubble(), new Bubble(), new Bubble()];
+    this.projectiles = []
   }
 
   setUpQuestions() {
@@ -126,6 +128,9 @@ class SocketGameHandler {
       for (let bubble of this.bubbles) {
         bubble.move();
       }
+      for (let projectile of this.projectiles) {
+        projectile.move()
+      }
       this.checkBubbleCollisions();
       this.checkPlayerBubbleCollisions();
       this.io.emit("updateBubblePos", {
@@ -138,11 +143,25 @@ class SocketGameHandler {
         players: this.players,
         error: 0
       });
+      this.io.emit("updateProjectiles", {
+        message: "update",
+        projectiles: this.projectiles,
+        error: 0
+      });
     }, 100);
+
+    socket.on("shoot", ({targetPos, username}) => {
+      let playerPos = this.players.find(player => {
+        return player.username === username;
+      }).pos.slice()
+      this.projectiles.push(new Projectile(playerPos, targetPos))
+    }) 
 
     this.io.emit("askQuestion", {
       question: this.questions[this.currentIndex]
     });
+
+
     socket.on("answerQuestion", ({ choiceIndex, username }) => {
       if (choiceIndex === ANSWER_INDEX) {
         this.players

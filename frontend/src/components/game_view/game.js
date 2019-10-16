@@ -17,10 +17,10 @@ class Game {
   }
 
   addBubbles() {
-    const letters = {0: "A", 1: "B", 2: "C", 3: "D"}
+    const letters = { 0: "A", 1: "B", 2: "C", 3: "D" };
     for (let i = 0; i < this.numBubbles; i++) {
       this.bubbles.push(
-        new Bubble({ ctx: this.ctx, game: this, text: letters[i]})
+        new Bubble({ ctx: this.ctx, game: this, text: letters[i] })
         // new Bubble({ pos: this.randomPos(), ctx: this.ctx })
       );
     }
@@ -37,7 +37,7 @@ class Game {
   // }
 
   allObjects() {
-  return [].concat(this.blaster, this.bubbles);
+    return [].concat(this.blaster, this.bubbles);
   }
 
   // randomPos() {
@@ -49,21 +49,28 @@ class Game {
   //   return pos;
   // }
 
-  draw(bubblePositions, blastersPositions) {
-
+  draw(bubblePositions, blastersPositions, projectilePositions) {
     this.ctx.clearRect(0, 0, width, height);
     const allObjects = this.allObjects();
     // for (let i = 0; i < allObjects.length; i++) {
     //   allObjects[i].draw(positions[i]);
     // }
-      for (let i = 0; i < this.blasters.length; i++) {
-        this.blasters[i].draw(blastersPositions[i]);
-      }
+    for (let i = 0; i < this.blasters.length; i++) {
+      this.blasters[i].draw(blastersPositions[i]);
+    }
     for (let i = 0; i < this.bubbles.length; i++) {
       this.bubbles[i].draw(bubblePositions[i]);
       // console.log(bubblePositions[i])
     }
-    
+    for (let i=0; i<projectilePositions.length; i++){
+      let projectile = new Projectile({
+        ctx: this.ctx,
+        game: this,
+        // pos: projectilePositions[i]
+      });
+      projectile.draw(projectilePositions[i])
+    }
+
   }
 
   // moveObjects() {
@@ -73,8 +80,6 @@ class Game {
 
   //   this.blaster.move()
   // }
-
-
 
   checkCollisions() {
     const allObjects = this.allObjects();
@@ -100,12 +105,12 @@ class Game {
   checkBubbleCollisions() {
     for (let i = 0; i < this.bubbles.length; i++) {
       for (let j = 0; j < this.bubbles.length; j++) {
-          if (j < i) {
-            if (this.bubbles[i].isCollidedWith(this.bubbles[j])) {
-              this.bubbles[i].vel = randomVec(7);
-              this.bubbles[j].vel = randomVec(7);
-              return true;
-            }
+        if (j < i) {
+          if (this.bubbles[i].isCollidedWith(this.bubbles[j])) {
+            this.bubbles[i].vel = randomVec(7);
+            this.bubbles[j].vel = randomVec(7);
+            return true;
+          }
         }
       }
     }

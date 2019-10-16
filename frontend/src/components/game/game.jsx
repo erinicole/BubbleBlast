@@ -87,6 +87,7 @@ class Game extends React.Component {
     this.props.setUpAnswerCorrectListener();
     this.props.setUpAnswerIncorrectListener();
     this.props.setUpUpdateBubblePosListener();
+    this.props.setUpUpdateProjectilesListener();
   }
 
   onSubmitChoice(e) {
@@ -100,6 +101,10 @@ class Game extends React.Component {
       selectedOption: changeEvent.target.value
       
     });
+  }
+
+  shootEvent(pos){
+    this.props.shoot(pos, this.username)
   }
 
   render() {
@@ -159,12 +164,18 @@ class Game extends React.Component {
       //     <input type="submit" value="Submit"/>
       //   </form>
       // );
-      if(this.props.bubbles && this.props.players){
+      if(this.props.bubbles && this.props.players ){
         let blasterPositions = [];
         let usernames = [];
         for (let key of Object.keys(this.props.players)) {
           blasterPositions.push(this.props.players[key].pos)
           usernames.push(key)
+        }
+        let projectilePositions = [];
+        if (this.props.projectiles){
+          projectilePositions = this.props.projectiles.map((projectile) =>{
+            return projectile.pos
+          })
         }
         content =(
 
@@ -185,7 +196,9 @@ class Game extends React.Component {
             this.props.bubbles[1].pos, 
             this.props.bubbles[2].pos, 
             this.props.bubbles[3].pos, 
-            ]} blasterPositions={blasterPositions} />
+            ]} blasterPositions={blasterPositions}
+            shootEvent={this.shootEvent.bind(this)}
+            projectilePositions={projectilePositions} />
            
             </div>
             

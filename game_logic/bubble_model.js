@@ -30,8 +30,7 @@ class Bubble extends MovingObject {
 
   move() {
     this.vel = this.bounceBack();
-    this.pos[0] += this.vel[0];
-    this.pos[1] += this.vel[1];
+    super.move();
   }
 
   bounceBack() {

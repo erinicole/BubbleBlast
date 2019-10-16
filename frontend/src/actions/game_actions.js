@@ -9,6 +9,7 @@ export const RECEIVE_ANSWER_INCORRECT_SOCKET_MESSAGE = "RECEIVE_ANSWER_INCORRECT
 export const RECEIVE_END_GAME_SOCKET_MESSAGE = "RECEIVE_END_GAME_SOCKET_MESSAGE";
 export const RECEIVE_BUBBLE_POS_SOCKET_MESSAGE = "RECEIVE_BUBBLE_POS_SOCKET_MESSAGE";
 export const RECEIVE_PLAYERS_SOCKET_MESSAGE = "RECEIVE_PLAYERS_SOCKET_MESSAGE";
+export const RECEIVE_PROJECTILES_SOCKET_MESSAGE = "RECEIVE_PROJECTILES_SOCKET_MESSAGE";
 
 const receiveQuestions = (questions) => {
   return {
@@ -75,6 +76,13 @@ const receiveBubblePosMessage = (message) => {
   };
 };
 
+const receiveProjectilesMessage = message => {
+  return {
+    type: RECEIVE_PROJECTILES_SOCKET_MESSAGE,
+    message
+  };
+};
+
 export const connectGame = (username) => {
   GameUtils.connect(username);
 };
@@ -90,6 +98,10 @@ export const answerQuestion = (choiceIndex, username) => {
 
 export const startGame = (username) => {
   GameUtils.startGame(username);
+};
+
+export const shoot = (targetPos, username) => {
+  GameUtils.shoot(targetPos, username);
 };
 
 export const setUpConnectGameListener = () => {
@@ -155,4 +167,13 @@ export const setUpUpdatePlayersListener = () => {
     });
   };
 };
+
+export const setUpUpdateProjectilesListener = () => {
+  return (dispatch) => {
+    return GameUtils.setUpUpdateProjectilesListener(msg => {
+      dispatch(receiveProjectilesMessage(msg));
+    });
+  };
+};
+
 
