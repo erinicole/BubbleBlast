@@ -1,7 +1,7 @@
 const Question = require("./models/Question");
 const Bubble = require("./game_logic/bubble_model");
 const Player = require("./game_logic/player");
-const Projectile = require("./game_logic/projectile")
+const Projectile = require("./game_logic/projectile_model")
 //socket emit  - one user
 // this.io.emit - all users
 const ANSWER_INDEX = "0";
