@@ -2,6 +2,8 @@ const Question = require("./models/Question");
 const Bubble = require("./game_logic/bubble_model");
 const Player = require("./game_logic/player");
 const Projectile = require("./game_logic/projectile_model")
+const width = require("./frontend/src/settings.js").width
+const height = require("./frontend/src/settings.js").height
 //socket emit  - one user
 // this.io.emit - all users
 const ANSWER_INDEX = "0";
@@ -59,6 +61,15 @@ class SocketGameHandler {
         return player.username === username;
       }).length > 0
     );
+  }
+
+  removeOutOfBoundsProjectile() {
+    for (let i = 0; i < this.projectiles.length; i++) {
+      let projectile = this.projectiles[i]
+      if(projectile.pos[0] < 0 ||projectile.pos[0] > width || projectile.pos[1] < 0 ||projectile.pos[1] > height){
+        this.projectiles.splice(i, 1)
+      }
+    }
   }
 
   setUpListeners(socket) {
@@ -133,6 +144,7 @@ class SocketGameHandler {
       }
       this.checkBubbleCollisions();
       this.checkPlayerBubbleCollisions();
+      this.removeOutOfBoundsProjectile();
       this.io.emit("updateBubblePos", {
         message: "update",
         bubbles: this.bubbles,
@@ -154,7 +166,10 @@ class SocketGameHandler {
       let playerPos = this.players.find(player => {
         return player.username === username;
       }).pos.slice()
-      this.projectiles.push(new Projectile(playerPos, targetPos))
+      if (this.projectiles.filter( (projectile) => {
+          return projectile.owner === username
+      }).length < 1 )
+        this.projectiles.push(new Projectile(playerPos, targetPos, username));
     }) 
 
     this.io.emit("askQuestion", {

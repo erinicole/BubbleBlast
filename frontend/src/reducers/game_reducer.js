@@ -74,7 +74,6 @@ const gameReducer = (state = {}, action) => {
       }
       return newState;
     case RECEIVE_PROJECTILES_SOCKET_MESSAGE:
-      console.log(action.message.projectiles)
       newState.projectiles = action.message.projectiles;
       return newState;
     default:

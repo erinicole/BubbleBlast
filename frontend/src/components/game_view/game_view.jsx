@@ -19,7 +19,7 @@ class GameView extends React.Component {
         const canvas = document.getElementById("game-canvas")
         const ctx = canvas.getContext("2d")
         canvas.addEventListener('click', (event) =>{
-            let pos = [event.pageX, event.pageY]
+            let pos = [event.pageX - canvas.offsetLeft, event.pageY - canvas.offsetTop]
             this.props.shootEvent(pos)
         } )
         let blasters = [];

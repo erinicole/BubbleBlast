@@ -1,12 +1,14 @@
 const MovingObject = require("./moving_object_model");
 
 class Projectile extends MovingObject{
-    constructor(playerPos, targetPos){
+    constructor(playerPos, targetPos, username){
         super();
         this.pos = playerPos;
         this.targetPos = targetPos;
         this.radius = 4;
-        this.calculateVel()
+        this.speed = 10
+        this.calculateVel();
+        this.owner = username;
     }
 
     calculateVel(){
@@ -16,7 +18,7 @@ class Projectile extends MovingObject{
     // Normalize the length of the vector to 1, maintaining direction.
     dir(vec) {
         const norm = this.norm(vec);
-        return this.scale(vec, 1 / norm);
+        return this.scale(vec, this.speed / norm);
     }
 
     // Find distance between two points.
