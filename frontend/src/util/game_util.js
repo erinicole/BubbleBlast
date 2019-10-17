@@ -13,6 +13,7 @@ export const startGame = (username) => {
 
 export const makeMove = (username, move) => {
   socket.emit('makeMove', { username: username, move: move, error: 0 });
+  // console.log(username, move)
 };
 
 export const answerQuestion = (choiceIndex, username) => {

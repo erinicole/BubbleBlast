@@ -25,8 +25,8 @@ class GameView extends React.Component {
         let blasters = [];
         let colors = [
             'Blue',
-            'Green',
             'Pink',
+            'Green',
             'Skyblue'
         ]
         for (let i = 0; i < this.props.blasterPositions.length; i++) {
