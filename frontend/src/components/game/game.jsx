@@ -77,7 +77,7 @@ class Game extends React.Component {
     // console.log(this.state.selectedOption)
     if (this.props.isOver) {
       console.log("game over")
-      this.props.history.push(`/results`)
+      this.props.history.push(`/results`);
     }
   }
 
@@ -88,6 +88,7 @@ class Game extends React.Component {
     this.props.setUpAnswerIncorrectListener();
     this.props.setUpUpdateBubblePosListener();
     this.props.setUpUpdateProjectilesListener();
+    this.props.setUpEndGameListener();
   }
 
   onSubmitChoice(e) {
@@ -116,7 +117,7 @@ class Game extends React.Component {
 
       // content = (
       //   <form onSubmit={this.onSubmitChoice.bind(this)}>
-      //     <h3>Level {this.props.currentQuestion.difficulty}</h3>
+      //    
       //     <p>{this.props.currentQuestion.body}</p>
 
       //     <input 
@@ -188,6 +189,7 @@ class Game extends React.Component {
               })}
             </ul>
             <div>
+          <h3>Level {this.props.currentQuestion.difficulty}</h3>
           <p>{this.props.currentQuestion.body}</p>
                  A. {choices[0].choice} &nbsp;
                  B. {choices[1].choice} &nbsp;

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { startGame, connectGame, setUpConnectGameListener, setUpStartGameListener, 
-  setUpAskQuestionListener, answerQuestion, setUpAnswerCorrectListener, setUpAnswerIncorrectListener, setUpUpdateBubblePosListener, makeMove, setUpUpdatePlayersListener, shoot, setUpUpdateProjectilesListener } from "../../actions/game_actions";
+  setUpAskQuestionListener, answerQuestion, setUpAnswerCorrectListener, setUpAnswerIncorrectListener, setUpUpdateBubblePosListener, makeMove, setUpUpdatePlayersListener, shoot, setUpUpdateProjectilesListener, setUpEndGameListener } from "../../actions/game_actions";
 import Game from './game';
 
 
@@ -55,6 +55,9 @@ const mdp = (dispatch) => {
     },
     setUpUpdateProjectilesListener: () => {
       dispatch(setUpUpdateProjectilesListener());
+    },
+    setUpEndGameListener: () => {
+      dispatch(setUpEndGameListener());
     }
   };
 };

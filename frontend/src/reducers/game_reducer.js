@@ -31,7 +31,6 @@ const gameReducer = (state = {}, action) => {
   let newState = Object.assign({}, state);
   switch (action.type) {
     case RECEIVE_CONNECT_GAME_SOCKET_MESSAGE:
-      console.log(action);
       return newState;
     case RECEIVE_START_GAME_SOCKET_MESSAGE:
       // newState.players = action.message.players;
@@ -59,6 +58,7 @@ const gameReducer = (state = {}, action) => {
       newState.result = `${action.message.userWhoAnswered} got -1 points`;
       return newState;
     case RECEIVE_END_GAME_SOCKET_MESSAGE:
+      console.log("Received endGAME")
       newState.isOver = true;
       return newState;
     case RECEIVE_BUBBLE_POS_SOCKET_MESSAGE:

@@ -90,7 +90,7 @@
 .username2 {
   padding: 10px;
   /* background: rgb(49, 200, 226); */
-  background: -webkit-linear-gradient(rgb(143, 230, 245), rgb(34, 165, 226));
+  background: -webkit-linear-gradient(rgb(63, 163, 138), rgb(2, 85, 64));
   color: white;
    margin: 10px;
   border-radius: 10px;
@@ -100,7 +100,8 @@
 .username3 {
   padding: 10px;
   background: rgb(2, 85, 64);
-  background: -webkit-linear-gradient(rgb(63, 163, 138), rgb(2, 85, 64));
+  
+  background: -webkit-linear-gradient(rgb(143, 230, 245), rgb(34, 165, 226));
   color: white;
    margin: 10px;
   border-radius: 10px;

@@ -18,6 +18,7 @@ class SocketGameHandler {
   constructor(io) {
     this.io = io;
     this.io.on("connection", socket => {
+      this.socket = socket;
       this.setUpListeners(socket);
     });
 
@@ -37,7 +38,7 @@ class SocketGameHandler {
   setUpQuestions() {
     Question.find().then(questions => {
       this.questions = [];
-      for (let i = 1; i < 11; i++) {
+      for (let i = 1; i < 2; i++) {
         let levelQuestions = questions.filter(question => {
           return question.difficulty == i;
         });
@@ -144,6 +145,7 @@ class SocketGameHandler {
           
           if (i == this.answerIndex) {
             shooter.incrementsScore(1);
+            this.nextQuestion();
           } else {
             shooter.incrementsScore(-1);
           }
@@ -167,6 +169,19 @@ class SocketGameHandler {
     this.io.emit("askQuestion", {
       question: this.questions[this.currentIndex]
     });
+  }
+
+  nextQuestion() {
+
+    this.currentIndex++;
+    if (this.currentIndex < this.questions.length) {
+     this.askQuestion();
+    } else {
+      this.io.emit("endGame", { error: 0 });
+      this.reset();
+      this.socket.removeAllListeners();
+      this.socket.disconnect(0);
+    }
   }
 
   startGame(socket) {
