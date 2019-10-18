@@ -46,15 +46,6 @@ class SocketGameHandler {
       }
     });
     this.questionsAsked = 0;
-    let a = 1
-    this.method(a); //pass by reference
-    console.log(a); //2
-
-
-  }
-
-  method(num){
-    a = 2
   }
 
   getPlayerScores() {
@@ -144,10 +135,21 @@ class SocketGameHandler {
   }
 
   checkProjectileBubbleCollisions() {
-    for (let projectile of this.projectiles) {
-      for (let bubble of this.bubbles) {
-        if (bubble.isCollidedWith(projectile)) {
+    for (let j = 0; j < this.projectiles.length; j++) {
+      for (let i = 0; i < this.bubbles.length; i++) {
+        let shooter = this.players.find((player) => {
+          return player.username === this.projectiles[j].owner;
+        })
+        if (this.bubbles[i].isCollidedWith(this.projectiles[j])) {
           
+          if (i == this.answerIndex) {
+            shooter.incrementsScore(1);
+          } else {
+            shooter.incrementsScore(-1);
+          }
+          this.projectiles.splice(j, 1);
+          // this.bubbles.splice(i, 1);
+          return;
         }
       }
     }
@@ -157,10 +159,10 @@ class SocketGameHandler {
 
     this.answerIndex = getRandomNum(0, 4);
 
-    let temp = this.questions[ORIGINAL_ANSWER_INDEX];
+    let temp = this.questions[this.currentIndex].choices[ORIGINAL_ANSWER_INDEX];
 
-    this.questions[ORIGINAL_ANSWER_INDEX] = this.questions[this.answerIndex];
-    this.questions[this.answerIndex] = temp; 
+    this.questions[this.currentIndex].choices[ORIGINAL_ANSWER_INDEX] = this.questions[this.currentIndex].choices[this.answerIndex];
+    this.questions[this.currentIndex].choices[this.answerIndex] = temp; 
 
     this.io.emit("askQuestion", {
       question: this.questions[this.currentIndex]

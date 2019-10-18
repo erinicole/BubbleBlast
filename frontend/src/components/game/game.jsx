@@ -167,9 +167,11 @@ class Game extends React.Component {
       if(this.props.bubbles && this.props.players ){
         let blasterPositions = [];
         let usernames = [];
+        let scores = [];
         for (let key of Object.keys(this.props.players)) {
           blasterPositions.push(this.props.players[key].pos)
           usernames.push(key)
+          scores.push(this.props.players[key].score)
         }
         let projectilePositions = [];
         if (this.props.projectiles){
@@ -182,7 +184,7 @@ class Game extends React.Component {
           <div className="game-div"> 
             <ul className="username-ul">
               {usernames.map((username, i) => {
-                return <li className={`username${i}`}>{username}</li>
+                return <li className={`username${i}`}>{username} Score: {scores[i]}</li>
               })}
             </ul>
             <div>

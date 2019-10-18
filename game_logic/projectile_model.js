@@ -6,7 +6,7 @@ class Projectile extends MovingObject{
         this.pos = playerPos;
         this.targetPos = targetPos;
         this.radius = 4;
-        this.speed = 10
+        this.speed = 20;
         this.calculateVel();
         this.owner = username;
     }
