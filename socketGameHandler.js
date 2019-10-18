@@ -6,7 +6,7 @@ const width = require("./frontend/src/settings.js").width
 const height = require("./frontend/src/settings.js").height
 //socket emit  - one user
 // this.io.emit - all users
-const ANSWER_INDEX = "0";
+const ORIGINAL_ANSWER_INDEX = "0";
 
 function getRandomNum(min, max) {
   return Math.floor((Math.random() * (max - min) + min))
@@ -30,7 +30,8 @@ class SocketGameHandler {
     this.currentIndex = 0;
     this.setUpQuestions();
     this.bubbles = [new Bubble(), new Bubble(), new Bubble(), new Bubble()];
-    this.projectiles = []
+    this.projectiles = [];
+    this.answerIndex = ORIGINAL_ANSWER_INDEX;
   }
 
   setUpQuestions() {
@@ -45,6 +46,15 @@ class SocketGameHandler {
       }
     });
     this.questionsAsked = 0;
+    let a = 1
+    this.method(a); //pass by reference
+    console.log(a); //2
+
+
+  }
+
+  method(num){
+    a = 2
   }
 
   getPlayerScores() {
@@ -85,7 +95,6 @@ class SocketGameHandler {
     });
 
     socket.on("startGame", ({ username }) => {
-      console.log(username);
       if (
         this.isIncluded(this.players, username) &&
         !this.isIncluded(this.readyPlayers, username)
@@ -134,6 +143,30 @@ class SocketGameHandler {
     }
   }
 
+  checkProjectileBubbleCollisions() {
+    for (let projectile of this.projectiles) {
+      for (let bubble of this.bubbles) {
+        if (bubble.isCollidedWith(projectile)) {
+          
+        }
+      }
+    }
+  }
+
+  askQuestion() {
+
+    this.answerIndex = getRandomNum(0, 4);
+
+    let temp = this.questions[ORIGINAL_ANSWER_INDEX];
+
+    this.questions[ORIGINAL_ANSWER_INDEX] = this.questions[this.answerIndex];
+    this.questions[this.answerIndex] = temp; 
+
+    this.io.emit("askQuestion", {
+      question: this.questions[this.currentIndex]
+    });
+  }
+
   startGame(socket) {
     this.bubbleUpdate = setInterval(() => {
       for (let bubble of this.bubbles) {
@@ -144,6 +177,7 @@ class SocketGameHandler {
       }
       this.checkBubbleCollisions();
       this.checkPlayerBubbleCollisions();
+      this.checkProjectileBubbleCollisions();
       this.removeOutOfBoundsProjectile();
       this.io.emit("updateBubblePos", {
         message: "update",
@@ -172,13 +206,15 @@ class SocketGameHandler {
         this.projectiles.push(new Projectile(playerPos, targetPos, username));
     }) 
 
-    this.io.emit("askQuestion", {
-      question: this.questions[this.currentIndex]
-    });
+
+    this.askQuestion();
+
+
+  
 
 
     socket.on("answerQuestion", ({ choiceIndex, username }) => {
-      if (choiceIndex === ANSWER_INDEX) {
+      if (choiceIndex === ORIGINAL_ANSWER_INDEX) {
         this.players
           .find(player => {
             return player.username === username;

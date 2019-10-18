@@ -9,6 +9,7 @@ class Bubble extends MovingObject {
     this.vel = this.randomVec(7);
     this.pos = this.randomPos();
     this.radius = 25;
+    this.isCorrect = false;
   }
 
   randomPos() {
@@ -16,6 +17,10 @@ class Bubble extends MovingObject {
     let posY = Math.random() * height;
     let pos = [posX, posY];
     return pos;
+  }
+
+  setAsCorrect() {
+    this.isCorrect = true;
   }
 
   // Return a randomly oriented vector with the given length.
