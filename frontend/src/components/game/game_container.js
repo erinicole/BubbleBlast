@@ -1,6 +1,21 @@
 import { connect } from 'react-redux';
-import { startGame, connectGame, setUpConnectGameListener, setUpStartGameListener, 
-  setUpAskQuestionListener, answerQuestion, setUpAnswerCorrectListener, setUpAnswerIncorrectListener, setUpUpdateBubblePosListener, makeMove, setUpUpdatePlayersListener, shoot, setUpUpdateProjectilesListener, setUpEndGameListener } from "../../actions/game_actions";
+import {
+  startGame,
+  connectGame,
+  setUpConnectGameListener,
+  setUpStartGameListener,
+  setUpAskQuestionListener,
+  answerQuestion,
+  setUpAnswerCorrectListener,
+  setUpAnswerIncorrectListener,
+  setUpUpdateBubblePosListener,
+  makeMove,
+  setUpUpdatePlayersListener,
+  shoot,
+  setUpUpdateProjectilesListener,
+  setUpEndGameListener,
+  setUpCountdownListener
+} from "../../actions/game_actions";
 import Game from './game';
 
 
@@ -11,7 +26,8 @@ const msp = (state, ownProps) => {
     isOver: state.entities.game.isOver,
     bubbles: state.entities.game.bubbles,
     players: state.entities.game.players,
-    projectiles: state.entities.game.projectiles
+    projectiles: state.entities.game.projectiles,
+    countdownSeconds: state.entities.game.countdownSeconds
   };
 };
 
@@ -58,6 +74,9 @@ const mdp = (dispatch) => {
     },
     setUpEndGameListener: () => {
       dispatch(setUpEndGameListener());
+    },
+    setUpCountdownListener: () => {
+      dispatch(setUpCountdownListener());
     }
   };
 };

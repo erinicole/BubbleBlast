@@ -12,26 +12,35 @@ function getRandomNum(min, max) {
   return Math.floor((Math.random() * (max - min) + min))
 }
 
+function getDifferenceInSeconds(date1, date2){
+  if (!date1 || !date2){
+    return NaN
+  }
+  let dif = date1.getTime() - date2.getTime()
+  return Math.abs(dif/1000)
+}
+
 
 
 class SocketGameHandler {
   constructor(io) {
     this.io = io;
-   
-
+    setInterval(this.update.bind(this), 100)
     this.reset();
   }
 
   reset() {
+    this.gameRunning = false;
+    this.bubbleUpdate = null;
     this.players = [];
     this.readyPlayers = [];
     this.currentIndex = 0;
+    this.firstPlayerTimeEntered = null;
     this.setUpQuestions();
     this.bubbles = [new Bubble(), new Bubble(), new Bubble(), new Bubble()];
     this.projectiles = [];
     this.answerIndex = ORIGINAL_ANSWER_INDEX;
     this.io.on("connection", socket => {
-      console.log('connected')
       this.socket = socket;
       this.setUpListeners(socket);
     });
@@ -86,31 +95,34 @@ class SocketGameHandler {
         this.players.push(new Player(username));
       }
       socket.emit("connectGame", { connected: "connected", error: 0 });
+      if(this.players.length === 1){
+        this.firstPlayerTimeEntered = new Date()
+      }
     });
 
     socket.on("startGame", ({ username }) => {
-      if (
-        this.isIncluded(this.players, username) &&
-        !this.isIncluded(this.readyPlayers, username)
-      ) {
-        this.readyPlayers.push(
-          this.players.find(player => {
-            return player.username === username;
-          })
-        );
-      }
+      // if (
+      //   this.isIncluded(this.players, username) &&
+      //   !this.isIncluded(this.readyPlayers, username)
+      // ) {
+      //   this.readyPlayers.push(
+      //     this.players.find(player => {
+      //       return player.username === username;
+      //     })
+      //   );
+      // }
 
-      if (this.players.length === this.readyPlayers.length) {
-        for (let player of this.players) {
-          player.score = 0;
-        }
-        this.io.emit("startGame", {
-          message: "start",
-          players: this.players,
-          error: 0
-        });
-        this.startGame(socket);
-      }
+      // if (this.players.length === this.readyPlayers.length) {
+      //   for (let player of this.players) {
+      //     player.score = 0;
+      //   }
+      //   this.io.emit("startGame", {
+      //     message: "start",
+      //     players: this.players,
+      //     error: 0
+      //   });
+      //   this.startGame(socket);
+      // }
     });
   }
 
@@ -185,37 +197,61 @@ class SocketGameHandler {
       this.reset();
     }
   }
+  update(){
+    let dif = getDifferenceInSeconds(new Date(), this.firstPlayerTimeEntered);
+    if ( dif > 10) {
+      this.startGame();
+      this.firstPlayerTimeEntered = null;
+    } 
 
-  startGame(socket) {
-    this.bubbleUpdate = setInterval(() => {
-      for (let bubble of this.bubbles) {
-        bubble.move();
-      }
-      for (let projectile of this.projectiles) {
-        projectile.move()
-      }
-      this.checkBubbleCollisions();
-      this.checkPlayerBubbleCollisions();
-      this.checkProjectileBubbleCollisions();
-      this.removeOutOfBoundsProjectile();
-      this.io.emit("updateBubblePos", {
-        message: "update",
-        bubbles: this.bubbles,
-        error: 0
-      });
-      this.io.emit("updatePlayers", {
-        message: "update",
-        players: this.players,
-        error: 0
-      });
-      this.io.emit("updateProjectiles", {
-        message: "update",
-        projectiles: this.projectiles,
-        error: 0
-      });
-    }, 100);
+    this.io.emit("updatePlayers", {
+      message: "update",
+      players: this.players,
+      error: 0
+    });
 
-    socket.on("shoot", ({targetPos, username}) => {
+    if (!this.gameRunning){
+      this.io.emit('countdown', {
+        countdownSeconds: Math.ceil(10-dif),
+        error: 0
+      })
+      return;
+    }
+
+    for (let bubble of this.bubbles) {
+      bubble.move();
+    }
+    for (let projectile of this.projectiles) {
+      projectile.move();
+    }
+    this.checkBubbleCollisions();
+    this.checkPlayerBubbleCollisions();
+    this.checkProjectileBubbleCollisions();
+    this.removeOutOfBoundsProjectile();
+    this.io.emit("updateBubblePos", {
+      message: "update",
+      bubbles: this.bubbles,
+      error: 0
+    });
+    this.io.emit("updateProjectiles", {
+      message: "update",
+      projectiles: this.projectiles,
+      error: 0
+    });
+    }
+
+  startGame() {
+    this.gameRunning = true;
+    for (let player of this.players) {
+      player.score = 0;
+    }
+    this.io.emit("startGame", {
+      message: "start",
+      players: this.players,
+      error: 0
+    });
+
+    this.socket.on("shoot", ({targetPos, username}) => {
       let playerPos = this.players.find(player => {
         return player.username === username;
       }).pos.slice()
@@ -232,7 +268,7 @@ class SocketGameHandler {
   
 
 
-    socket.on("answerQuestion", ({ choiceIndex, username }) => {
+    this.socket.on("answerQuestion", ({ choiceIndex, username }) => {
       if (choiceIndex === ORIGINAL_ANSWER_INDEX) {
         this.players
           .find(player => {
@@ -269,9 +305,7 @@ class SocketGameHandler {
       }
     });
 
-    socket.on("makeMove", ({ username, move }) => {
-      console.log(this.players)
-      console.log(username);
+    this.socket.on("makeMove", ({ username, move }) => {
 
       this.players
         .find(player => {

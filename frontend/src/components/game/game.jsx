@@ -43,7 +43,6 @@ class Game extends React.Component {
     Object.keys(moves).forEach( (k) => {
       const move = moves[k];
       key(k, () => {
-        console.log(this.username)
         this.props.makeMove(this.username, move)
       });
 
@@ -72,6 +71,14 @@ class Game extends React.Component {
     this.props.setUpUpdatePlayersListener();
     this.props.connect(this.username);
     this.setupKeyHandlers();
+    // this.startGame();
+    this.props.setUpAskQuestionListener();
+    this.props.setUpAnswerCorrectListener();
+    this.props.setUpAnswerIncorrectListener();
+    this.props.setUpUpdateBubblePosListener();
+    this.props.setUpUpdateProjectilesListener();
+    this.props.setUpEndGameListener();
+    this.props.setUpCountdownListener();
   }
 
   componentDidUpdate() {
@@ -87,12 +94,12 @@ class Game extends React.Component {
 
   startGame() {
     this.props.startGame(this.username);
-    this.props.setUpAskQuestionListener();
-    this.props.setUpAnswerCorrectListener();
-    this.props.setUpAnswerIncorrectListener();
-    this.props.setUpUpdateBubblePosListener();
-    this.props.setUpUpdateProjectilesListener();
-    this.props.setUpEndGameListener();
+    // this.props.setUpAskQuestionListener();
+    // this.props.setUpAnswerCorrectListener();
+    // this.props.setUpAnswerIncorrectListener();
+    // this.props.setUpUpdateBubblePosListener();
+    // this.props.setUpUpdateProjectilesListener();
+    // this.props.setUpEndGameListener();
   }
 
   onSubmitChoice(e) {
@@ -113,9 +120,23 @@ class Game extends React.Component {
   }
 
   render() {
-    let content = (
-      <button onClick={this.startGame.bind(this)}>Start Game</button>
-    );
+    let usernames = [];
+    if (this.props.players){
+      for (let key of Object.keys(this.props.players)) {
+        usernames.push(key)
+      }
+    }
+    let content = (<div>{this.props.countdownSeconds}
+      <div className="game-div">
+        <ul className="username-ul">
+          {usernames.map((username, i) => {
+            return <li className={`username${i}`}>{username} </li>
+          })}
+        </ul>
+        </div>
+    </div>)
+      // <button onClick={this.startGame.bind(this)}>Start Game</button>
+ 
     if (this.props.currentQuestion) {
       let choices = this.props.currentQuestion.choices;
 

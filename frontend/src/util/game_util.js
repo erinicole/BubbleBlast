@@ -81,5 +81,10 @@ export const setUpUpdateProjectilesListener = (cb) => {
   });
 };
 
+export const setUpCountdownListener = (cb) => {
+  socket.on("countdown", msg => {
+    cb(msg);
+  });
+};
 
 
