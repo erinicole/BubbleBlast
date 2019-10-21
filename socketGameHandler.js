@@ -40,8 +40,9 @@ class SocketGameHandler {
     this.bubbles = [new Bubble(), new Bubble(), new Bubble(), new Bubble()];
     this.projectiles = [];
     this.answerIndex = ORIGINAL_ANSWER_INDEX;
+    this.sockets = [];
     this.io.on("connection", socket => {
-      this.socket = socket;
+      this.sockets.push(socket);
       this.setUpListeners(socket);
     });
   }
@@ -192,8 +193,11 @@ class SocketGameHandler {
      this.askQuestion();
     } else {
       this.io.emit("endGame", { error: 0 });
-      this.socket.removeAllListeners();
-      this.socket.disconnect(0);
+      for(let socket of this.sockets){
+        socket.removeAllListeners();
+        socket.disconnect(0);
+      }
+      
       this.reset();
     }
   }
@@ -251,68 +255,72 @@ class SocketGameHandler {
       error: 0
     });
 
-    this.socket.on("shoot", ({targetPos, username}) => {
-      let playerPos = this.players.find(player => {
-        return player.username === username;
-      }).pos.slice()
-      if (this.projectiles.filter( (projectile) => {
-          return projectile.owner === username
-      }).length < 1 )
-        this.projectiles.push(new Projectile(playerPos, targetPos, username));
-    }) 
+    
 
 
     this.askQuestion();
 
 
-  
-
-
-    this.socket.on("answerQuestion", ({ choiceIndex, username }) => {
-      if (choiceIndex === ORIGINAL_ANSWER_INDEX) {
-        this.players
-          .find(player => {
-            return player.username === username;
-          })
-          .incrementsScore(1);
-
-        this.io.emit("answerCorrect", {
-          userWhoAnswered: username,
-          scores: this.getPlayerScores(),
-          error: 0
-        });
-        this.currentIndex++;
-        if (this.currentIndex < this.questions.length) {
-          this.io.emit("askQuestion", {
-            question: this.questions[this.currentIndex],
-            error: 0
-          });
-        } else {
-          this.io.emit("endGame", { error: 0 });
-          this.reset();
-        }
-      } else {
-        this.players
-          .find(player => {
-            return player.username === username;
-          })
-          .incrementsScore(-1);
-        this.io.emit("answerIncorrect", {
-          userWhoAnswered: username,
-          scores: this.getPlayerScores(),
-          error: 0
-        });
-      }
-    });
-
-    this.socket.on("makeMove", ({ username, move }) => {
-
-      this.players
-        .find(player => {
+    for(let socket of this.sockets){
+      socket.on("shoot", ({ targetPos, username }) => {
+        let playerPos = this.players.find(player => {
           return player.username === username;
-        })
-        .move(move);
-    });
+        }).pos.slice()
+        if (this.projectiles.filter((projectile) => {
+          return projectile.owner === username
+        }).length < 1)
+          this.projectiles.push(new Projectile(playerPos, targetPos, username));
+      })
+
+      socket.on("makeMove", ({ username, move }) => {
+
+        this.players
+          .find(player => {
+            return player.username === username;
+          })
+          .move(move);
+      });
+      
+      // this.socket.on("answerQuestion", ({ choiceIndex, username }) => {
+      //   if (choiceIndex === ORIGINAL_ANSWER_INDEX) {
+      //     this.players
+      //       .find(player => {
+      //         return player.username === username;
+      //       })
+      //       .incrementsScore(1);
+
+      //     this.io.emit("answerCorrect", {
+      //       userWhoAnswered: username,
+      //       scores: this.getPlayerScores(),
+      //       error: 0
+      //     });
+      //     this.currentIndex++;
+      //     if (this.currentIndex < this.questions.length) {
+      //       this.io.emit("askQuestion", {
+      //         question: this.questions[this.currentIndex],
+      //         error: 0
+      //       });
+      //     } else {
+      //       this.io.emit("endGame", { error: 0 });
+      //       this.reset();
+      //     }
+      //   } else {
+      //     this.players
+      //       .find(player => {
+      //         return player.username === username;
+      //       })
+      //       .incrementsScore(-1);
+      //     this.io.emit("answerIncorrect", {
+      //       userWhoAnswered: username,
+      //       scores: this.getPlayerScores(),
+      //       error: 0
+      //     });
+      //   }
+      // });
+
+      
+    }
+    
   }
 }
 
