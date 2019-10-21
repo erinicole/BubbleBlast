@@ -1,9 +1,10 @@
 import io from 'socket.io-client';
 
-let socket = new io();
+let socket
 
 export const connect = (username) => {
   // console.log(socket.id);
+
   socket.emit("connectGame", { username: username, error: 0 });
 };
 
@@ -25,6 +26,7 @@ export const shoot = (targetPos, username) => {
 };
 
 export const setUpConnectGameListener = (cb) => {
+  socket = new io();
   socket.on("connectGame", (msg) => {
     cb(msg);
   });

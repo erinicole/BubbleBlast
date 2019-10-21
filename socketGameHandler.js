@@ -17,10 +17,7 @@ function getRandomNum(min, max) {
 class SocketGameHandler {
   constructor(io) {
     this.io = io;
-    this.io.on("connection", socket => {
-      this.socket = socket;
-      this.setUpListeners(socket);
-    });
+   
 
     this.reset();
   }
@@ -33,6 +30,11 @@ class SocketGameHandler {
     this.bubbles = [new Bubble(), new Bubble(), new Bubble(), new Bubble()];
     this.projectiles = [];
     this.answerIndex = ORIGINAL_ANSWER_INDEX;
+    this.io.on("connection", socket => {
+      console.log('connected')
+      this.socket = socket;
+      this.setUpListeners(socket);
+    });
   }
 
   setUpQuestions() {
@@ -178,9 +180,9 @@ class SocketGameHandler {
      this.askQuestion();
     } else {
       this.io.emit("endGame", { error: 0 });
-      this.reset();
       this.socket.removeAllListeners();
       this.socket.disconnect(0);
+      this.reset();
     }
   }
 
@@ -268,6 +270,9 @@ class SocketGameHandler {
     });
 
     socket.on("makeMove", ({ username, move }) => {
+      console.log(this.players)
+      console.log(username);
+
       this.players
         .find(player => {
           return player.username === username;

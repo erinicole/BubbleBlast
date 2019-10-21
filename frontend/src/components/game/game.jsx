@@ -43,6 +43,7 @@ class Game extends React.Component {
     Object.keys(moves).forEach( (k) => {
       const move = moves[k];
       key(k, () => {
+        console.log(this.username)
         this.props.makeMove(this.username, move)
       });
 
@@ -76,7 +77,10 @@ class Game extends React.Component {
   componentDidUpdate() {
     // console.log(this.state.selectedOption)
     if (this.props.isOver) {
-      console.log("game over")
+      key.unbind('a');
+      key.unbind('w');
+      key.unbind('s');
+      key.unbind('d');
       this.props.history.push(`/results`);
     }
   }
