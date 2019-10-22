@@ -13,8 +13,6 @@ class GameView extends React.Component {
         this.bindKeyHandlers = this.bindKeyHandlers.bind(this)
     };
 
-
-
     componentDidMount(){
         const canvas = document.getElementById("game-canvas")
         const ctx = canvas.getContext("2d")
@@ -29,7 +27,7 @@ class GameView extends React.Component {
             'Green',
             'Skyblue'
         ]
-        for (let i = 0; i < this.props.blasterPositions.length; i++) {
+        for (let i = 0; i < colors.length; i++) {
             blasters.push(new Blaster({ ctx: ctx, color: colors[i] }))
         }
         this.setState({
