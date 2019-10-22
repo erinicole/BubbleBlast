@@ -25,6 +25,10 @@ function getDifferenceInSeconds(date1, date2){
 class SocketGameHandler {
   constructor(io) {
     this.io = io;
+    this.io.on("connection", socket => {
+      this.sockets.push(socket);
+      this.setUpListeners(socket);
+    });
     setInterval(this.update.bind(this), 100)
     this.reset();
   }
@@ -42,16 +46,12 @@ class SocketGameHandler {
     this.projectiles = [];
     this.answerIndex = ORIGINAL_ANSWER_INDEX;
     this.sockets = [];
-    this.io.on("connection", socket => {
-      this.sockets.push(socket);
-      this.setUpListeners(socket);
-    });
   }
 
   setUpQuestions() {
     Question.find().then(questions => {
       this.questions = [];
-      for (let i = 1; i < 11; i++) {
+      for (let i = 1; i < 2; i++) {
         let levelQuestions = questions.filter(question => {
           return question.difficulty == i;
         });
@@ -113,7 +113,7 @@ class SocketGameHandler {
         })
 
         socket.on("makeMove", ({ username, move }) => {
-
+          console.log(username, move);
           this.players
             .find(player => {
               return player.username === username;
@@ -130,7 +130,7 @@ class SocketGameHandler {
 
       socket.emit("connectGame", { connected: "connected", error: 0 });
       if(this.players.length === 1){
-        this.firstPlayerTimeEntered = new Date()
+        this.firstPlayerTimeEntered = new Date();
       }
     });
 

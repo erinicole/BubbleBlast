@@ -6,14 +6,18 @@ const width = require("../../settings.js").width
 const height = require("../../settings.js").height
 
 class Game {
-  constructor(ctx, blaster) {
+  constructor(ctx, blasters) {
     this.numBubbles = 4;
     this.numPlayers = 1;
     this.bubbles = [];
     this.projectiles = [];
     this.ctx = ctx;
     this.addBubbles();
-    this.blasters = blaster;
+    this.blasters = blasters;
+  }
+
+  addBlaster(blaster) {
+    this.blasters.push(blaster);
   }
 
   addBubbles() {
@@ -56,7 +60,9 @@ class Game {
     //   allObjects[i].draw(positions[i]);
     // }
     for (let i = 0; i < this.blasters.length; i++) {
-      this.blasters[i].draw(blastersPositions[i]);
+      if (blastersPositions[i]){
+        this.blasters[i].draw(blastersPositions[i]);
+      }
     }
     for (let i = 0; i < this.bubbles.length; i++) {
       this.bubbles[i].draw(bubblePositions[i]);
