@@ -10,7 +10,8 @@ export const RECEIVE_END_GAME_SOCKET_MESSAGE = "RECEIVE_END_GAME_SOCKET_MESSAGE"
 export const RECEIVE_BUBBLE_POS_SOCKET_MESSAGE = "RECEIVE_BUBBLE_POS_SOCKET_MESSAGE";
 export const RECEIVE_PLAYERS_SOCKET_MESSAGE = "RECEIVE_PLAYERS_SOCKET_MESSAGE";
 export const RECEIVE_PROJECTILES_SOCKET_MESSAGE = "RECEIVE_PROJECTILES_SOCKET_MESSAGE";
-export const RECEIVE_COUNTDOWN_SOCKET_MESSAGE = "RECEIVE_COUNTDOWN_SOCKET_MESSAGE"
+export const RECEIVE_COUNTDOWN_SOCKET_MESSAGE = "RECEIVE_COUNTDOWN_SOCKET_MESSAGE";
+export const RECEIVE_GAME_PAUSED_SOCKET_MESSAGE = "RECEIVE_GAME_PAUSED_SOCKET_MESSAGE";
 
 const receiveQuestions = (questions) => {
   return {
@@ -87,6 +88,13 @@ const receiveProjectilesMessage = message => {
 const receiveCountdownMessage = message => {
   return {
     type: RECEIVE_COUNTDOWN_SOCKET_MESSAGE,
+    message
+  };
+};
+
+const receiveGamePausedMessage = message => {
+  return {
+    type: RECEIVE_GAME_PAUSED_SOCKET_MESSAGE,
     message
   };
 };
@@ -192,5 +200,12 @@ export const setUpCountdownListener = () => {
   };
 };
 
+export const setUpGamePausedListener = () => {
+  return (dispatch) => {
+    return GameUtils.setUpGamePausedListener(msg => {
+      dispatch(receiveGamePausedMessage(msg));
+    });
+  };
+};
 
 

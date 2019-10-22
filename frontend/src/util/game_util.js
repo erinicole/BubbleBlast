@@ -13,7 +13,6 @@ export const startGame = (username) => {
 };
 
 export const makeMove = (username, move) => {
-  console.log(username, move)
   socket.emit('makeMove', { username: username, move: move, error: 0 });
 };
 
@@ -87,4 +86,8 @@ export const setUpCountdownListener = (cb) => {
   });
 };
 
-
+export const setUpGamePausedListener = (cb) => {
+  socket.on("gamePaused", msg => {
+    cb(msg);
+  });
+};

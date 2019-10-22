@@ -79,6 +79,7 @@ class Game extends React.Component {
     this.props.setUpUpdateProjectilesListener();
     this.props.setUpEndGameListener();
     this.props.setUpCountdownListener();
+    this.props.setUpGamePausedListener();
   }
 
   componentDidUpdate() {

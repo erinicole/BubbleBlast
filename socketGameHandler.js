@@ -35,6 +35,7 @@ class SocketGameHandler {
 
   reset() {
     this.gameRunning = false;
+    this.gamePaused = false;
     this.bubbleUpdate = null;
     this.players = [];
     this.readyPlayers = [];
@@ -51,7 +52,7 @@ class SocketGameHandler {
   setUpQuestions() {
     Question.find().then(questions => {
       this.questions = [];
-      for (let i = 1; i < 2; i++) {
+      for (let i = 1; i < 11; i++) {
         let levelQuestions = questions.filter(question => {
           return question.difficulty == i;
         });
@@ -223,7 +224,12 @@ class SocketGameHandler {
 
     this.currentIndex++;
     if (this.currentIndex < this.questions.length) {
-     this.askQuestion();
+      this.gamePaused = true;
+      this.io.emit("gamePaused", {message: "pause", error: 0});
+      setTimeout(() => {
+        this.gamePaused = false;
+        this.askQuestion();
+      }, 3000);
     } else {
       this.io.emit("updatePlayers", {
         message: "update",
@@ -242,7 +248,7 @@ class SocketGameHandler {
 
   update(){
     let dif = getDifferenceInSeconds(new Date(), this.firstPlayerTimeEntered);
-    if ( dif > 10) {
+    if ( dif > 5) {
       this.startGame();
       this.firstPlayerTimeEntered = null;
     } 
@@ -255,28 +261,32 @@ class SocketGameHandler {
 
     if (!this.gameRunning){
       this.io.emit('countdown', {
-        countdownSeconds: Math.ceil(10-dif),
+        countdownSeconds: Math.ceil(5-dif),
         error: 0
       });
       return;
     }
 
-    let diff = getDifferenceInSeconds(new Date(), this.questionStartTime);
-    if (diff > 60) {
-      this.nextQuestion();
+    if(!this.gamePaused){
+      let diff = getDifferenceInSeconds(new Date(), this.questionStartTime);
+      if (diff > 60) {
+        this.nextQuestion();
+      }
+      this.io.emit('countdown', {
+        countdownSeconds: Math.ceil(60 - diff),
+        error: 0
+      });
+
+
+      for (let bubble of this.bubbles) {
+        bubble.move();
+      }
+      for (let projectile of this.projectiles) {
+        projectile.move();
+      }
     }
-    this.io.emit('countdown', {
-      countdownSeconds: Math.ceil(60 - diff),
-      error: 0
-    });
     
 
-    for (let bubble of this.bubbles) {
-      bubble.move();
-    }
-    for (let projectile of this.projectiles) {
-      projectile.move();
-    }
     this.checkBubbleCollisions();
     this.checkPlayerBubbleCollisions();
     this.checkProjectileBubbleCollisions();

@@ -11,7 +11,8 @@ import {
   RECEIVE_BUBBLE_POS_SOCKET_MESSAGE,
   RECEIVE_PLAYERS_SOCKET_MESSAGE,
   RECEIVE_PROJECTILES_SOCKET_MESSAGE,
-  RECEIVE_COUNTDOWN_SOCKET_MESSAGE
+  RECEIVE_COUNTDOWN_SOCKET_MESSAGE,
+  RECEIVE_GAME_PAUSED_SOCKET_MESSAGE
 } from "../actions/game_actions";
 
 const questionChoices = (choices) => {
@@ -50,6 +51,7 @@ const gameReducer = (state = {}, action) => {
       newState.isOver = false;
       return newState;
     case RECEIVE_QUESTION_SOCKET_MESSAGE:
+      newState.gamePaused = false;
       newState.currentQuestion = action.message.question;
 
       newState.currentQuestion.choices = questionChoices(
@@ -88,6 +90,9 @@ const gameReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_COUNTDOWN_SOCKET_MESSAGE:
       newState.countdownSeconds = action.message.countdownSeconds;
+      return newState;
+    case RECEIVE_GAME_PAUSED_SOCKET_MESSAGE:
+      newState.gamePaused = true;
       return newState;
     default:
       return state;

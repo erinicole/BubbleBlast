@@ -14,7 +14,8 @@ import {
   shoot,
   setUpUpdateProjectilesListener,
   setUpEndGameListener,
-  setUpCountdownListener
+  setUpCountdownListener,
+  setUpGamePausedListener
 } from "../../actions/game_actions";
 import Game from './game';
 
@@ -27,7 +28,8 @@ const msp = (state, ownProps) => {
     bubbles: state.entities.game.bubbles,
     players: state.entities.game.players,
     projectiles: state.entities.game.projectiles,
-    countdownSeconds: state.entities.game.countdownSeconds
+    countdownSeconds: state.entities.game.countdownSeconds,
+    gamePaused: state.entities.game.gamePaused
   };
 };
 
@@ -77,6 +79,9 @@ const mdp = (dispatch) => {
     },
     setUpCountdownListener: () => {
       dispatch(setUpCountdownListener());
+    },
+    setUpGamePausedListener: () => {
+      dispatch(setUpGamePausedListener());
     }
   };
 };
