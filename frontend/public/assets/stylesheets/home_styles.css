@@ -8,11 +8,21 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  margin: 30px;
+  /* background: image-url('../images/starfishGreen.png'); */
+  
+}
+
+.bubble-background {
+ z-index: 0;
+ left: 0;
+ position: absolute;
 }
 
 .form-div {
   display: flex;
   flex-direction: column;
+  z-index: 5;
 }
 
 .username-form {
@@ -81,9 +91,9 @@
 .leaderboard-div {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+  justify-content: center;
   align-items: center;
-  /* background: #F8F8FA; */
+  background: #F8F8FA;
   width: 30%;
   color: white;
   border-radius: 30px;

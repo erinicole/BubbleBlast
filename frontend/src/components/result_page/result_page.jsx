@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import GreetingContainer from '../greeting/greeting_container';
 
 class ResultPage extends React.Component {
 
@@ -19,6 +20,10 @@ class ResultPage extends React.Component {
       }
     }
     return (
+      <div>
+      <header className="test">
+        <GreetingContainer />
+      </header>
       <div className="result-main-section">
         <div className="game-div">
           <ul className="username-ul">
@@ -28,6 +33,7 @@ class ResultPage extends React.Component {
           </ul>
         </div>
         {/* <h2 className="stats">That's better than 80% of players.</h2> */}
+      </div>
       </div>
     )
   }

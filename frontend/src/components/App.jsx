@@ -12,9 +12,7 @@ import GameViewContainer from "./game_view/game_view_container"
 function App() {
   return (
     <div className="App">
-      <header className="test">
-        <GreetingContainer />
-      </header>
+      
       <Switch>
         <Route exact path="/question" component={QuestionPageContainer} />
         <Route exact path="/results" component={ResultPageContainer} />

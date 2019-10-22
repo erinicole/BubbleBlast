@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import GreetingContainer from '../greeting/greeting_container';
 
 class HomePage extends React.Component {
 
@@ -24,14 +25,17 @@ class HomePage extends React.Component {
 
     return (
       <div>
+        <header className="">
+          <GreetingContainer />
+        </header>
         <div className="blurb-div">
             
         </div>
         <div className="home-main-section">
             <div className="form-div">
-            <div>
+            {/* <div>
               <h2 className="blurb">Are you fast enough to shoot the bubbles?</h2>
-            </div>
+            </div> */}
             <form className="username-form" onSubmit={this.handleSubmit}>
                 <input
                   type="text"
@@ -47,59 +51,11 @@ class HomePage extends React.Component {
               ></input>
               </form>
             </div>
+            <img className="bubble-background" src="/assets/images/backgroundBubbles3.png"></img>
 
 
 
-            <div className="leaderboard-div">
-              <h1 className="leaderboard-heading">High Scores</h1>
-                <ul className="leaderboard-ul">
-                  <li className="leaderboard-li">
-                    <div className="leaderboard-name">Name</div>
-                    <div className="leaderboard-score">Score</div>
-                  </li>
-                  <li className="leaderboard-li">
-                    <div className="leaderboard-name">Kristina</div>
-                    <div className="leaderboard-score">100</div>
-                  </li>
-                  <li className="leaderboard-li">
-                    <div className="leaderboard-name">Kristina</div>
-                    <div className="leaderboard-score">100</div>
-                  </li>
-                  <li className="leaderboard-li">
-                    <div className="leaderboard-name">Kristina</div>
-                    <div className="leaderboard-score">100</div>
-                  </li>
-                  <li className="leaderboard-li">
-                    <div className="leaderboard-name">Kristina</div>
-                    <div className="leaderboard-score">100</div>
-                  </li>
-                  <li className="leaderboard-li">
-                    <div className="leaderboard-name">Kristina</div>
-                    <div className="leaderboard-score">100</div>
-                  </li>
-                  <li className="leaderboard-li">
-                    <div className="leaderboard-name">Kristina</div>
-                    <div className="leaderboard-score">100</div>
-                  </li>
-                  <li className="leaderboard-li">
-                    <div className="leaderboard-name">Kristina</div>
-                    <div className="leaderboard-score">100</div>
-                  </li>
-                  <li className="leaderboard-li">
-                    <div className="leaderboard-name">Kristina</div>
-                    <div className="leaderboard-score">100</div>
-                  </li>
-                  <li className="leaderboard-li">
-                    <div className="leaderboard-name">Kristina</div>
-                    <div className="leaderboard-score">100</div>
-                  </li>
-                  <li className="leaderboard-li">
-                    <div className="leaderboard-name">Kristina</div>
-                    <div className="leaderboard-score">100</div>
-                  </li>
-                </ul>
-      
-        </div>
+        
 
             </div>
 
