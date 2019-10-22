@@ -18,7 +18,7 @@ class MovingObject {
       return;
     }
 
-    this.ctx.drawImage(this.image, pos[0], pos[1], this.width, this.height);
+    this.ctx.drawImage(this.image, pos[0] - (this.width/2), pos[1] - (this.height/2), this.width, this.height);
   }
 
 

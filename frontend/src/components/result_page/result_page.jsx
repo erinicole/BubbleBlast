@@ -10,11 +10,24 @@ class ResultPage extends React.Component {
 
 
   render() {
-
+    let usernames = [];
+    let scores = [];
+    if (this.props.players) {
+      for (let key of Object.keys(this.props.players)) {
+        usernames.push(key)
+        scores.push(this.props.players[key].score)
+      }
+    }
     return (
       <div className="result-main-section">
-        {/* <h1 className="score">{this.props.players}</h1> */}
-        <h2 className="stats">That's better than 80% of players.</h2>
+        <div className="game-div">
+          <ul className="username-ul">
+            {usernames.map((username, i) => {
+              return <li key={i} className={`username${i}`}>{username} Score: {scores[i]}</li>
+            })}
+          </ul>
+        </div>
+        {/* <h2 className="stats">That's better than 80% of players.</h2> */}
       </div>
     )
   }

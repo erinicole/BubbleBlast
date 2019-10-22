@@ -37,7 +37,7 @@ class GameView extends React.Component {
             blaster: blasters
         }, () => {
             this.setState({game: new Game(ctx, this.state.blaster)})
-        })
+        });
     }
 
     bindKeyHandlers() {
@@ -65,7 +65,7 @@ class GameView extends React.Component {
                 this.props.bubblePositions, 
                 this.props.blasterPositions,
                 this.props.projectilePositions
-                )
+                );
         }
 
     }
@@ -77,7 +77,7 @@ class GameView extends React.Component {
         }
         return(
             <div>
-                <canvas id="game-canvas" width={width} height={height}>
+                <canvas id="game-canvas" width={width} height={height} >
 
                 </canvas>
             </div>

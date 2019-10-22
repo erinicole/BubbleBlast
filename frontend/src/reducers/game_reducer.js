@@ -1,4 +1,6 @@
 import { RECEIVE_QUESTIONS } from "../actions/question_actions";
+import merge from 'lodash/merge';
+
 import {
   RECEIVE_CONNECT_GAME_SOCKET_MESSAGE,
   RECEIVE_START_GAME_SOCKET_MESSAGE,
@@ -62,8 +64,9 @@ const gameReducer = (state = {}, action) => {
       newState.result = `${action.message.userWhoAnswered} got -1 points`;
       return newState;
     case RECEIVE_END_GAME_SOCKET_MESSAGE:
-      console.log("Received endGAME");
+      let players = merge({}, newState.players);
       newState = {};
+      newState.players = players;
       newState.isOver = true;
       return newState;
     case RECEIVE_BUBBLE_POS_SOCKET_MESSAGE:

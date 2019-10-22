@@ -130,7 +130,7 @@ class Game extends React.Component {
       <div className="game-div">
         <ul className="username-ul">
           {usernames.map((username, i) => {
-            return <li className={`username${i}`}>{username} </li>
+            return <li key={i} className={`username${i}`}>{username} </li>
           })}
         </ul>
         </div>
@@ -208,9 +208,10 @@ class Game extends React.Component {
         content =(
 
           <div className="game-div"> 
+            {this.props.countdownSeconds}
             <ul className="username-ul">
               {usernames.map((username, i) => {
-                return <li className={`username${i}`}>{username} Score: {scores[i]}</li>
+                return <li key={i} className={`username${i}`}>{username} Score: {scores[i]}</li>
               })}
             </ul>
             <div>

@@ -36,6 +36,7 @@ class SocketGameHandler {
     this.readyPlayers = [];
     this.currentIndex = 0;
     this.firstPlayerTimeEntered = null;
+    this.questionStartTime = null;
     this.setUpQuestions();
     this.bubbles = [new Bubble(), new Bubble(), new Bubble(), new Bubble()];
     this.projectiles = [];
@@ -50,7 +51,7 @@ class SocketGameHandler {
   setUpQuestions() {
     Question.find().then(questions => {
       this.questions = [];
-      for (let i = 1; i < 6; i++) {
+      for (let i = 1; i < 2; i++) {
         let levelQuestions = questions.filter(question => {
           return question.difficulty == i;
         });
@@ -95,6 +96,38 @@ class SocketGameHandler {
       if (!this.isIncluded(this.players, username)) {
         this.players.push(new Player(username));
       }
+      if(this.gameRunning) {
+        socket.emit("startGame", {
+          message: "start",
+          players: this.players,
+          error: 0
+        });
+        socket.on("shoot", ({ targetPos, username }) => {
+          let playerPos = this.players.find(player => {
+            return player.username === username;
+          }).pos.slice()
+          if (this.projectiles.filter((projectile) => {
+            return projectile.owner === username
+          }).length < 1)
+            this.projectiles.push(new Projectile(playerPos, targetPos, username));
+        })
+
+        socket.on("makeMove", ({ username, move }) => {
+
+          this.players
+            .find(player => {
+              return player.username === username;
+            })
+            .move(move);
+        });
+        
+        socket.emit("askQuestion", {
+          question: this.questions[this.currentIndex]
+        });
+        
+      }
+
+
       socket.emit("connectGame", { connected: "connected", error: 0 });
       if(this.players.length === 1){
         this.firstPlayerTimeEntered = new Date()
@@ -180,7 +213,7 @@ class SocketGameHandler {
 
     this.questions[this.currentIndex].choices[ORIGINAL_ANSWER_INDEX] = this.questions[this.currentIndex].choices[this.answerIndex];
     this.questions[this.currentIndex].choices[this.answerIndex] = temp; 
-
+    this.questionStartTime = new Date();
     this.io.emit("askQuestion", {
       question: this.questions[this.currentIndex]
     });
@@ -192,6 +225,11 @@ class SocketGameHandler {
     if (this.currentIndex < this.questions.length) {
      this.askQuestion();
     } else {
+      this.io.emit("updatePlayers", {
+        message: "update",
+        players: this.players,
+        error: 0
+      });
       this.io.emit("endGame", { error: 0 });
       for(let socket of this.sockets){
         socket.removeAllListeners();
@@ -201,6 +239,7 @@ class SocketGameHandler {
       this.reset();
     }
   }
+
   update(){
     let dif = getDifferenceInSeconds(new Date(), this.firstPlayerTimeEntered);
     if ( dif > 10) {
@@ -218,9 +257,19 @@ class SocketGameHandler {
       this.io.emit('countdown', {
         countdownSeconds: Math.ceil(10-dif),
         error: 0
-      })
+      });
       return;
     }
+
+    let diff = getDifferenceInSeconds(new Date(), this.questionStartTime);
+    if (diff > 60) {
+      this.nextQuestion();
+    }
+    this.io.emit('countdown', {
+      countdownSeconds: Math.ceil(60 - diff),
+      error: 0
+    });
+    
 
     for (let bubble of this.bubbles) {
       bubble.move();

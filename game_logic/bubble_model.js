@@ -36,16 +36,19 @@ class Bubble extends MovingObject {
   move() {
     this.vel = this.bounceBack();
     super.move();
+    if(this.pos[0] < 5 || this.pos[0] > width - 5 || this.pos[1] < 5 || this.pos[1] > height - 5){
+      this.pos = this.randomPos();
+    }
   }
 
   bounceBack() {
-    if (this.pos[0] < 0) {
+    if (this.pos[0] < this.radius) {
       this.vel[0] = -this.vel[0];
-    } else if (this.pos[0] > width) {
+    } else if (this.pos[0] > width - this.radius) {
       this.vel[0] = -this.vel[0];
-    } else if (this.pos[1] < 0) {
+    } else if (this.pos[1] < this.radius) {
       this.vel[1] = -this.vel[1];
-    } else if (this.pos[1] > height) {
+    } else if (this.pos[1] > height - this.radius) {
       this.vel[1] = -this.vel[1];
     }
     return this.vel;
