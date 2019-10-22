@@ -92,6 +92,13 @@ class Game extends React.Component {
     }
   }
 
+  componentWillUnmount(){
+    key.unbind('a');
+    key.unbind('w');
+    key.unbind('s');
+    key.unbind('d');
+  }
+
   startGame() {
     this.props.startGame(this.username);
     // this.props.setUpAskQuestionListener();

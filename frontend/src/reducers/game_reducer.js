@@ -31,13 +31,14 @@ const questionChoices = (choices) => {
 
 const gameReducer = (state = {}, action) => {
   Object.freeze(state);
-  let newState = Object.assign({}, state);
+  let newState = merge({}, state);
   switch (action.type) {
     case RECEIVE_CONNECT_GAME_SOCKET_MESSAGE:
       newState.isOver = false;
       return newState;
     case RECEIVE_START_GAME_SOCKET_MESSAGE:
       // newState.players = action.message.players;
+      newState = {};
       newState.players = {};
       for (let i = 0; i < action.message.players.length; i++) {
         let player = action.message.players[i];
