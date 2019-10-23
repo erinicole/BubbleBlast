@@ -2,43 +2,114 @@
 
 #game-canvas {
   /* border:4px solid #0000009b; */
-  border-radius: 30px;
+  border-radius: 5px;
   box-shadow: 0 0 2rem rgba(0,0,0,.5);
   margin: 20px;
 }
 
 .game-div {
   display: flex;
-  flex-direction: row;
+  width: 100%;
 }
 
 .game-content-div {
   display: flex;
-  /* flex-direction: row; */
-  /* background: red; */
-  /* justify-content: space-around; */
+  /* justify-content: center; */
+  width: 100%;
 }
 
-/* .game-page-header {
-  background: blue;
-} */
 
-.game-panel {
+.game-left-panel {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 30%;
 }
 
-/* .bubble-logo {
-  width: 100px;
+.game-bubble-logo {
+  width: 100%;
   object-fit: cover;
-} */
+}
+
+.game-panel-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.game-page-countdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.time-left {
+  font-size: 20px;
+}
+
+.countdown {
+  font-size: 25px;
+}
+
+.username-ul {
+  margin: 100px;
+  width: 100px;
+}
+
+.username {
+  border: 5px solid green;
+}
+
+
+.username0 {
+  padding: 10px;
+  background: -webkit-linear-gradient(rgb(101, 101, 197), rgb(18, 18, 160));
+  color: white;
+  margin: 10px;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+}
+.username1 {
+  padding: 10px;
+  /* background: rgb(240, 28, 240); */
+  background: -webkit-linear-gradient(rgb(241, 152, 241), rgb(240, 28, 240));
+  color: white;
+   margin: 10px;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+}
+.username2 {
+  padding: 10px;
+  /* background: rgb(49, 200, 226); */
+  background: -webkit-linear-gradient(rgb(63, 163, 138), rgb(2, 85, 64));
+  color: white;
+   margin: 10px;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+}
+.username3 {
+  padding: 10px;
+  background: rgb(2, 85, 64);
+  background: -webkit-linear-gradient(rgb(143, 230, 245), rgb(34, 165, 226));
+  color: white;
+   margin: 10px;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+}
 
 
 .game-main-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 40px;
+  margin: 20px;
 }
 
 .question-info {
@@ -88,9 +159,11 @@
   padding: 5px 25px 5px 45px;
   font-size: 20px;
    background: rgba(106, 59, 194);
-  border-radius: 10px;
+  border-radius: 5px;
   z-index: 1;
   position: relative;
   left: -35px;
   box-shadow: 0 0 2rem rgba(0,0,0,.3);
 }
+
+

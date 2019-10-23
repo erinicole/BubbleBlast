@@ -128,14 +128,19 @@ class Game extends React.Component {
   }
 
   render() {
+    let logoImage = (<img className="game-bubble-logo" src="/assets/images/white-logos-transparent.png"></img>)
+
+
     let usernames = [];
     if (this.props.players){
       for (let key of Object.keys(this.props.players)) {
         usernames.push(key)
       }
     }
+    //initial game page with just timer
     let content = (<div>{this.props.countdownSeconds}
       <div className="game-div">
+        {/* {logoImage} */}
         <ul className="username-ul">
           {usernames.map((username, i) => {
             return <li key={i} className={`username${i}`}>{username} </li>
@@ -165,18 +170,27 @@ class Game extends React.Component {
           })
         }
         content =(
-
+          //left panel with timer
           <div className="game-content-div"> 
-          <div className="game-panel">
-              {this.props.countdownSeconds}
-              <ul className="username-ul">
-                {usernames.map((username, i) => {
-                  return <li key={i} className={`username${i}`}>{username} Score: {scores[i]}</li>
-                })}
-              </ul>
-          </div>
+            <div className="game-left-panel">
+              {logoImage}
+              <div className="game-panel-info">
+                <div className="game-page-countdown">
+                  <h1 className="time-left">Time Left</h1>
+                  <h2 className="coundown">{this.props.countdownSeconds} </h2>
+                </div>
+                <ul className="username-ul">
+                  {usernames.map((username, i) => {
+                    return <li key={i} className={`username${i}`}>{username} Score: {scores[i]}</li>
+                    })}
+                </ul>
+                <div className="game-panel-instructions">
+                    Here are the instructions for how to play the game.
+                </div>
+              </div>
+            </div>
            
-            <div>
+            <div className="game-main-section">
               <div className="question-info">
                 <div className="question-body">
                   <h3 className="level">Level {this.props.currentQuestion.difficulty}</h3>
@@ -229,16 +243,8 @@ class Game extends React.Component {
 
     return (
       <div className="game-div">
-        <div className="game-page-header">
-          {/* <img className="bubble-logo" src="/assets/images/white-logos-transparent.png"></img> */}
-        </div>
-
-        <div className="game-main-section">
-
           {content}
-          {this.props.result}
-        </div>
-        {pauseContent}
+          {pauseContent}
       </div >
     );
   }
