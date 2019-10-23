@@ -23,11 +23,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30%;
+  width: 350px;
+  padding: 20px;
 }
 
 .game-bubble-logo {
-  width: 100%;
+  width: 300px;
   object-fit: cover;
 }
 
@@ -36,73 +37,79 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  width: 300px;
 }
 
 .game-page-countdown {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  border: 2px solid rgba(255, 255, 255, 0.589);
+  background: rgba(255, 255, 255, 0.281);
+  border-radius: 5px;
+  padding: 5px 18px 5px 18px;
+  margin: 10px 0px 10px 0px;
+}
+
+.time-left {
+  font-size: 20px;
+  padding-right: 20px;
+}
+
+.countdown {
+  font-size: 30px;
+}
+
+.username-ul {
+  width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.time-left {
-  font-size: 20px;
-}
-
-.countdown {
-  font-size: 25px;
-}
-
-.username-ul {
-  margin: 100px;
-  width: 100px;
-}
-
-.username {
-  border: 5px solid green;
-}
-
-
-.username0 {
-  padding: 10px;
-  background: -webkit-linear-gradient(rgb(101, 101, 197), rgb(18, 18, 160));
-  color: white;
-  margin: 10px;
-  border-radius: 10px;
-  width: 100%;
+.username-ul li {
+  width: 300px;
+  margin-bottom: 10px;
+  padding: 10px 20px 10px 20px;
+  border-radius: 5px;
   text-align: center;
 }
-.username1 {
-  padding: 10px;
+
+
+.username-0 {
+  background: -webkit-linear-gradient(rgb(101, 101, 197), rgb(18, 18, 160));
+}
+.username-1 {
   /* background: rgb(240, 28, 240); */
   background: -webkit-linear-gradient(rgb(241, 152, 241), rgb(240, 28, 240));
-  color: white;
-   margin: 10px;
-  border-radius: 10px;
-  width: 100%;
-  text-align: center;
 }
-.username2 {
-  padding: 10px;
+.username-2 {
   /* background: rgb(49, 200, 226); */
   background: -webkit-linear-gradient(rgb(63, 163, 138), rgb(2, 85, 64));
-  color: white;
-   margin: 10px;
-  border-radius: 10px;
-  width: 100%;
-  text-align: center;
 }
-.username3 {
-  padding: 10px;
+.username-3 {
   background: rgb(2, 85, 64);
   background: -webkit-linear-gradient(rgb(143, 230, 245), rgb(34, 165, 226));
-  color: white;
-   margin: 10px;
-  border-radius: 10px;
-  width: 100%;
-  text-align: center;
 }
+
+.game-panel-instructions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  background: #F8F8FA;
+  border-radius: 5px;
+  /* box-shadow: 0 0 2rem rgba(0,0,0,.3); */
+  background: rgba(255, 255, 255, 0.281);
+  /* background: linear-gradient(rgba(255, 255, 255, 0.322), rgba(255, 255, 255, 0.109)); */
+  padding: 20px;
+}
+
+
 
 
 .game-main-section {

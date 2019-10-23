@@ -181,11 +181,17 @@ class Game extends React.Component {
                 </div>
                 <ul className="username-ul">
                   {usernames.map((username, i) => {
-                    return <li key={i} className={`username${i}`}>{username} Score: {scores[i]}</li>
+                    return <li key={i} className={`username-${i}`}>{username} Score: {scores[i]}</li>
                     })}
                 </ul>
                 <div className="game-panel-instructions">
-                    Here are the instructions for how to play the game.
+                  <h1>Instructions</h1>
+                  <br/>
+                  <p>Help your starfish shoot the bubbles with the right answer to the math question!</p>
+                  <br/>
+                  <p>Press keys W A S D to move your starfish.</p>
+                  <br/>
+                  <p>Click to shoot the bubbles.</p>
                 </div>
               </div>
             </div>
