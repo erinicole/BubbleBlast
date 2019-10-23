@@ -52,11 +52,7 @@
   left: -20px;
 }
 
-.game-div {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
+
 
 .username-ul {
   margin: 100px;

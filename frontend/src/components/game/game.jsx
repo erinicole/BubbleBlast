@@ -143,61 +143,12 @@ class Game extends React.Component {
         </ul>
         </div>
     </div>)
-      // <button onClick={this.startGame.bind(this)}>Start Game</button>
+
+    
+    
  
     if (this.props.currentQuestion) {
       let choices = this.props.currentQuestion.choices;
-
-      // content = (
-      //   <form onSubmit={this.onSubmitChoice.bind(this)}>
-      //    
-      //     <p>{this.props.currentQuestion.body}</p>
-
-      //     <input 
-      //       type="radio" 
-      //       name="choice" 
-      //       value={choices[0].index} 
-      //       onChange={(e) => this.handleOptionChange(e)} 
-      //       checked={this.state.selectedOption === choices[0].index} 
-      //       /> 
-      //       {choices[0].choice} 
-      //       <br/>
-
-      //     <input 
-      //       type="radio" 
-      //       name="choice" 
-      //       value={choices[1].index} 
-      //       onChange={(e) => this.handleOptionChange(e)} 
-      //       checked={this.state.selectedOption === choices[1].index} 
-      //       /> 
-      //     {choices[1].choice} 
-      //     <br />
-
-      //     <input 
-      //       type="radio" 
-      //       name="choice" 
-      //       value={choices[2].index} 
-      //       onChange={(e) => this.handleOptionChange(e)} 
-      //       checked={this.state.selectedOption === choices[2].index} 
-      //       /> 
-      //     {choices[2].choice} <br />
-
-      //     <input 
-      //       type="radio" 
-      //       name="choice" 
-      //       value={choices[3].index} 
-      //       onChange={(e) => this.handleOptionChange(e)} 
-      //       checked={this.state.selectedOption === choices[3].index} 
-      //       /> 
-      //     {choices[3].choice} <br />
-            
-
-       
-
-              
-      //     <input type="submit" value="Submit"/>
-      //   </form>
-      // );
       if(this.props.bubbles && this.props.players ){
         let blasterPositions = [];
         let usernames = [];
@@ -215,20 +166,42 @@ class Game extends React.Component {
         }
         content =(
 
-          <div className="game-div"> 
-            {this.props.countdownSeconds}
-            <ul className="username-ul">
-              {usernames.map((username, i) => {
-                return <li key={i} className={`username${i}`}>{username} Score: {scores[i]}</li>
-              })}
-            </ul>
+          <div className="game-content-div"> 
+          <div className="game-panel">
+              {this.props.countdownSeconds}
+              <ul className="username-ul">
+                {usernames.map((username, i) => {
+                  return <li key={i} className={`username${i}`}>{username} Score: {scores[i]}</li>
+                })}
+              </ul>
+          </div>
+           
             <div>
-          <h3>Level {this.props.currentQuestion.difficulty}</h3>
-          <p>{this.props.currentQuestion.body}</p>
-                 A. {choices[0].choice} &nbsp;
-                 B. {choices[1].choice} &nbsp;
-                C.  {choices[2].choice} &nbsp;
-                D. {choices[3].choice}
+              <div className="question-info">
+                <div className="question-body">
+                  <h3 className="level">Level {this.props.currentQuestion.difficulty}</h3>
+                  <h4 className="question-box">{this.props.currentQuestion.body}</h4>
+                </div>
+                <ul className="question-choices">
+                  <li className="choices-li">
+                    <img className="choice-bubble" src="/assets/images/bubbleA.png"></img>
+                    <div className="choice-body">{choices[0].choice}</div>
+                  </li>
+                  <li className="choices-li">
+                    <img className="choice-bubble" src="/assets/images/bubbleB.png"></img>
+                    <div className="choice-body">{choices[1].choice}</div>
+                  </li>
+                  <li className="choices-li">
+                    <img className="choice-bubble" src="/assets/images/bubbleC.png"></img>
+                    <div className="choice-body">{choices[2].choice}</div>
+                  </li>
+                  <li className="choices-li">
+                    <img className="choice-bubble" src="/assets/images/bubbleD.png"></img>
+                    <div className="choice-body">{choices[3].choice}</div>
+                  </li>
+                </ul>
+              </div>
+          
           <GameView bubblePositions={[
             this.props.bubbles[0].pos, 
             this.props.bubbles[1].pos, 
@@ -243,11 +216,30 @@ class Game extends React.Component {
           </div>)
       }
     }
+    let pauseContent;
+    if (this.props.gamePaused) {
+      pauseContent = (
+        <div className="pause-between-levels">
+          <h1>Next Level!!</h1>
+        </div>
+      )
+     
+      
+    }
+
     return (
-      <div className="result-main-section">
-        {content}
-        {this.props.result}
-      </div>
+      <div className="game-div">
+        <div className="game-page-header">
+          {/* <img className="bubble-logo" src="/assets/images/white-logos-transparent.png"></img> */}
+        </div>
+
+        <div className="game-main-section">
+
+          {content}
+          {this.props.result}
+        </div>
+        {pauseContent}
+      </div >
     );
   }
 

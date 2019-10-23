@@ -1,5 +1,96 @@
 
 
 #game-canvas {
-  border:4px solid #000000;
+  /* border:4px solid #0000009b; */
+  border-radius: 30px;
+  box-shadow: 0 0 2rem rgba(0,0,0,.5);
+  margin: 20px;
+}
+
+.game-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-content-div {
+  display: flex;
+  /* flex-direction: row; */
+  /* background: red; */
+  /* justify-content: space-around; */
+}
+
+/* .game-page-header {
+  background: blue;
+} */
+
+.game-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .bubble-logo {
+  width: 100px;
+  object-fit: cover;
+} */
+
+
+.game-main-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px;
+}
+
+.question-info {
+  margin: 20px;
+}
+
+.question-body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.level {
+  
+}
+
+.question-box {
+  padding: 10px 20px 10px 20px;
+  background: #333333cc;
+  /* background: linear-gradient(#4b4b4b, #333333); */
+  border-radius: 10px;
+  margin: 10px;
+  font-size: 20px;
+}
+
+.choice-bubble {
+  width: 40px;
+  z-index: 5;
+}
+
+.question-choices {
+  display: flex;
+  flex-direction: row;
+}
+.choices-li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0px 10px 0px;
+  margin: 0px 10px 0px 10px;
+  width: 100px;
+ 
+  
+}
+
+.choice-body {
+  padding: 5px 25px 5px 45px;
+  font-size: 20px;
+   background: rgba(106, 59, 194);
+  border-radius: 10px;
+  z-index: 1;
+  position: relative;
+  left: -35px;
+  box-shadow: 0 0 2rem rgba(0,0,0,.3);
 }

@@ -248,7 +248,8 @@ class SocketGameHandler {
 
   update(){
     let dif = getDifferenceInSeconds(new Date(), this.firstPlayerTimeEntered);
-    if ( dif > 5) {
+    const startTimer = 5;
+    if (dif > startTimer) {
       this.startGame();
       this.firstPlayerTimeEntered = null;
     } 
@@ -261,7 +262,7 @@ class SocketGameHandler {
 
     if (!this.gameRunning){
       this.io.emit('countdown', {
-        countdownSeconds: Math.ceil(5-dif),
+        countdownSeconds: Math.ceil(startTimer-dif),
         error: 0
       });
       return;
@@ -269,11 +270,12 @@ class SocketGameHandler {
 
     if(!this.gamePaused){
       let diff = getDifferenceInSeconds(new Date(), this.questionStartTime);
-      if (diff > 60) {
+      const roundSeconds = 60;
+      if (diff > roundSeconds) {
         this.nextQuestion();
       }
       this.io.emit('countdown', {
-        countdownSeconds: Math.ceil(60 - diff),
+        countdownSeconds: Math.ceil(roundSeconds - diff),
         error: 0
       });
 
