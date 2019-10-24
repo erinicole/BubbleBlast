@@ -95,7 +95,7 @@ class SocketGameHandler {
 
     socket.on("connectGame", ({ username }) => {
       if (!this.isIncluded(this.players, username)) {
-        this.players.push(new Player(username));
+          this.players.push(new Player(username));
       }
       if(this.gameRunning) {
         socket.emit("startGame", {
