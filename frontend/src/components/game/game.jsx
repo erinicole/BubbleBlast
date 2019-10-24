@@ -158,10 +158,12 @@ class Game extends React.Component {
         let blasterPositions = [];
         let usernames = [];
         let scores = [];
+        let scoreChanged = [];
         for (let key of Object.keys(this.props.players)) {
           blasterPositions.push(this.props.players[key].pos)
           usernames.push(key)
-          scores.push(this.props.players[key].score)
+          scores.push(this.props.players[key].score);
+          scoreChanged.push(this.props.players[key].scoreChanged);
         }
         let projectilePositions = [];
         if (this.props.projectiles){
@@ -181,7 +183,7 @@ class Game extends React.Component {
                 </div>
                 <ul className="username-ul">
                   {usernames.map((username, i) => {
-                    return <li key={i} className={`username-${i} username-${i}-blink`} >
+                    return <li key={i} className={`username-${i} username-${scoreChanged[i] ? i : "foo"}-blink`} >
                       <p className="username">{username}</p>
                       <p className="game-left-score">{scores[i]} points</p>
                     </li>

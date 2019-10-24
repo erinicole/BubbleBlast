@@ -8,10 +8,15 @@ class Player extends MovingObject{
     this.score = 0;
     this.pos = this.randomPos();
     this.radius = 50;
+    this.scoreChanged = false;
   }
 
   incrementsScore(points) {
     this.score += points;
+    this.scoreChanged = true;
+    setTimeout(() => {
+      this.scoreChanged = false;
+    }, 3000);
   }
 
   randomPos() {

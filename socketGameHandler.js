@@ -114,7 +114,6 @@ class SocketGameHandler {
         })
 
         socket.on("makeMove", ({ username, move }) => {
-          console.log(username, move);
           this.players
             .find(player => {
               return player.username === username;
@@ -130,7 +129,7 @@ class SocketGameHandler {
 
 
       socket.emit("connectGame", { connected: "connected", error: 0 });
-      if(this.players.length === 1){
+      if(this.players.length === 1 && !this.gameRunning){
         this.firstPlayerTimeEntered = new Date();
       }
     });

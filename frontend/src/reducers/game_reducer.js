@@ -81,7 +81,8 @@ const gameReducer = (state = {}, action) => {
         let player = action.message.players[i];
         newState.players[player.username] = {
           score: player.score,
-          pos: player.pos
+          pos: player.pos,
+          scoreChanged: player.scoreChanged
         };
       }
       return newState;
