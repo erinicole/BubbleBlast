@@ -130,6 +130,12 @@ class Game extends React.Component {
   render() {
     let logoImage = (<img className="game-bubble-logo" src="/assets/images/white-logos-transparent.png"></img>)
 
+    let gameInstructions = (<div className="game-panel-instructions">
+      <h1>Instructions</h1>
+      <p>Help your starfish shoot the bubble that corresponds to the right answer to the math question!</p>
+      <p>- Press keys W-A-S-D to move your starfish.</p>
+      <p>- Mouse click to shoot the bubbles.</p>
+    </div>)
 
     let usernames = [];
     if (this.props.players){
@@ -138,14 +144,18 @@ class Game extends React.Component {
       }
     }
     //initial game page with just timer
-    let content = (<div>{this.props.countdownSeconds}
-      <div className="game-div">
-        {/* {logoImage} */}
+    let content = (<div>
+      <div className="pregame-div">
+        {logoImage}
+        <p className="game-page-countdown">Game starting in {this.props.countdownSeconds} seconds</p>
+        
         <ul className="username-ul">
           {usernames.map((username, i) => {
-            return <li key={i} className={`username${i}`}>{username} </li>
+            return <li key={i} className={`username-${i}`}>{username} </li>
           })}
         </ul>
+        {gameInstructions}
+        <img className="bubble-background" src="/assets/images/backgroundBubbles3.png"></img>
         </div>
     </div>)
 
@@ -189,12 +199,7 @@ class Game extends React.Component {
                     </li>
                     })}
                 </ul>
-                <div className="game-panel-instructions">
-                  <h1>Instructions</h1>
-                  <p>Help your starfish shoot the bubble that corresponds to the right answer to the math question!</p>
-                  <p>- Press keys W-A-S-D to move your starfish.</p>
-                  <p>- Mouse click to shoot the bubbles.</p>
-                </div>
+                {gameInstructions}
               </div>
             </div>
            
@@ -242,7 +247,7 @@ class Game extends React.Component {
     if (this.props.gamePaused) {
       pauseContent = (
         <div className="pause-between-levels">
-          <h1>Next Level!!</h1>
+          <img className="starfish-next-level" src="/assets/images/starfishNextLevel2.png"></img>
         </div>
       )
      

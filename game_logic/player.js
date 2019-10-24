@@ -16,7 +16,7 @@ class Player extends MovingObject{
     this.scoreChanged = true;
     setTimeout(() => {
       this.scoreChanged = false;
-    }, 3000);
+    }, 2000);
   }
 
   randomPos() {

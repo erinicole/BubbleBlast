@@ -10,12 +10,14 @@
 .game-div {
   display: flex;
   width: 100%;
+  justify-content: center;
 }
 
 .game-content-div {
   display: flex;
   /* justify-content: center; */
   width: 100%;
+  justify-content: center;
 }
 
 
@@ -38,7 +40,7 @@
   justify-content: center;
   align-items: center;
   width: 350px;
-  margin-top: 20%;
+  margin-top: 10%;
 }
 
 .game-page-countdown {
@@ -55,7 +57,7 @@
 }
 
 .time-left {
-  font-size: 20px;
+  /* font-size: 20px; */
   padding-right: 20px;
 }
 
@@ -69,6 +71,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 10px 0px 10px 0px;
 }
 
 .username-ul li {
@@ -120,16 +123,16 @@
 
 @keyframes blinking1{
  0% {
-   background: rgba(18, 18, 160);
+   background: rgb(249,98,175);
  }
  50% {
-   background: rgb(116, 116, 221);
+   background: rgb(245, 165, 206);
  }
  70% {
-   background: rgb(62, 62, 221);
+   background: rgb(252, 132, 194);
  }
  100% {
-   background: rgba(18, 18, 160);
+   background: rgb(249,98,175);
  }
 }
 
@@ -140,7 +143,22 @@
 }
 
 .username-2-blink {
-  animation: blinking1 1s infinite; 
+  animation: blinking2 1s infinite; 
+}
+
+@keyframes blinking2{
+ 0% {
+   background: rgb(89,145,75);
+ }
+ 50% {
+   background: rgb(158, 196, 149);
+ }
+ 70% {
+   background: rgb(123, 179, 110);
+ }
+ 100% {
+   background: rgb(89,145,75);
+ }
 }
 
 .username-3 {
@@ -148,8 +166,25 @@
   /* background: -webkit-linear-gradient(rgb(143, 230, 245), rgb(34, 165, 226)); */
 }
 
-.username-2-blink {
-  animation: blinking1 1s infinite; 
+
+
+.username-3-blink {
+  animation: blinking3 1s infinite; 
+}
+
+@keyframes blinking3{
+ 0% {
+   background: rgb(89,175,185);
+ }
+ 50% {
+   background: rgb(167, 219, 224);
+ }
+ 70% {
+   background: rgb(124, 194, 202);
+ }
+ 100% {
+   background: rgb(89,175,185);
+ }
 }
 
 
@@ -192,6 +227,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-left: 20px;
+  /* justify-content: center; */
 }
 
 .level {
@@ -239,3 +276,19 @@
 }
 
 
+.pause-between-levels {
+  z-index: 5;
+  position: absolute;
+  top: 220px;
+  left: 50%;
+  /* background: rgba(255, 255, 255); */
+  /* border-radius: 10px; */
+  padding: 20px;
+  color: #E24051;
+  font-size: 30px;
+
+}
+
+.starfish-next-level {
+  width: 320px;
+}
