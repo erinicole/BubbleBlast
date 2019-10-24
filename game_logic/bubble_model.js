@@ -10,6 +10,8 @@ class Bubble extends MovingObject {
     this.pos = this.randomPos();
     this.radius = 25;
     this.isCorrect = false;
+    this.collidedBubble = false;
+    this.collidedWall = false;
   }
 
   randomPos() {
@@ -42,6 +44,10 @@ class Bubble extends MovingObject {
   }
 
   bounceBack() {
+    if (this.collidedWall){
+      return this.vel
+    }
+    this.collidedWall = true
     if (this.pos[0] < this.radius) {
       this.vel[0] = -this.vel[0];
     } else if (this.pos[0] > width - this.radius) {
@@ -51,10 +57,17 @@ class Bubble extends MovingObject {
     } else if (this.pos[1] > height - this.radius) {
       this.vel[1] = -this.vel[1];
     }
+    setTimeout(() => {
+      this.collidedWall = false;
+    }, 200);
     return this.vel;
   }
 
   bubbleBounce(otherBubble) {
+    if(this.collidedBubble){
+      return
+    }
+    this.collidedBubble = true
     if( (this.vel[0] < 0 && otherBubble.vel[0] > 0) 
       || (this.vel[0] > 0 && otherBubble.vel[0] < 0) ){
         this.vel[0] = -this.vel[0]
@@ -65,6 +78,9 @@ class Bubble extends MovingObject {
         this.vel[1] = -this.vel[1]
         otherBubble.vel[1] = -otherBubble.vel[1]
     }
+    setTimeout(() => {
+      this.collidedBubble = false;
+    }, 200);
   }
 
 

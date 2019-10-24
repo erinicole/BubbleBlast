@@ -166,7 +166,7 @@ class SocketGameHandler {
         let bubble1 = this.bubbles[i]
         let bubble2 = this.bubbles[j]
         if (bubble1.isCollidedWith(bubble2)){
-          bubble1.bubbleBounce(bubble2)
+          bubble1.bubbleBounce(bubble2);
             // console.log(bubble1.pos, bubble2.pos)
         }
       }
