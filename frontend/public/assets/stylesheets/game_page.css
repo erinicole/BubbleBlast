@@ -28,7 +28,7 @@
 }
 
 .game-bubble-logo {
-  width: 300px;
+  width: 350px;
   object-fit: cover;
 }
 
@@ -37,7 +37,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 300px;
+  width: 350px;
+  margin-top: 20%;
 }
 
 .game-page-countdown {
@@ -71,6 +72,9 @@
 }
 
 .username-ul li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   width: 300px;
   margin-bottom: 10px;
   padding: 10px 20px 10px 20px;
@@ -80,26 +84,79 @@
 
 
 .username-0 {
-  background: -webkit-linear-gradient(rgb(101, 101, 197), rgb(18, 18, 160));
+  background: rgb(18, 18, 160);
+  /* background: -webkit-linear-gradient(rgb(101, 101, 197), rgb(18, 18, 160)); */
 }
+
+.username-0-blink {
+  animation: blinking0 1s infinite; 
+}
+
+
+
+@keyframes blinking0{
+ 0% {
+   background: rgba(18, 18, 160);
+ }
+ 50% {
+   background: rgb(116, 116, 221);
+ }
+ 70% {
+   background: rgb(62, 62, 221);
+ }
+ 100% {
+   background: rgba(18, 18, 160);
+ }
+}
+
 .username-1 {
-  /* background: rgb(240, 28, 240); */
-  background: -webkit-linear-gradient(rgb(241, 152, 241), rgb(240, 28, 240));
+  background: #F962AF;
+  /* background: -webkit-linear-gradient(rgb(241, 152, 241), rgb(240, 28, 240)); */
 }
+
+.username-1-blink {
+  animation: blinking1 1s infinite; 
+}
+
+@keyframes blinking1{
+ 0% {
+   background: rgba(18, 18, 160);
+ }
+ 50% {
+   background: rgb(116, 116, 221);
+ }
+ 70% {
+   background: rgb(62, 62, 221);
+ }
+ 100% {
+   background: rgba(18, 18, 160);
+ }
+}
+
+
 .username-2 {
-  /* background: rgb(49, 200, 226); */
-  background: -webkit-linear-gradient(rgb(63, 163, 138), rgb(2, 85, 64));
+  background: #59914B;
+  /* background: -webkit-linear-gradient(rgb(63, 163, 138), rgb(2, 85, 64)); */
 }
+
+.username-2-blink {
+  animation: blinking1 1s infinite; 
+}
+
 .username-3 {
-  background: rgb(2, 85, 64);
-  background: -webkit-linear-gradient(rgb(143, 230, 245), rgb(34, 165, 226));
+  background: #59AFB9;
+  /* background: -webkit-linear-gradient(rgb(143, 230, 245), rgb(34, 165, 226)); */
 }
+
+.username-2-blink {
+  animation: blinking1 1s infinite; 
+}
+
+
 
 .game-panel-instructions {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 300px;
   background: #F8F8FA;
   border-radius: 5px;
@@ -109,6 +166,14 @@
   padding: 20px;
 }
 
+.game-panel-instructions p {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.game-panel-instructions h1 {
+  text-align: center;
+}
 
 
 
