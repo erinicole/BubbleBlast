@@ -248,7 +248,7 @@ class SocketGameHandler {
 
   update(){
     let dif = getDifferenceInSeconds(new Date(), this.firstPlayerTimeEntered);
-    const startTimer = 10000;
+    const startTimer = 5;
     if (dif > startTimer) {
       this.startGame();
       this.firstPlayerTimeEntered = null;
