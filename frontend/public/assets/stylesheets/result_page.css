@@ -5,12 +5,6 @@
   margin: 40px;
 }
 
-.score {
-  font-size: 50px;
-  padding: 20px;
-}
-
-.stats {
+.game-over {
   font-size: 40px;
-  padding: 20px;
 }

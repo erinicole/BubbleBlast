@@ -137,6 +137,8 @@ class Game extends React.Component {
       <p>- Mouse click to shoot the bubbles.</p>
     </div>)
 
+    let points = "points"
+
     let usernames = [];
     if (this.props.players){
       for (let key of Object.keys(this.props.players)) {
@@ -193,9 +195,10 @@ class Game extends React.Component {
                 </div>
                 <ul className="username-ul">
                   {usernames.map((username, i) => {
+                    if (scores[i] == 1) {points = "point"}
                     return <li key={i} className={`username-${i} username-${scoreChanged[i] ? i : "foo"}-blink`} >
                       <p className="username">{username}</p>
-                      <p className="game-left-score">{scores[i]} points</p>
+                      <p className="game-left-score">{scores[i]} {points}</p>
                     </li>
                     })}
                 </ul>

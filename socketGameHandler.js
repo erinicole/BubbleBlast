@@ -52,7 +52,8 @@ class SocketGameHandler {
   setUpQuestions() {
     Question.find().then(questions => {
       this.questions = [];
-      for (let i = 1; i < 11; i++) {
+      //CHANGETHIS
+      for (let i = 1; i < 2; i++) {
         let levelQuestions = questions.filter(question => {
           return question.difficulty == i;
         });
@@ -247,7 +248,7 @@ class SocketGameHandler {
 
   update(){
     let dif = getDifferenceInSeconds(new Date(), this.firstPlayerTimeEntered);
-    const startTimer = 10;
+    const startTimer = 1000;
     if (dif > startTimer) {
       this.startGame();
       this.firstPlayerTimeEntered = null;

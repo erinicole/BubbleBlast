@@ -35,6 +35,7 @@ class ResultPage extends React.Component {
               </li>
             })}
           </ul>
+            <Link>Play Again!</Link>
             <img className="bubble-background" src="/assets/images/backgroundBubbles3.png"></img>
         </div>
         {/* <h2 className="stats">That's better than 80% of players.</h2> */}
