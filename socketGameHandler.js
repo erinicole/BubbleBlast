@@ -53,7 +53,7 @@ class SocketGameHandler {
     Question.find().then(questions => {
       this.questions = [];
       //CHANGETHIS
-      for (let i = 1; i < 2; i++) {
+      for (let i = 1; i < 11; i++) {
         let levelQuestions = questions.filter(question => {
           return question.difficulty == i;
         });

@@ -27,10 +27,9 @@ class ResultPage extends React.Component {
       <div className="result-main-section">
         <div className="results">
             <div className="game-over">
-              <img src="/assets/images/starfishGameOver.png"></img>
+              <img src="/assets/images/starfishGameOver4.png"></img>
               </div>
           <ul className="username-ul">
-              <li className="username-0">Username</li>
             {usernames.map((username, i) => {
               return <li key={i} className={`username-${i}`}>
                 <p className="username">{username}</p>
@@ -39,7 +38,7 @@ class ResultPage extends React.Component {
               </li>
             })}
           </ul>
-            <a className="username-submit" href="/">Play Again!</a>
+            <a className="play-again" href="/">Play Again!</a>
             {/* <img className="bubble-background" src="/assets/images/backgroundBubbles3.png"></img> */}
             
         </div>
