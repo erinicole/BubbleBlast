@@ -131,9 +131,23 @@
 
 footer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-content: flex-end;
+  /* justify-content: flex-end; */
   bottom: 0;
   position: fixed;
   width: 100%;
   padding: 20px;
+}
+
+.github-logo {
+  width: 30px;
+}
+
+.footer-person {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
 }
