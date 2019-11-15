@@ -2,6 +2,9 @@
 
 *Can you find the correct answers before other players? Have fun racing against the clock and learning about a variety of differrent educational topics while playing this fun interactive game.*
 
+[Play the game](http://bubbleblast.herokuapp.com/#/)
+
+![alt text](demo.jpg "Title")
 ## Background and Overview
   Bubble Blast is a multiple choice question and answer game that allows players to learn about a vieriety of different topics.
 
@@ -42,11 +45,103 @@
 
 ## Technologies and Technical Challenges
 
-* Websocket, using websocket.io api
+* Websockets, using socket.io 
 * Canvas
 * MERN
 * Responsive
 
+### Socket.io incorporated with Redux
+```javascript
+let socket;
+export const connect = (username) => {
+  socket.emit("connectGame", { username: username, error: 0 });
+};
+
+export const setUpConnectGameListener = (cb) => {
+  socket = new io();
+  socket.on("connectGame", (msg) => {
+    cb(msg);
+  });
+};
+
+export const setUpGamePausedListener = (cb) => {
+  socket.on("gamePaused", msg => {
+    cb(msg);
+  });
+};
+
+export const RECEIVE_GAME_PAUSED_SOCKET_MESSAGE = "RECEIVE_GAME_PAUSED_SOCKET_MESSAGE";
+
+const receiveGamePausedMessage = message => {
+  return {
+    type: RECEIVE_GAME_PAUSED_SOCKET_MESSAGE,
+    message
+  };
+};
+
+export const connectGame = (username) => {
+  GameUtils.connect(username);
+};
+```
+
+### Native HTML5 Canvas with React
+```javascript
+class GameView extends React.Component {
+   render(){
+        if(this.state.ctx){
+            this.start()
+        }
+        return(
+            <div>
+                <canvas id="game-canvas" width={width} height={height} >
+
+                </canvas>
+            </div>
+        )
+    }
+
+}
+```
+
+### MongoDB and Express
+
+```javascript
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+const db = require("./config/keys").mongoURI;
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const SocketGameHandler = require('./socketGameHandler');
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+}
+
+mongoose.connect(db, {
+  useNewUrlParser: true
+}).then(() => {
+  console.log("Connected to mongoDB");
+}).catch((err) => {
+  console.log(err);
+});
+
+app.use("/api/questions", questions);
+
+const port = process.env.PORT || 5000;
+
+let socketHandler = new SocketGameHandler(io);
+
+
+http.listen(port, function () {
+  console.log('listening on *:' + port);
+});
+
+
+```
 ## Group Members and Work Breakdown
  
  * Kristina
