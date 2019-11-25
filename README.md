@@ -148,9 +148,7 @@ http.listen(port, function () {
    * HTML/CSS for page 1, 2, 4
    * Data visualization and statistics for page 4
    * Seed data for math questions, difficulty 1 -10
-   * Bonus
-     * Seed data for vocabulary
-     * Seed data for coding questions with Phillip
+   * Create React components and assist with integration
 
  * Erin
    * Make game responsive for desktop, tablet, and mobile
