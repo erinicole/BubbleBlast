@@ -15,7 +15,7 @@ const SocketGameHandler = require('./socketGameHandler');
 setInterval(function() {
   http.get("http://stockoverflowku.herokuapp.com/");
   http.get("http://bubbleblast.herokuapp.com/");
-}, 29*60*1000); // every 29 minutes (300000)
+}, 600000); // every 10 minutes (600000)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
