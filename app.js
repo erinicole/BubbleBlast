@@ -12,11 +12,6 @@ const io = require('socket.io')(http);
 const SocketGameHandler = require('./socketGameHandler');
 // const Seeder = require("./models/seeder.js");
 
-setInterval(function() {
-  http.get("http://stockoverflowku.herokuapp.com/");
-  http.get("http://bubbleblast.herokuapp.com/");
-}, 600000); // every 10 minutes (600000)
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
   app.get('/', (req, res) => {
